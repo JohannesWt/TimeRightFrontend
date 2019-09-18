@@ -1,0 +1,28 @@
+[
+  {
+    "timeStampID": "ID123",
+    "employeeID": "employeeId1",
+    "type": "TIMESTAMP_IN",
+    "year": 2019,
+    "month": 10,
+    "week": 14,
+    "day": 2,
+    "hour": 8,
+    "minute": 12,
+    "second": 24,
+    "checked": true
+  },
+  {
+    "timeStampID": "ID123",
+    "employeeID": "employeeId1",
+    "type": "TIMESTAMP_OUT",
+    "year": 2019,
+    "month": 10,
+    "week": 14,
+    "day": 2,
+    "hour": 16,
+    "minute": 12,
+    "second": 24,
+    "checked": true
+  }
+]
