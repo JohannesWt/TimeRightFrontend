@@ -1,3 +1,12 @@
 {
-
+  "HOME__TITLE" : "TimeRight",
+  "HOME__FAB_LABEL" : "Stamp",
+  "HOME_CAL_BTN_LABEL" : "Calendar",
+  "HOME_ABS_BTN_LABEL" : "Absence",
+  "HOME_CARD_TITLE" : "Overview",
+  "HOME_CARD_WORK_TIME" : "Work time:",
+  "HOME_CARD_OVERTIME" : "Overtime:",
+  "HOME_CARD_LEFT_VAC" : "Remaining vacation:",
+  "HOME_CARD_SICK_DAYS" : "Sick day:",
+  "HOME_CARD_OVERVIEW_BTN" : "To overview"
 }
