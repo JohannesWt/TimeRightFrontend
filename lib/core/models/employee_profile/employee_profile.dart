@@ -3,6 +3,7 @@ import 'package:time_right/core/models/address/address.dart';
 import 'package:time_right/core/models/bank_details/bank_details.dart';
 import 'package:time_right/core/models/career_detail/career_detail.dart';
 import 'package:time_right/core/models/company_details/company_details.dart';
+import 'package:time_right/core/models/contract_details/contract_details.dart';
 import 'package:time_right/core/models/insurance_details/insurance_details.dart';
 
 part 'employee_profile.g.dart';
@@ -21,6 +22,7 @@ class EmployeeProfile {
     this.insuranceDetails,
     this.companyDetails,
     this.careerDetails,
+    this.contractDetails,
   });
 
   factory EmployeeProfile.fromJson(Map<String, dynamic> json) =>
@@ -40,4 +42,5 @@ class EmployeeProfile {
   final InsuranceDetails insuranceDetails;
   final CompanyDetails companyDetails;
   final List<CareerDetail> careerDetails;
+  final ContractDetails contractDetails;
 }

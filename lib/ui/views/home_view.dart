@@ -52,7 +52,7 @@ class _HomeViewState extends State<HomeView> {
           Icons.input,
           size: 24,
         ),
-        backgroundColor: Colors.blueAccent,
+        backgroundColor: blueAccent,
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );

@@ -27,7 +27,12 @@ EmployeeProfile _$EmployeeProfileFromJson(Map<String, dynamic> json) {
       companyDetails: json['companyDetails'] == null
           ? null
           : CompanyDetails.fromJson(
-              json['companyDetails'] as Map<String, dynamic>));
+              json['companyDetails'] as Map<String, dynamic>),
+      careerDetails: (json['careerDetails'] as List)
+          ?.map((e) => e == null
+              ? null
+              : CareerDetail.fromJson(e as Map<String, dynamic>))
+          ?.toList());
 }
 
 Map<String, dynamic> _$EmployeeProfileToJson(EmployeeProfile instance) =>
@@ -41,5 +46,6 @@ Map<String, dynamic> _$EmployeeProfileToJson(EmployeeProfile instance) =>
       'address': instance.address,
       'bankDetails': instance.bankDetails,
       'insuranceDetails': instance.insuranceDetails,
-      'companyDetails': instance.companyDetails
+      'companyDetails': instance.companyDetails,
+      'careerDetails': instance.careerDetails
     };

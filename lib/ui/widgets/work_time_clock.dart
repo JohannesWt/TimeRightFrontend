@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:time_right/ui/shared/colors.dart';
 
 class WorkTimeClock extends StatelessWidget {
   @override
@@ -10,8 +11,8 @@ class WorkTimeClock extends StatelessWidget {
       width: 135.0,
       child: CustomPaint(
         foregroundPainter: HoursDrawer(
-            lineColor: Colors.amber,
-            completeColor: Colors.blueAccent,
+            lineColor: amber,
+            completeColor: blueAccent,
             completePercent: 80,
             width: 6.0),
         child: Column(

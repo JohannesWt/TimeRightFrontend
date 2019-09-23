@@ -1,8 +1,9 @@
 {
-  "HOME__TITLE" : "TimeRight",
-  "HOME__FAB_LABEL" : "Stamp",
+  "HOME_TITLE" : "TimeRight",
+  "HOME_FAB_LABEL" : "Stamp",
   "HOME_CAL_BTN_LABEL" : "Calendar",
   "HOME_ABS_BTN_LABEL" : "Absence",
+
   "HOME_CARD_TITLE" : "Overview",
   "HOME_CARD_WORK_TIME" : "Work time:",
   "HOME_CARD_OVERTIME" : "Overtime:",
