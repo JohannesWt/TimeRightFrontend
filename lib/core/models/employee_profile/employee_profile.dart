@@ -23,6 +23,7 @@ class EmployeeProfile {
     this.companyDetails,
     this.careerDetails,
     this.contractDetails,
+    this.employeeLevel
   });
 
   factory EmployeeProfile.fromJson(Map<String, dynamic> json) =>
@@ -37,10 +38,20 @@ class EmployeeProfile {
   String phoneNumber;
   final String emailAddress;
 
+
   final Address address;
   final BankDetails bankDetails;
   final InsuranceDetails insuranceDetails;
+  // Eventually naming CompanyDetails "DepartmentDetails"
   final CompanyDetails companyDetails;
   final List<CareerDetail> careerDetails;
   final ContractDetails contractDetails;
+  final EmployeeLevel employeeLevel;
+}
+
+// ????
+enum EmployeeLevel {
+  admin,
+  executive,
+  teamMember,
 }

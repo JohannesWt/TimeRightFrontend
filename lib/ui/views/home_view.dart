@@ -17,21 +17,7 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          AppLocalizations.of(context).translate('HOME_TITLE'),
-        ),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(
-              Icons.person,
-              color: gray4,
-            ),
-            onPressed: () =>
-                Navigator.pushNamed(context, RoutePaths.profileView),
-          )
-        ],
-      ),
+      appBar: buildAppBar(),
       body: Column(
         children: <Widget>[
           Padding(
@@ -42,19 +28,40 @@ class _HomeViewState extends State<HomeView> {
           TimeStampsList()
         ],
       ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {},
-        label: Text(
-          AppLocalizations.of(context).translate('HOME_FAB_LABEL'),
-          style: TextStyle(fontSize: 20),
-        ),
-        icon: Icon(
-          Icons.input,
-          size: 24,
-        ),
-        backgroundColor: blueAccent,
-      ),
+      floatingActionButton: buildFloatingActionButton(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+    );
+  }
+
+  Widget buildAppBar() {
+    return AppBar(
+      title: Text(
+        AppLocalizations.of(context).translate('HOME_TITLE'),
+      ),
+      actions: <Widget>[
+        IconButton(
+          icon: Icon(
+            Icons.person,
+            color: gray4,
+          ),
+          onPressed: () => Navigator.pushNamed(context, RoutePaths.profileView),
+        )
+      ],
+    );
+  }
+
+  Widget buildFloatingActionButton() {
+    return FloatingActionButton.extended(
+      onPressed: () {},
+      label: Text(
+        AppLocalizations.of(context).translate('HOME_FAB_LABEL'),
+        style: TextStyle(fontSize: 20),
+      ),
+      icon: Icon(
+        Icons.input,
+        size: 24,
+      ),
+      backgroundColor: blueAccent,
     );
   }
 
@@ -66,8 +73,7 @@ class _HomeViewState extends State<HomeView> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
             buildMenuButton(
-                AppLocalizations.of(context)
-                    .translate('HOME_CAL_BTN_LABEL'),
+                AppLocalizations.of(context).translate('HOME_CAL_BTN_LABEL'),
                 Icons.calendar_today,
                 true,
                 RoutePaths.calendarView),
@@ -77,8 +83,7 @@ class _HomeViewState extends State<HomeView> {
               thickness: 1.2,
             ),
             buildMenuButton(
-                AppLocalizations.of(context)
-                    .translate('HOME_ABS_BTN_LABEL'),
+                AppLocalizations.of(context).translate('HOME_ABS_BTN_LABEL'),
                 Icons.add,
                 false,
                 RoutePaths.absenceChoiceView),
