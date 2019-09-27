@@ -10,21 +10,20 @@ part 'employee_profile.g.dart';
 
 @JsonSerializable()
 class EmployeeProfile {
-  EmployeeProfile({
-    this.employeeID,
-    this.name,
-    this.firstName,
-    this.dateOfBirth,
-    this.phoneNumber,
-    this.emailAddress,
-    this.address,
-    this.bankDetails,
-    this.insuranceDetails,
-    this.companyDetails,
-    this.careerDetails,
-    this.contractDetails,
-    this.employeeLevel
-  });
+  EmployeeProfile(
+      {this.employeeID,
+      this.name,
+      this.firstName,
+      this.dateOfBirth,
+      this.phoneNumber,
+      this.emailAddress,
+      this.address,
+      this.bankDetails,
+      this.insuranceDetails,
+      this.companyDetails,
+      this.careerDetails,
+      this.contractDetails,
+      this.employeeLevel});
 
   factory EmployeeProfile.fromJson(Map<String, dynamic> json) =>
       _$EmployeeProfileFromJson(json);
@@ -38,10 +37,10 @@ class EmployeeProfile {
   String phoneNumber;
   final String emailAddress;
 
-
   final Address address;
   final BankDetails bankDetails;
   final InsuranceDetails insuranceDetails;
+
   // Eventually naming CompanyDetails "DepartmentDetails"
   final CompanyDetails companyDetails;
   final List<CareerDetail> careerDetails;
