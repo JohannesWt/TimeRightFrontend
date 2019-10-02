@@ -8,7 +8,6 @@ part of 'employee_profile.dart';
 
 EmployeeProfile _$EmployeeProfileFromJson(Map<String, dynamic> json) {
   return EmployeeProfile(
-      employeeID: json['employeeID'] as String,
       name: json['name'] as String,
       firstName: json['firstName'] as String,
       dateOfBirth: json['dateOfBirth'] as String,
@@ -37,7 +36,6 @@ EmployeeProfile _$EmployeeProfileFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$EmployeeProfileToJson(EmployeeProfile instance) =>
     <String, dynamic>{
-      'employeeID': instance.employeeID,
       'name': instance.name,
       'firstName': instance.firstName,
       'dateOfBirth': instance.dateOfBirth,

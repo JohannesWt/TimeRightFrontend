@@ -1,7 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:provider/provider.dart';
 import 'package:time_right/core/constants/app_constants.dart';
+import 'package:time_right/core/models/employee/employee.dart';
+import 'package:time_right/core/viewmodels/views/base_widget.dart';
+import 'package:time_right/core/viewmodels/views/home_view_model.dart';
 import 'package:time_right/ui/shared/colors.dart';
 import 'package:time_right/ui/widgets/short_overview_card.dart';
 import 'package:time_right/ui/widgets/time_stamps_list.dart';
@@ -14,27 +18,42 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
+  HomeViewModel _homeViewModel;
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: buildAppBar(),
-      body: Column(
-        children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.only(left: 10.0, right: 10.0),
-            child: ShortOverviewCard(),
-          ),
-          buildMenuButtons(),
-          TimeStampsList()
-        ],
+    return BaseWidget<HomeViewModel>(
+      model: HomeViewModel(employeeDetailsService: Provider.of(context)),
+      onModelReady: (model) {
+        _homeViewModel = model;
+      },
+      child: buildAppBar(),
+      builder: (context, model, child) => Center(
+        child: _homeViewModel.busy
+            ? CircularProgressIndicator()
+            : Scaffold(
+                appBar: child,
+                body: Column(
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.only(left: 10.0, right: 10.0),
+                      child: ShortOverviewCard(),
+                    ),
+                    buildMenuButtons(),
+                    TimeStampsList(),
+                  ],
+                ),
+                floatingActionButton: buildFloatingActionButton(),
+                floatingActionButtonLocation:
+                    FloatingActionButtonLocation.centerFloat,
+              ),
       ),
-      floatingActionButton: buildFloatingActionButton(),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 
   Widget buildAppBar() {
     return AppBar(
+      automaticallyImplyLeading: false,
       title: Text(
         AppLocalizations.of(context).translate('HOME_TITLE'),
       ),
@@ -94,7 +113,8 @@ class _HomeViewState extends State<HomeView> {
   }
 
   Widget buildMenuButton(
-      String title, IconData icon, bool notBatch, String target) {
+      String title, IconData icon, bool notificationBatch, String target) {
+    int stampFails = _homeViewModel.employeeDetails.stampFailsSum;
     return Expanded(
       child: FlatButton(
         child: Padding(
@@ -103,7 +123,7 @@ class _HomeViewState extends State<HomeView> {
           ),
           child: Column(
             children: <Widget>[
-              !notBatch
+              !notificationBatch
                   ? Icon(
                       icon,
                       size: 26,
@@ -118,19 +138,21 @@ class _HomeViewState extends State<HomeView> {
                         Positioned(
                           right: 0,
                           top: 1,
-                          child: Container(
-                            padding: EdgeInsets.all(2.0),
-                            decoration: BoxDecoration(
-                                color: mainRed,
-                                borderRadius: BorderRadius.circular(6.0)),
-                            constraints:
-                                BoxConstraints(minWidth: 14, minHeight: 14),
-                            child: Text(
-                              '2',
-                              style: TextStyle(fontSize: 8, color: white),
-                              textAlign: TextAlign.center,
-                            ),
-                          ),
+                          child: stampFails > 0
+                              ? Container(
+                                  padding: EdgeInsets.all(2.0),
+                                  decoration: BoxDecoration(
+                                      color: mainRed,
+                                      borderRadius: BorderRadius.circular(6.0)),
+                                  constraints: BoxConstraints(
+                                      minWidth: 14, minHeight: 14),
+                                  child: Text(
+                                    '$stampFails',
+                                    style: TextStyle(fontSize: 8, color: white),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                )
+                              : Container(),
                         ),
                       ],
                     ),
