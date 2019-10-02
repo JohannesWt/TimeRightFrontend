@@ -4,7 +4,9 @@ part 'contract_details.g.dart';
 
 @JsonSerializable()
 class ContractDetails {
-  ContractDetails({this.workHours, this.vacationDays});
+  ContractDetails(
+      {this.workHours,
+      this.vacation,});
 
   factory ContractDetails.fromJson(Map<String, dynamic> json) =>
       _$ContractDetailsFromJson(json);
@@ -12,5 +14,5 @@ class ContractDetails {
   Map<String, dynamic> toJson() => _$ContractDetailsToJson(this);
 
   final double workHours;
-  final double vacationDays;
+  final double vacation;
 }

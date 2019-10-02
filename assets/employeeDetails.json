@@ -1,0 +1,40 @@
+{
+  "contractDetails": {
+    "workHours": 40,
+    "vacation": 30
+  },
+  "currentWorkDetails": {
+    "currentOverTime": 7.23,
+    "remainingVacation": 5.0,
+    "sickDaysMonth": 2
+  },
+  "stampFailsSum": 2,
+  "timeStampDetails": [
+    {
+      "date": "2019-09-28 18:25:43Z",
+      "timeStampEvents": [
+        {
+          "timeStampType": "stampIn",
+          "dateTime": "2019-09-28 07:04:23Z"
+        },
+        {
+          "timeStampType": "stampOut",
+          "dateTime": "2019-09-28 16:45:43Z"
+        }
+      ]
+    },
+    {
+      "date": "2019-09-27 18:25:43Z",
+      "timeStampEvents": [
+        {
+          "timeStampType": "stampOut",
+          "dateTime": "2019-09-27 18:25:43Z"
+        },
+        {
+          "timeStampType": "stampIn",
+          "dateTime": "2019-09-27 18:25:43Z"
+        }
+      ]
+    }
+  ]
+}
