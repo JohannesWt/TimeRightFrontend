@@ -1,32 +1,46 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:time_right/core/viewmodels/views/base_widget.dart';
+import 'package:time_right/core/viewmodels/widgets/work_time_clock_model.dart';
 import 'package:time_right/ui/shared/colors.dart';
 
-class WorkTimeClock extends StatelessWidget {
+class WorkTimeClock extends StatefulWidget {
+  @override
+  _WorkTimeClockState createState() => _WorkTimeClockState();
+}
+
+class _WorkTimeClockState extends State<WorkTimeClock> {
+  WorkTimeClockModel _workTimeClockModel;
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 135.0,
-      width: 135.0,
-      child: CustomPaint(
-        foregroundPainter: HoursDrawer(
-            lineColor: amber,
-            completeColor: blueAccent,
-            completePercent: 80,
-            width: 6.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'Arbeitszeit:',
-              style: TextStyle(fontSize: 20),
-            ),
-            Text(
-              '5:45:23',
-              style: TextStyle(fontSize: 28),
-            ),
-          ],
+    return BaseWidget(
+      model: WorkTimeClockModel(employeeDetailsService: Provider.of(context)),
+      onModelReady: (model) => _workTimeClockModel = model,
+      builder: (context, model, child) => Container(
+        height: 135.0,
+        width: 135.0,
+        child: CustomPaint(
+          foregroundPainter: HoursDrawer(
+              lineColor: amber,
+              completeColor: blueAccent,
+              completePercent: _workTimeClockModel.percentage,
+              width: 6.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Text(
+                'Arbeitszeit:',
+                style: TextStyle(fontSize: 20),
+              ),
+              Text(
+                '5:45:23',
+                style: TextStyle(fontSize: 28),
+              ),
+            ],
+          ),
         ),
       ),
     );

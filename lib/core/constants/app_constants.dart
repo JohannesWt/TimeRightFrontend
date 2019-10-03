@@ -1,4 +1,5 @@
 class RoutePaths {
+  static const String loginView = 'loginView';
   static const String homeView = 'homeView';
   static const String calendarView = 'calenderView';
   static const String absenceChoiceView = 'absenceChoiceView';
