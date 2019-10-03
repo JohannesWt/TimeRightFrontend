@@ -128,7 +128,7 @@ class _HomeViewState extends State<HomeView> {
                             child: Text(
                               '2',
                               style: TextStyle(fontSize: 8, color: white),
-                              textAlign: TextAlign.center,
+                              textAlign: TextAlign.right,
                             ),
                           ),
                         ),

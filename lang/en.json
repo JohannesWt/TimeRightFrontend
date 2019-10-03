@@ -9,5 +9,27 @@
   "HOME_CARD_OVERTIME" : "Overtime:",
   "HOME_CARD_LEFT_VAC" : "Remaining vacation:",
   "HOME_CARD_SICK_DAYS" : "Sick day:",
-  "HOME_CARD_OVERVIEW_BTN" : "To overview"
+  "HOME_CARD_OVERVIEW_BTN" : "To overview",
+
+
+  "OVERVIEW_TITLE" : "Overview",
+
+  "OVERVIEW_CARD1_TITLE": "Flex Time Account",
+  "OVERVIEW_CARD1_OVER_HOURS" : "Overhours of current month:",
+  "OVERVIEW_CARD1_SHORT_TERM_ACCOUNT": "Short term account:",
+  "OVERVIEW_CARD1_LONG_TERM_ACCOUNT": "Long term account:",
+  "OVERVIEW_CARD1_OVERTIME_PREV_YEAR": "Overtime of previous year:",
+  "OVERVIEW_CARD1_APPLY_FLEXTIME_BTN": "Apply for flextime",
+
+  "OVERVIEW_CARD2_TITLE": "Vacation Account",
+  "OVERVIEW_CARD2_VAC_DAYS_CLAIM": "Vacation days claim:",
+  "OVERVIEW_CARD2_VAC_DAYS_PREV_YEAR": "Vacation days of previous year:",
+  "OVERVIEW_CARD2_VAC_TAKEN": "Taken:",
+  "OVERVIEW_CARD2_VAC_APPLIED": "Applied:",
+  "OVERVIEW_CARD2_VAC_PLAN": "Plannable:",
+  "OVERVIEW_CARD2_VAC_APPLY_BTN": "Apply for vacation",
+
+  "OVERVIEW_CARD3_TITLE": "Other absences",
+  "OVERVIEW_CARD3_SICK_DAYS": "Sick day:",
+  "OVERVIEW_CARD3_PUBLIC_HOLIDAYS": "Public holidays (until today):"
 }

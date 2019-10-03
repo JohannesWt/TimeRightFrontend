@@ -9,5 +9,26 @@
   "HOME_CARD_OVERTIME" : "Überstunden:",
   "HOME_CARD_LEFT_VAC" : "Resturlaubstage:",
   "HOME_CARD_SICK_DAYS" : "Kranktage:",
-  "HOME_CARD_OVERVIEW_BTN" : "Zur Übersicht"
+  "HOME_CARD_OVERVIEW_BTN" : "Zur Übersicht",
+
+  "OVERVIEW_TITLE" : "Übersicht",
+
+  "OVERVIEW_CARD1_TITLE": "Gleitzeitkonto",
+  "OVERVIEW_CARD1_OVER_HOURS" : "Überstunden des akt. Monats:",
+  "OVERVIEW_CARD1_SHORT_TERM_ACCOUNT": "Kurzzeitkonto:",
+  "OVERVIEW_CARD1_LONG_TERM_ACCOUNT": "Langzeitkonto:",
+  "OVERVIEW_CARD1_OVERTIME_PREV_YEAR": "Überstunden aus Vorjahr:",
+  "OVERVIEW_CARD1_APPLY_FLEXTIME_BTN": "Gleitzeit beantragen",
+
+  "OVERVIEW_CARD2_TITLE": "Urlaubskonto",
+  "OVERVIEW_CARD2_VAC_DAYS_CLAIM": "Urlaubsktage Anspruch:",
+  "OVERVIEW_CARD2_VAC_DAYS_PREV_YEAR": "Urlaubstage aus Vorjahr:",
+  "OVERVIEW_CARD2_VAC_TAKEN": "Genommmen:",
+  "OVERVIEW_CARD2_VAC_APPLIED": "Beantragt:",
+  "OVERVIEW_CARD2_VAC_PLAN": "Planbar:",
+  "OVERVIEW_CARD2_VAC_APPLY_BTN": "Urlaub beantragen",
+
+  "OVERVIEW_CARD3_TITLE": "Sonstige Abwesenheiten",
+  "OVERVIEW_CARD3_SICK_DAYS": "Krankheitstage:",
+  "OVERVIEW_CARD3_PUBLIC_HOLIDAYS": "Feiertage (bis heute):"
 }
