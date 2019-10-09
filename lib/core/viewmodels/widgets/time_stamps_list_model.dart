@@ -33,7 +33,7 @@ class TimeStampsListModel extends BaseModel {
 
   void setTimeStampDay(DateTime compDate) {
     _todayTimeStampDay = _currentTimeStampDay =
-        _employeeDetailsService.getTimeStampsForDay(compDate);
+        _employeeDetailsService.fetchTimeStampsForDay(compDate);
     notifyListeners();
   }
 

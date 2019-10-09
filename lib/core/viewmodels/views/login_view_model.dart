@@ -26,6 +26,6 @@ class LoginViewModel extends BaseModel {
   }
 
   Future getEmployeeDetails(String employeeID) async {
-    await _employeeDetailsService.getEmployeeDetails(employeeID);
+    await _employeeDetailsService.fetchEmployeeDetails(employeeID);
   }
 }

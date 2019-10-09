@@ -66,7 +66,7 @@ class _ShortOverviewCardState extends State<ShortOverviewCard> {
               Text(
                   AppLocalizations.of(context).translate('HOME_CARD_OVERTIME')),
               Text(
-                '${_shortOverviewCardModel.currentWorkDetails.currentOverTime}',
+                '${_shortOverviewCardModel.currentWorkDetails.flexTime}',
                 textAlign: TextAlign.right,
               )
             ]),
