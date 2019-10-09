@@ -1,13 +1,13 @@
 import 'package:intl/intl.dart';
 
 class StringFormatter {
-  static String getFormattedClockTime(String clockString) {
+  static String getFormattedClockTimeString(DateTime clockString) {
     var formatter = DateFormat('HH:mm:ss');
-    return formatter.format(DateTime.parse(clockString));
+    return formatter.format(clockString);
   }
 
-  static String getFormattedShortDate(String dateString) {
+  static String getFormattedShortDateString(DateTime dateString) {
     var formatter = DateFormat('dd.MM.yyyy');
-    return formatter.format(DateTime.parse(dateString));
+    return formatter.format(dateString);
   }
 }

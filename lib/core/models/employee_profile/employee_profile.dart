@@ -21,9 +21,14 @@ class EmployeeProfile {
       this.companyDetails,
       this.careerDetails});
 
+  factory EmployeeProfile.fromJson(Map<String, dynamic> json) =>
+      _$EmployeeProfileFromJson(json);
+
+  Map<String, dynamic> toJson() => _$EmployeeProfileToJson(this);
+
   String name;
   String firstName;
-  final String dateOfBirth;
+  final DateTime dateOfBirth;
   String phoneNumber;
   final String emailAddress;
 

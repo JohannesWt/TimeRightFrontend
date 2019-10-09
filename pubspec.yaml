@@ -35,6 +35,7 @@ dependencies:
 
   # Calendar widget
   flutter_calendar_carousel: ^1.3.27
+  table_calendar: ^2.0.1
   intl: ^0.15.8
 
 
@@ -62,6 +63,8 @@ flutter:
     - lang/de.json
     - assets/employee.json
     - assets/employeeDetails.json
+    - assets/employeeProfile.json
+    - assets/calendar.json
 
   # To add assets to your application, add an assets section, like this:
   # assets:

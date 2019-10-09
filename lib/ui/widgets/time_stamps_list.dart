@@ -44,7 +44,7 @@ class _TimeStampsListState extends State<TimeStampsList> {
                                     _timeStampsListModel.todayTimeStampDay
                                 ? 'Heute '
                                 : '') +
-                            StringFormatter.getFormattedShortDate(
+                            StringFormatter.getFormattedShortDateString(
                                 _timeStampsListModel.currentTimeStampDay.date),
                         style: Theme.of(context).textTheme.title,
                       ),
@@ -78,7 +78,7 @@ class _TimeStampsListState extends State<TimeStampsList> {
               _timeStampsListModel
                   .currentTimeStampEventList[index].timeStampType,
               Icons.input,
-              StringFormatter.getFormattedClockTime(_timeStampsListModel
+              StringFormatter.getFormattedClockTimeString(_timeStampsListModel
                   .currentTimeStampEventList[index].dateTime));
         });
   }
@@ -109,7 +109,7 @@ class _TimeStampsListState extends State<TimeStampsList> {
         return "Einstempeln";
       case TimeStampType.stampOut:
         return "Ausstempeln";
-      case TimeStampType.overTimeDay:
+      case TimeStampType.flexDay:
         return "Gleittag";
       case TimeStampType.vacation:
         return "Urlaub";

@@ -1,0 +1,44 @@
+{
+  "lastName": "Mustermann",
+  "firstName": "Max",
+  "dateOfBirth": "2012-04-23 18:25:43Z",
+  "phoneNumber": "0151 1234567",
+  "emailAddress": "max.mustermann@webjump.pro",
+  "bankDetails": {
+    "receiver": "rec1",
+    "bankName": "Volksbank",
+    "iBan": "DE312345345512",
+    "validFrom": "2012-04-23 18:25:43Z"
+  },
+  "insuranceDetails": {
+    "insuranceName": "AOK",
+    "insuranceNumber": "E123412341",
+    "socialSecurityNumber": "1234512345"
+  },
+  "companyDetails": {
+    "companyName": "Volkswagen AG",
+    "department": {
+      "departmentName": "Forschung und Entwicklung",
+      "departmentID": 1,
+      "supervisorID": 2,
+      "supervisorName": "Schmidt",
+      "positionDescription" : "Project Manager"
+    }
+  },
+  "careerDetails": [
+    {
+      "companyName": "Volkswagen AG",
+      "departmentName": "Forschung und Entwicklung",
+      "workArea": "Forschung",
+      "startDate": "2012-04-23 18:25:43Z",
+      "endDate": "2012-10-23 18:25:43Z"
+    },
+    {
+      "companyName": "CLAAS KGaA mbH",
+      "departmentName": "Forschung und Entwicklung",
+      "workArea": "Entwicklung",
+      "startDate": "2012-04-23 18:25:43Z",
+      "endDate": "2012-10-23 18:25:43Z"
+    }
+  ]
+}

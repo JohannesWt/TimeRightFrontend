@@ -27,8 +27,11 @@ class EmployeeDetails {
 @JsonSerializable()
 class CurrentWorkDetails {
   CurrentWorkDetails({
-    this.currentOverTime,
+    this.flexTime,
     this.remainingVacation,
+    this.remainingVacationLastYear,
+    this.appliedVacation,
+    this.takenVacation,
     this.sickDaysMonth,
   });
 
@@ -37,7 +40,10 @@ class CurrentWorkDetails {
 
   Map<String, dynamic> toJson() => _$CurrentWorkDetailsToJson(this);
 
-  double currentOverTime;
+  double flexTime;
   double remainingVacation;
+  double remainingVacationLastYear;
+  double appliedVacation;
+  double takenVacation;
   double sickDaysMonth;
 }

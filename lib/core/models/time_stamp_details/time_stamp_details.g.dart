@@ -8,7 +8,8 @@ part of 'time_stamp_details.dart';
 
 TimeStampDay _$TimeStampDayFromJson(Map<String, dynamic> json) {
   return TimeStampDay(
-      date: json['date'] as String,
+      date:
+          json['date'] == null ? null : DateTime.parse(json['date'] as String),
       timeStampEvents: (json['timeStampEvents'] as List)
           ?.map((e) => e == null
               ? null
@@ -18,7 +19,7 @@ TimeStampDay _$TimeStampDayFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$TimeStampDayToJson(TimeStampDay instance) =>
     <String, dynamic>{
-      'date': instance.date,
+      'date': instance.date?.toIso8601String(),
       'timeStampEvents': instance.timeStampEvents
     };
 
@@ -26,13 +27,15 @@ TimeStampEvent _$TimeStampEventFromJson(Map<String, dynamic> json) {
   return TimeStampEvent(
       timeStampType:
           _$enumDecodeNullable(_$TimeStampTypeEnumMap, json['timeStampType']),
-      dateTime: json['dateTime'] as String);
+      dateTime: json['dateTime'] == null
+          ? null
+          : DateTime.parse(json['dateTime'] as String));
 }
 
 Map<String, dynamic> _$TimeStampEventToJson(TimeStampEvent instance) =>
     <String, dynamic>{
       'timeStampType': _$TimeStampTypeEnumMap[instance.timeStampType],
-      'dateTime': instance.dateTime
+      'dateTime': instance.dateTime?.toIso8601String()
     };
 
 T _$enumDecode<T>(Map<T, dynamic> enumValues, dynamic source) {
@@ -57,7 +60,8 @@ T _$enumDecodeNullable<T>(Map<T, dynamic> enumValues, dynamic source) {
 
 const _$TimeStampTypeEnumMap = <TimeStampType, dynamic>{
   TimeStampType.vacation: 'vacation',
-  TimeStampType.overTimeDay: 'overTimeDay',
+  TimeStampType.flexDay: 'flexDay',
   TimeStampType.stampIn: 'stampIn',
-  TimeStampType.stampOut: 'stampOut'
+  TimeStampType.stampOut: 'stampOut',
+  TimeStampType.sickDay: 'sickDay'
 };

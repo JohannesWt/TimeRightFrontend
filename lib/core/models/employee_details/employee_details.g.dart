@@ -34,14 +34,21 @@ Map<String, dynamic> _$EmployeeDetailsToJson(EmployeeDetails instance) =>
 
 CurrentWorkDetails _$CurrentWorkDetailsFromJson(Map<String, dynamic> json) {
   return CurrentWorkDetails(
-      currentOverTime: (json['currentOverTime'] as num)?.toDouble(),
+      flexTime: (json['flexTime'] as num)?.toDouble(),
       remainingVacation: (json['remainingVacation'] as num)?.toDouble(),
+      remainingVacationLastYear:
+          (json['remainingVacationLastYear'] as num)?.toDouble(),
+      appliedVacation: (json['appliedVacation'] as num)?.toDouble(),
+      takenVacation: (json['takenVacation'] as num)?.toDouble(),
       sickDaysMonth: (json['sickDaysMonth'] as num)?.toDouble());
 }
 
 Map<String, dynamic> _$CurrentWorkDetailsToJson(CurrentWorkDetails instance) =>
     <String, dynamic>{
-      'currentOverTime': instance.currentOverTime,
+      'flexTime': instance.flexTime,
       'remainingVacation': instance.remainingVacation,
+      'remainingVacationLastYear': instance.remainingVacationLastYear,
+      'appliedVacation': instance.appliedVacation,
+      'takenVacation': instance.takenVacation,
       'sickDaysMonth': instance.sickDaysMonth
     };

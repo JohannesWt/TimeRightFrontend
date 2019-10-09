@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:time_right/core/constants/app_constants.dart';
-import 'package:time_right/core/models/employee/employee.dart';
 import 'package:time_right/core/viewmodels/views/base_widget.dart';
 import 'package:time_right/core/viewmodels/views/home_view_model.dart';
 import 'package:time_right/ui/shared/colors.dart';

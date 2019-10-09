@@ -11,7 +11,7 @@ class TimeStampDay {
 
   Map<String, dynamic> toJson() => _$TimeStampDayToJson(this);
 
-  final String date;
+  final DateTime date;
   List<TimeStampEvent> timeStampEvents;
 
   @override
@@ -38,7 +38,7 @@ class TimeStampEvent {
   Map<String, dynamic> toJson() => _$TimeStampEventToJson(this);
 
   final TimeStampType timeStampType;
-  final String dateTime;
+  final DateTime dateTime;
 }
 
-enum TimeStampType { vacation, overTimeDay, stampIn, stampOut, sickDay }
+enum TimeStampType { vacation, flexDay, stampIn, stampOut, sickDay }

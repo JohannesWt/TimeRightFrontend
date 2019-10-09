@@ -11,20 +11,20 @@ class EmployeeDetailsService {
 
   EmployeeDetails get employeeDetails => _employeeDetails;
 
-  Future getEmployeeDetails(String employeeID) async {
-    _employeeDetails = await _api.getEmployeeDetails(employeeID);
+  Future fetchEmployeeDetails(String employeeID) async {
+    _employeeDetails = await _api.fetchEmployeeDetails(employeeID);
   }
 
-  TimeStampDay getTimeStampsForDay(DateTime compDate) {
+  TimeStampDay fetchTimeStampsForDay(DateTime compDate) {
     // TODO: Compare to today's date
     TimeStampDay timeStampDay = _employeeDetails.timeStampDetails.firstWhere(
-            (timeStampDay) => DateTime.parse(timeStampDay.date).day == 28);
+            (timeStampDay) => timeStampDay.date.day == 28);
     timeStampDay.timeStampEvents.sort((a, b) =>
-        DateTime.parse(b.dateTime).compareTo(DateTime.parse(a.dateTime)));
+        b.dateTime.compareTo(a.dateTime));
     return timeStampDay;
   }
 
-  List<TimeStampDay> getTimeStampsDayList() {
+  List<TimeStampDay> fetchTimeStampsDayList() {
     return _employeeDetails.timeStampDetails;
   }
 }
