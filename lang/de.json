@@ -30,5 +30,34 @@
 
   "OVERVIEW_CARD3_TITLE": "Sonstige Abwesenheiten",
   "OVERVIEW_CARD3_SICK_DAYS": "Krankheitstage:",
-  "OVERVIEW_CARD3_PUBLIC_HOLIDAYS": "Feiertage (bis heute):"
+  "OVERVIEW_CARD3_PUBLIC_HOLIDAYS": "Feiertage (bis heute):",
+
+  "PROFILE_TITLE": "Profil",
+  "PROFILE_INFO": "Profilinformation",
+  "PROFILE_FIRST_NAME": "Vorname:",
+  "PROFILE_LAST_NAME": "Nachname:",
+  "PROFILE_DOB": "Geburtstag:",
+  "PROFILE_EMAIL": "E-mail:",
+  "PROFILE_PHONE": "Telefon:",
+  "PROFILE_ADDRESS": "Adresse:",
+
+  "PROFILE_BANK_TITLE": "Bankverbindung",
+  "PROFILE_BANK_RECIPIENT": "Empfänger:",
+  "PROFILE_BANK_IBAN": "IBAN:",
+  "PROFILE_BANK_NAME": "Bank:",
+  "PROFILE_BANK_VALID_FROM": "Gültig ab:",
+
+
+  "PROFILE_INSURANCE_TITLE": "Krankenkasse",
+  "PROFILE_INSURANCE_NAME": "Krankenkasse:",
+  "PROFILE_INSURANCE_STATUS": "Status:",
+
+  "PROFILE_COMPANY_TITLE": "Unternehmen",
+  "PROFILE_COMPANY_Name": "Unternehmen:",
+  "PROFILE_COMPANY_POSITION": "Position:",
+  "PROFILE_COMPANY_SUPERIOR": "Vorgesetzte/r:",
+  "PROFILE_COMPANY_DIVISION": "Abteilung:",
+
+  "PROFILE_CAREER_TITLE": "Werdegang",
+  "PROFILE_CAREER_DEGREE": "Abschluss:"
 }
