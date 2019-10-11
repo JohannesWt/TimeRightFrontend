@@ -5,10 +5,7 @@ part 'company_details.g.dart';
 @JsonSerializable()
 class CompanyDetails {
   CompanyDetails({
-    this.name,
-    this.position,
-    this.supervisorName,
-    this.supervisorID,
+    this.companyName,
     this.department,
   });
 
@@ -17,9 +14,27 @@ class CompanyDetails {
 
   Map<String, dynamic> toJson() => _$CompanyDetailsToJson(this);
 
-  final String name;
-  final String position;
+  final String companyName;
+  final Department department;
+}
+
+@JsonSerializable()
+class Department {
+  Department(
+      {this.positionDescription,
+      this.supervisorID,
+      this.supervisorName,
+      this.departmentName,
+      this.departmentID});
+
+  factory Department.fromJson(Map<String, dynamic> json) =>
+      _$DepartmentFromJson(json);
+
+  Map<String, dynamic> toJson() => _$DepartmentToJson(this);
+
+  final String positionDescription;
   final String supervisorID;
   final String supervisorName;
-  final String department;
+  final String departmentName;
+  final String departmentID;
 }

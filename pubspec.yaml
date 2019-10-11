@@ -14,7 +14,7 @@ description: An employee app to track work time.
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.1.0 <3.0.0"
+  sdk: ">=2.2.2 <3.0.0"
 
 dependencies:
   flutter:
@@ -28,14 +28,22 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
 
-  flutter_calendar_carousel: ^1.3.27
+  #  Provider-architecture setup
+  provider: ^3.1.0
+  # Package to serialize data from json
   json_serializable: ^2.2.3
+
+  # Calendar widget
+  flutter_calendar_carousel: ^1.3.27
+  table_calendar: ^2.0.1
   intl: ^0.15.8
+
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
+  # Package to generate json translation files
   build_runner: ^1.6.6
 
 
@@ -53,6 +61,10 @@ flutter:
   assets:
     - lang/en.json
     - lang/de.json
+    - assets/employee.json
+    - assets/employeeDetails.json
+    - assets/employeeProfile.json
+    - assets/calendar.json
 
   # To add assets to your application, add an assets section, like this:
   # assets:
