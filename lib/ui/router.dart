@@ -3,6 +3,7 @@ import 'package:time_right/core/constants/app_constants.dart';
 import 'package:time_right/core/models/employee/employee.dart';
 import 'package:time_right/ui/views/absence_choice_view.dart';
 import 'package:time_right/ui/views/calendar_view.dart';
+import 'package:time_right/ui/views/time_stamp_view.dart';
 import 'package:time_right/ui/views/home_view.dart';
 import 'package:time_right/ui/views/login_view.dart';
 import 'package:time_right/ui/views/overview_view.dart';
@@ -23,6 +24,8 @@ class Router {
         return MaterialPageRoute(builder: (_) => ProfileView());
       case RoutePaths.overviewView:
         return MaterialPageRoute(builder: (_) => OverviewView());
+      case RoutePaths.timeStampView:
+        return MaterialPageRoute(builder: (_) => TimeStampView());
       default:
         return MaterialPageRoute(
             builder: (_) => Scaffold(

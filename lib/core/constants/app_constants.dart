@@ -5,4 +5,5 @@ class RoutePaths {
   static const String absenceChoiceView = 'absenceChoiceView';
   static const String profileView = 'profileView';
   static const String overviewView = 'overviewView';
+  static const String timeStampView= 'timeStampView';
 }

@@ -59,5 +59,15 @@
   "PROFILE_COMPANY_DIVISION": "Abteilung:",
 
   "PROFILE_CAREER_TITLE": "Werdegang",
-  "PROFILE_CAREER_DEGREE": "Abschluss:"
+  "PROFILE_CAREER_DEGREE": "Abschluss:",
+
+  "CLOCK_IN": "Einstempeln",
+  "CLOCK_OUT": "Ausstempeln",
+  "CLOCK_IN_TIME": "Einstempeln um:",
+  "CLOCK_OUT_AT": "Ausstempeln um:",
+  "HOURS_WORKED": "Gearbeitete Stunden:",
+  "EDIT_HOURS": "Nachtragen",
+
+  "CONFIRM": "Bestätigen",
+  "CANCEL": "Abbrechen"
 }
