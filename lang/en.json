@@ -61,7 +61,18 @@
   "PROFILE_COMPANY_DIVISION": "Division:",
 
   "PROFILE_CAREER_TITLE": "Career",
-  "PROFILE_CAREER_DEGREE": "Degree:"
+  "PROFILE_CAREER_DEGREE": "Degree:",
+
+  "CLOCK_IN": "Clock in",
+  "CLOCK_OUT": "Clock out",
+  "CLOCK_IN_TIME": "Clock in at: ",
+  "CLOCK_OUT_AT": "Clock out at: ",
+  "HOURS_WORKED": "Hours worked:",
+  "EDIT_HOURS": "Edit hours:",
+
+  "CONFIRM": "Confirm",
+  "CANCEL": "Cancel"
+
 
 
 }
