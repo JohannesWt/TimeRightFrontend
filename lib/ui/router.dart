@@ -4,6 +4,7 @@ import 'package:time_right/core/models/employee/employee.dart';
 import 'package:time_right/core/models/employee_details/employee_details.dart';
 import 'package:time_right/ui/views/absence_choice_view.dart';
 import 'package:time_right/ui/views/calendar_view.dart';
+import 'package:time_right/ui/views/time_stamp_view.dart';
 import 'package:time_right/ui/views/home_view.dart';
 import 'package:time_right/ui/views/login_view.dart';
 import 'package:time_right/ui/views/overview_view.dart';

@@ -31,5 +31,48 @@
 
   "OVERVIEW_CARD3_TITLE": "Other absences",
   "OVERVIEW_CARD3_SICK_DAYS": "Sick day:",
-  "OVERVIEW_CARD3_PUBLIC_HOLIDAYS": "Public holidays (until today):"
+  "OVERVIEW_CARD3_PUBLIC_HOLIDAYS": "Public holidays (until today):",
+
+
+  "PROFILE_TITLE": "Profile",
+  "PROFILE_INFO": "Profile Information",
+  "PROFILE_FIRST_NAME": "First Name:",
+  "PROFILE_LAST_NAME": "Last Name:",
+  "PROFILE_DOB": "Date of birth:",
+  "PROFILE_EMAIL": "E-mail:",
+  "PROFILE_PHONE": "Phone:",
+  "PROFILE_ADDRESS": "Address:",
+
+  "PROFILE_BANK_TITLE": "Bank Details",
+  "PROFILE_BANK_RECIPIENT": "Recipient:",
+  "PROFILE_BANK_IBAN": "IBAN:",
+  "PROFILE_BANK_NAME": "Bank Name:",
+  "PROFILE_BANK_VALID_FROM": "Valid from:",
+
+
+  "PROFILE_INSURANCE_TITLE": "Health Insurance",
+  "PROFILE_INSURANCE_NAME": "Name:",
+  "PROFILE_INSURANCE_STATUS": "Status:",
+
+  "PROFILE_COMPANY_TITLE": "Company",
+  "PROFILE_COMPANY_Name": "Company Name:",
+  "PROFILE_COMPANY_POSITION": "Position:",
+  "PROFILE_COMPANY_SUPERIOR": "Superior:",
+  "PROFILE_COMPANY_DIVISION": "Division:",
+
+  "PROFILE_CAREER_TITLE": "Career",
+  "PROFILE_CAREER_DEGREE": "Degree:",
+
+  "CLOCK_IN": "Clock in",
+  "CLOCK_OUT": "Clock out",
+  "CLOCK_IN_TIME": "Clock in at: ",
+  "CLOCK_OUT_AT": "Clock out at: ",
+  "HOURS_WORKED": "Hours worked:",
+  "EDIT_HOURS": "Edit hours:",
+
+  "CONFIRM": "Confirm",
+  "CANCEL": "Cancel"
+
+
+
 }
