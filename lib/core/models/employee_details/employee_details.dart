@@ -10,7 +10,6 @@ class EmployeeDetails {
     this.contractDetails,
     this.stampFailsSum,
     this.currentWorkDetails,
-    this.timeStampDetails,
   });
 
   factory EmployeeDetails.fromJson(Map<String, dynamic> json) =>
@@ -21,7 +20,6 @@ class EmployeeDetails {
   final ContractDetails contractDetails;
   int stampFailsSum;
   CurrentWorkDetails currentWorkDetails;
-  List<TimeStampDay> timeStampDetails;
 }
 
 @JsonSerializable()
@@ -31,8 +29,9 @@ class CurrentWorkDetails {
     this.remainingVacation,
     this.remainingVacationLastYear,
     this.appliedVacation,
+    this.authorizedVacation,
     this.takenVacation,
-    this.sickDaysMonth,
+    this.sickDaysCurrentMonth,
   });
 
   factory CurrentWorkDetails.fromJson(Map<String, dynamic> json) =>
@@ -44,6 +43,7 @@ class CurrentWorkDetails {
   double remainingVacation;
   double remainingVacationLastYear;
   double appliedVacation;
+  double authorizedVacation;
   double takenVacation;
-  double sickDaysMonth;
+  double sickDaysCurrentMonth;
 }

@@ -1,10 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:provider/provider.dart';
 import 'package:time_right/core/constants/app_constants.dart';
-import 'package:time_right/core/viewmodels/views/base_widget.dart';
-import 'package:time_right/core/viewmodels/views/home_view_model.dart';
 import 'package:time_right/ui/shared/colors.dart';
 import 'package:time_right/ui/widgets/short_overview_card.dart';
 import 'package:time_right/ui/widgets/time_stamps_list.dart';
@@ -12,45 +9,42 @@ import 'package:time_right/ui/widgets/time_stamps_list.dart';
 import '../../app_localizations.dart';
 
 class HomeView extends StatefulWidget {
+  HomeView({@required int stampFails})
+      : _stampFails = stampFails;
+
+  final int _stampFails;
+
   @override
   _HomeViewState createState() => _HomeViewState();
 }
 
 class _HomeViewState extends State<HomeView> {
-  HomeViewModel _homeViewModel;
 
   @override
   Widget build(BuildContext context) {
-    return BaseWidget<HomeViewModel>(
-      model: HomeViewModel(employeeDetailsService: Provider.of(context)),
-      onModelReady: (model) {
-        _homeViewModel = model;
-      },
-      child: buildAppBar(),
-      builder: (context, model, child) => Center(
-        child: _homeViewModel.busy
-            ? CircularProgressIndicator()
-            : Scaffold(
-                appBar: child,
-                body: Column(
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.only(left: 10.0, right: 10.0),
-                      child: ShortOverviewCard(),
-                    ),
-                    buildMenuButtons(),
-                    TimeStampsList(),
-                  ],
-                ),
-                floatingActionButton: buildFloatingActionButton(),
-                floatingActionButtonLocation:
-                    FloatingActionButtonLocation.centerFloat,
-              ),
+    return Scaffold(
+      appBar: _buildAppBar(),
+      body: Column(
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.only(left: 10.0, right: 10.0),
+            child: ShortOverviewCard(),
+          ),
+          _buildMenuButtons(),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.only(top: 15.0),
+              child: TimeStampsList(),
+            ),
+          ),
+        ],
       ),
+      floatingActionButton: _buildFloatingActionButton(),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 
-  Widget buildAppBar() {
+  Widget _buildAppBar() {
     return AppBar(
       automaticallyImplyLeading: false,
       title: Text(
@@ -68,7 +62,7 @@ class _HomeViewState extends State<HomeView> {
     );
   }
 
-  Widget buildFloatingActionButton() {
+  Widget _buildFloatingActionButton() {
     return FloatingActionButton.extended(
       onPressed: () {},
       label: Text(
@@ -83,14 +77,14 @@ class _HomeViewState extends State<HomeView> {
     );
   }
 
-  Widget buildMenuButtons() {
+  Widget _buildMenuButtons() {
     return Padding(
       padding: const EdgeInsets.only(top: 20.0, left: 5, right: 5),
       child: IntrinsicHeight(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
-            buildMenuButton(
+            _buildMenuButton(
                 AppLocalizations.of(context).translate('HOME_CAL_BTN_LABEL'),
                 Icons.calendar_today,
                 true,
@@ -100,7 +94,7 @@ class _HomeViewState extends State<HomeView> {
               width: 20,
               thickness: 1.2,
             ),
-            buildMenuButton(
+            _buildMenuButton(
                 AppLocalizations.of(context).translate('HOME_ABS_BTN_LABEL'),
                 Icons.add,
                 false,
@@ -111,9 +105,8 @@ class _HomeViewState extends State<HomeView> {
     );
   }
 
-  Widget buildMenuButton(
+  Widget _buildMenuButton(
       String title, IconData icon, bool notificationBatch, String target) {
-    int stampFails = _homeViewModel.employeeDetails.stampFailsSum;
     return Expanded(
       child: FlatButton(
         child: Padding(
@@ -137,7 +130,7 @@ class _HomeViewState extends State<HomeView> {
                         Positioned(
                           right: 0,
                           top: 1,
-                          child: stampFails > 0
+                          child: widget._stampFails > 0
                               ? Container(
                                   padding: EdgeInsets.all(2.0),
                                   decoration: BoxDecoration(
@@ -146,7 +139,7 @@ class _HomeViewState extends State<HomeView> {
                                   constraints: BoxConstraints(
                                       minWidth: 14, minHeight: 14),
                                   child: Text(
-                                    '$stampFails',
+                                    '${widget._stampFails}',
                                     style: TextStyle(fontSize: 8, color: white),
                                     textAlign: TextAlign.center,
                                   ),

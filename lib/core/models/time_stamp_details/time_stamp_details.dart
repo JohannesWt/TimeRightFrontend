@@ -41,4 +41,40 @@ class TimeStampEvent {
   final DateTime dateTime;
 }
 
-enum TimeStampType { vacation, flexDay, stampIn, stampOut, sickDay }
+enum TimeStampType {
+  vacation,
+  vacationValidation,
+  vacationValidationFail,
+  flexDay,
+  flexDayValidation,
+  flexDayValidationFail,
+  // TODO: remove stampInFail
+  stampIn,
+  stampInFail,
+  stampInValidation,
+  stampInValidationFail,
+  stampOut,
+  stampOutFail,
+  stampOutValidation,
+  stampOutValidationFail,
+  sickDay,
+  sickDayValidation,
+  sickDayValidationFail,
+}
+
+enum TimeStampResponse {
+  stampInSuccess,
+  stampInForValidation,
+  stampOutSuccess,
+  stampOutForValidation,
+  stampVacationSuccess,
+  stampFlexDaySuccess,
+  stampSickDaySuccess,
+  stampVacationFail,
+  stampFlexDayFail,
+  stampSickDayFail,
+  stampInFirstFail,
+  stampOutFirstFail,
+  stampWorkDayFail,
+  unknownResult
+}

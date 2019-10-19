@@ -16,20 +16,14 @@ EmployeeDetails _$EmployeeDetailsFromJson(Map<String, dynamic> json) {
       currentWorkDetails: json['currentWorkDetails'] == null
           ? null
           : CurrentWorkDetails.fromJson(
-              json['currentWorkDetails'] as Map<String, dynamic>),
-      timeStampDetails: (json['timeStampDetails'] as List)
-          ?.map((e) => e == null
-              ? null
-              : TimeStampDay.fromJson(e as Map<String, dynamic>))
-          ?.toList());
+              json['currentWorkDetails'] as Map<String, dynamic>));
 }
 
 Map<String, dynamic> _$EmployeeDetailsToJson(EmployeeDetails instance) =>
     <String, dynamic>{
       'contractDetails': instance.contractDetails,
       'stampFailsSum': instance.stampFailsSum,
-      'currentWorkDetails': instance.currentWorkDetails,
-      'timeStampDetails': instance.timeStampDetails
+      'currentWorkDetails': instance.currentWorkDetails
     };
 
 CurrentWorkDetails _$CurrentWorkDetailsFromJson(Map<String, dynamic> json) {
@@ -39,8 +33,9 @@ CurrentWorkDetails _$CurrentWorkDetailsFromJson(Map<String, dynamic> json) {
       remainingVacationLastYear:
           (json['remainingVacationLastYear'] as num)?.toDouble(),
       appliedVacation: (json['appliedVacation'] as num)?.toDouble(),
+      authorizedVacation: (json['authorizedVacation'] as num)?.toDouble(),
       takenVacation: (json['takenVacation'] as num)?.toDouble(),
-      sickDaysMonth: (json['sickDaysMonth'] as num)?.toDouble());
+      sickDaysCurrentMonth: (json['sickDaysCurrentMonth'] as num)?.toDouble());
 }
 
 Map<String, dynamic> _$CurrentWorkDetailsToJson(CurrentWorkDetails instance) =>
@@ -49,6 +44,7 @@ Map<String, dynamic> _$CurrentWorkDetailsToJson(CurrentWorkDetails instance) =>
       'remainingVacation': instance.remainingVacation,
       'remainingVacationLastYear': instance.remainingVacationLastYear,
       'appliedVacation': instance.appliedVacation,
+      'authorizedVacation': instance.authorizedVacation,
       'takenVacation': instance.takenVacation,
-      'sickDaysMonth': instance.sickDaysMonth
+      'sickDaysCurrentMonth': instance.sickDaysCurrentMonth
     };
