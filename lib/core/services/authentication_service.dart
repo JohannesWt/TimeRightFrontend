@@ -12,8 +12,8 @@ class AuthenticationService {
 
   Stream<Employee> get employee => _employeeController.stream;
 
-  Future<Employee> login(String employeeID) async {
-    var fetchedEmployee = await _api.fetchEmployee(employeeID);
+  Future<Employee> login(String employeeID, String password) async {
+    var fetchedEmployee = await _api.fetchEmployee(employeeID, password);
     if (fetchedEmployee != null) {
       _employeeController.add(fetchedEmployee);
     }

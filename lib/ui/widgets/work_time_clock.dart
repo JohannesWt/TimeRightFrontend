@@ -15,10 +15,24 @@ class _WorkTimeClockState extends State<WorkTimeClock> {
   WorkTimeClockModel _workTimeClockModel;
 
   @override
+  void dispose() {
+    // TODO: implement dispose
+    print('dispose');
+    _workTimeClockModel.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    print('build');
     return BaseWidget(
-      model: WorkTimeClockModel(employeeDetailsService: Provider.of(context)),
-      onModelReady: (model) => _workTimeClockModel = model,
+      model: WorkTimeClockModel(
+          employeeDetailsService: Provider.of(context),
+          timeStampService: Provider.of(context)),
+      onModelReady: (model) {
+        _workTimeClockModel = model;
+        _workTimeClockModel.startWorkTimer();
+      },
       builder: (context, model, child) => Container(
         height: 135.0,
         width: 135.0,
@@ -36,7 +50,7 @@ class _WorkTimeClockState extends State<WorkTimeClock> {
                 style: TextStyle(fontSize: 20),
               ),
               Text(
-                '5:45:23',
+                _workTimeClockModel.workHoursString,
                 style: TextStyle(fontSize: 28),
               ),
             ],
@@ -71,7 +85,7 @@ class HoursDrawer extends CustomPainter {
     Offset center = new Offset(size.width / 2, size.height / 2);
     double radius = min((size.width - width) / 2, (size.height - width) / 2);
     canvas.drawCircle(center, radius, line);
-    double arcAngle = 2 * pi * (completePercent / 100);
+    double arcAngle = 2 * pi * (completePercent);
     canvas.drawArc(new Rect.fromCircle(center: center, radius: radius), -pi / 2,
         arcAngle, false, complete);
   }

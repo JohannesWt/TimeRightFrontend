@@ -1,14 +1,14 @@
 {
   "lastName": "Mustermann",
   "firstName": "Max",
-  "dateOfBirth": "2012-04-23 18:25:43Z",
+  "dateOfBirth": "2012-04-23 18:25:43",
   "phoneNumber": "0151 1234567",
   "emailAddress": "max.mustermann@webjump.pro",
   "bankDetails": {
     "receiver": "rec1",
     "bankName": "Volksbank",
     "iBan": "DE312345345512",
-    "validFrom": "2012-04-23 18:25:43Z"
+    "validFrom": "2012-04-23 18:25:43"
   },
   "insuranceDetails": {
     "insuranceName": "AOK",
@@ -30,15 +30,15 @@
       "companyName": "Volkswagen AG",
       "departmentName": "Forschung und Entwicklung",
       "workArea": "Forschung",
-      "startDate": "2012-04-23 18:25:43Z",
-      "endDate": "2012-10-23 18:25:43Z"
+      "startDate": "2012-04-23 18:25:43",
+      "endDate": "2012-10-23 18:25:43"
     },
     {
       "companyName": "CLAAS KGaA mbH",
       "departmentName": "Forschung und Entwicklung",
       "workArea": "Entwicklung",
-      "startDate": "2012-04-23 18:25:43Z",
-      "endDate": "2012-10-23 18:25:43Z"
+      "startDate": "2012-04-23 18:25:43",
+      "endDate": "2012-10-23 18:25:43"
     }
   ]
 }

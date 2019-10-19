@@ -1,61 +1,44 @@
+import 'package:flutter/cupertino.dart';
 import 'package:time_right/core/models/time_stamp_details/time_stamp_details.dart';
-import 'package:time_right/core/services/employee_details_service.dart';
+import 'package:time_right/core/services/time_stamp_service.dart';
 import 'package:time_right/core/viewmodels/base_model.dart';
 
 class TimeStampsListModel extends BaseModel {
-  TimeStampsListModel({EmployeeDetailsService employeeDetailsService})
-      : _employeeDetailsService = employeeDetailsService;
+  TimeStampsListModel({@required TimeStampService timeStampService})
+      : _timeStampService = timeStampService;
 
-  final EmployeeDetailsService _employeeDetailsService;
+  final TimeStampService _timeStampService;
 
-  int _mainIndex;
-
-  int get mainIndex => _mainIndex;
-
-  TimeStampDay _todayTimeStampDay;
-
-  TimeStampDay get todayTimeStampDay => _todayTimeStampDay;
-
-  TimeStampDay _currentTimeStampDay;
-
-  set currentTimeStampDay(TimeStampDay value) {
-    _currentTimeStampDay = value;
-    notifyListeners();
-  }
-
-  TimeStampDay get currentTimeStampDay => _currentTimeStampDay;
-
-  List<TimeStampDay> get timeStampsDayList =>
-      _employeeDetailsService.employeeDetails.timeStampDetails;
+  List<TimeStampEvent> _currentTimeStampEventList;
 
   List<TimeStampEvent> get currentTimeStampEventList =>
-      _currentTimeStampDay.timeStampEvents;
+      _currentTimeStampEventList;
 
-  void setTimeStampDay(DateTime compDate) {
-    _todayTimeStampDay = _currentTimeStampDay =
-        _employeeDetailsService.fetchTimeStampsForDay(compDate);
+  DateTime _currentTimeStampDay = DateTime.now();
+
+  DateTime get currentTimeStampDay => _currentTimeStampDay;
+
+  set currentTimeStampDay(DateTime newDateTime) {
+    _currentTimeStampDay = newDateTime;
+    setTimeStampEventList();
     notifyListeners();
   }
 
-  void getPreviousTimeStampDay() {
-    int index = timeStampsDayList.indexOf(_currentTimeStampDay);
-    print('index ' + index.toString());
-    if (index < timeStampsDayList.length - 1) {
-      _currentTimeStampDay = timeStampsDayList[index + 1];
-      notifyListeners();
-    } else {
-      print('Keine mehr niedrig');
-    }
+  void setTimeStampEventList() {
+    _currentTimeStampEventList =
+        _timeStampService.getTimeStampEventsForDay(_currentTimeStampDay);
+    notifyListeners();
   }
 
-  void getNextTimeStampDay() {
-    int index = timeStampsDayList.indexOf(_currentTimeStampDay);
-    print('index ' + index.toString());
-    if (index > 0) {
-      _currentTimeStampDay = timeStampsDayList[index - 1];
-      notifyListeners();
-    } else {
-      print('Keine mehr hoch');
-    }
+  void setNextDay() {
+    _currentTimeStampDay = _currentTimeStampDay.add(Duration(days: 1));
+    setTimeStampEventList();
+    notifyListeners();
+  }
+
+  void setPreviousDay() {
+    _currentTimeStampDay = _currentTimeStampDay.subtract(Duration(days: 1));
+    setTimeStampEventList();
+    notifyListeners();
   }
 }

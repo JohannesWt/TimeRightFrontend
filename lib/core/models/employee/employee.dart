@@ -14,7 +14,7 @@ class Employee {
 
   Map<String, dynamic> toJson() => _$EmployeeToJson(this);
 
-  final String employeeID;
+  final int employeeID;
   final EmployeeLevel employeeLevel;
 }
 

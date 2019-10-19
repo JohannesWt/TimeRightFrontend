@@ -6,4 +6,8 @@ class DateCalculator {
     }
     return false;
   }
+
+  static DateTime shortFormDateTime(DateTime compDate) {
+    return DateTime(compDate.year, compDate.month, compDate.day);
+  }
 }

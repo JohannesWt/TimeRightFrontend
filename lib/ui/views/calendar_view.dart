@@ -2,11 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_calendar_carousel/classes/event.dart';
 import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart';
 import 'package:provider/provider.dart';
+import 'package:time_right/app_localizations.dart';
+import 'package:time_right/core/constants/app_constants.dart';
 import 'package:time_right/core/models/employee/employee.dart';
 import 'package:time_right/core/viewmodels/views/base_widget.dart';
 import 'package:time_right/core/viewmodels/views/calendar_view_model.dart';
 import 'package:time_right/ui/shared/colors.dart';
 import 'package:time_right/ui/shared/string_formatter.dart';
+import 'package:time_right/ui/widgets/time_stamps_list.dart';
 
 class CalendarView extends StatefulWidget {
   @override
@@ -16,7 +19,14 @@ class CalendarView extends StatefulWidget {
 class _CalendarViewState extends State<CalendarView> {
   CalendarViewModel _calendarViewModel;
 
-  EventList<Event> _markedDateMap = EventList<Event>();
+  TimeStampsList _timeStampsList;
+
+//  @override
+//  void initState() {
+//    // TODO: implement initState
+//    _calendarViewModel = CalendarViewModel(calendarService: )
+//    super.initState();
+//  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,20 +37,16 @@ class _CalendarViewState extends State<CalendarView> {
       ),
       onModelReady: (model) async {
         _calendarViewModel = model;
+        // TODO: maybe put in initState or didChangeDependencies
         await _calendarViewModel.fetchTimeStampDaysForMonth(
             Provider.of<Employee>(context).employeeID,
-            DateTime.now().month,
-            DateTime.now().year);
+            DateTime.now());
         _calendarViewModel.setEventList();
-        _markedDateMap = _calendarViewModel.eventList;
-//        _markedDateMap.addAll(new DateTime(2019, 10, 11), [
-//          new Event(
-//            date: new DateTime(2019, 10, 11),
-//            title: 'Event 1',
-//          ),
-//        ]);
+        _timeStampsList = TimeStampsList(
+          showHeader: false,
+        );
       },
-      builder: (model, context, child) => Center(
+      builder: (context, model, child) => Center(
         child: Scaffold(
           appBar: child,
           body: _calendarViewModel.busy
@@ -49,19 +55,43 @@ class _CalendarViewState extends State<CalendarView> {
                 )
               : Column(
                   children: <Widget>[
-                    buildCalendar(),
-                    Text(StringFormatter.getFormattedShortDateString(
-                        _calendarViewModel.currentSelectedDay))
+                    _buildCalendar(),
+                    FlatButton(
+//                      padding: const EdgeInsets.all(0),
+                      onPressed: () {
+                        _calendarViewModel.currentSelectedDay = DateTime.now();
+                        _timeStampsList.setCurrentTimeStampDay(DateTime.now());
+                      },
+                      child: Text(
+                          StringFormatter.getFormattedShortDateString(
+                              _calendarViewModel.currentSelectedDay),
+                          style: Theme.of(context).textTheme.title),
+                    ),
+                    Expanded(
+                      child: _timeStampsList,
+                    )
                   ],
                 ),
+          floatingActionButton: _buildFloatingActionButton(),
+          floatingActionButtonLocation:
+              FloatingActionButtonLocation.centerFloat,
         ),
       ),
     );
   }
 
-  Widget buildCalendar() {
+  Widget _buildFloatingActionButton() {
+    return FloatingActionButton(
+      child: Icon(Icons.add),
+      onPressed: () =>
+          Navigator.pushNamed(context, RoutePaths.absenceChoiceView),
+    );
+  }
+
+  Widget _buildCalendar() {
     return CalendarCarousel<Event>(
-      height: 330,
+      locale: AppLocalizations.of(context).locale.languageCode,
+      height: 360,
       thisMonthDayBorderColor: gray2,
       headerMargin: EdgeInsets.all(0),
       headerTextStyle: TextStyle(color: gray4, fontSize: 16),
@@ -75,58 +105,16 @@ class _CalendarViewState extends State<CalendarView> {
       onCalendarChanged: (dateTime) {
         _calendarViewModel.currentSelectedMonth = dateTime.month;
       },
-      onDayPressed: (dateTime, eventList) =>
-          _calendarViewModel.currentSelectedDay = dateTime,
+      daysTextStyle: TextStyle(fontFamily: 'Porsche_Next', color: gray4),
+      selectedDayTextStyle: TextStyle(color: white),
+      onDayPressed: (dateTime, eventList) {
+        _timeStampsList.setCurrentTimeStampDay(dateTime);
+        _calendarViewModel.currentSelectedDay = dateTime;
+      },
       weekendTextStyle: TextStyle(color: green2),
-//      customDayBuilder: _buildCustomDay,
-      markedDatesMap: _markedDateMap,
-      markedDateShowIcon: false,
-      markedDateIconMaxShown: 1,
-      markedDateMoreShowTotal: false,
-//      markedDateWidget: Container(
-//        margin: EdgeInsets.symmetric(horizontal: 4.0),
-//        color: gray4,
-//        height: 5.0,
-//        width: 5.0,
-//      ),
-//      markedDateIconBuilder: (event) {
-//        return event.dot;
-//      },
+      markedDatesMap: _calendarViewModel.eventList,
+      onDayLongPressed: (dateTime) =>
+          Navigator.pushNamed(context, RoutePaths.absenceChoiceView),
     );
-  }
-
-  Widget _buildCustomDay(
-      bool isSelectable,
-      int index,
-      bool isSelectedDay,
-      bool isToday,
-      bool isPrevMonthDay,
-      TextStyle textStyle,
-      bool isNextMonthDay,
-      bool isThisMonthDay,
-      DateTime day) {
-    print('Datum : $day');
-    if (_calendarViewModel.isDayInList(day)) {
-      return Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            Text('${day.day}'),
-            Container(
-              margin: EdgeInsets.symmetric(horizontal: 4.0),
-              color: gray4,
-              height: 5.0,
-              width: 5.0,
-            ),
-          ],
-        ),
-      );
-    }
-//    else {
-//      return Center(
-//        child: Text('${day.day}'),
-//      );
-//    }
-    return null;
   }
 }

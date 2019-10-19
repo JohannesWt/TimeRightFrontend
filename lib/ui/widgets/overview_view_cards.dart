@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:time_right/app_localizations.dart';
 import 'package:time_right/core/constants/app_constants.dart';
+import 'package:time_right/core/models/employee_details/employee_details.dart';
 
 class OverviewCards extends StatefulWidget {
+  OverviewCards({@required EmployeeDetails employeeDetails})
+      : _employeeDetails = employeeDetails;
+
+  final EmployeeDetails _employeeDetails;
+
   @override
   _OverviewCardsState createState() => _OverviewCardsState();
 }
@@ -23,18 +29,18 @@ class _OverviewCardsState extends State<OverviewCards> {
               children: <Widget>[
                 Expanded(
                     child: Padding(
-                  padding: const EdgeInsets.only(left: 10.0, right: 10.0),
-                  //how do I call a list of widgets here?
-                  child: buildFlexTimeAccount()
-                  // buildVacationAccount(),   buildOtherAbsences()
-                )),
+                        padding: const EdgeInsets.only(left: 10.0, right: 10.0),
+                        //how do I call a list of widgets here?
+                        child: _buildFlexTimeAccount()
+                        // buildVacationAccount(),   buildOtherAbsences()
+                        )),
               ],
             ),
           ),
         ),
         Card(
           shape:
-          RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
           elevation: 5,
           child: Padding(
             padding: const EdgeInsets.all(10.0),
@@ -45,16 +51,16 @@ class _OverviewCardsState extends State<OverviewCards> {
                     child: Padding(
                         padding: const EdgeInsets.only(left: 10.0, right: 10.0),
                         //how do I call a list of widgets here?
-                        child: buildVacationAccount()
-                      // buildVacationAccount(),   buildOtherAbsences()
-                    )),
+                        child: _buildVacationAccount()
+                        // buildVacationAccount(),   buildOtherAbsences()
+                        )),
               ],
             ),
           ),
         ),
         Card(
           shape:
-          RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
           elevation: 5,
           child: Padding(
             padding: const EdgeInsets.all(10.0),
@@ -64,18 +70,16 @@ class _OverviewCardsState extends State<OverviewCards> {
                 Expanded(
                     child: Padding(
                         padding: const EdgeInsets.only(left: 10.0, right: 10.0),
-                        child: buildOtherAbsences()
-                    )),
+                        child: _buildOtherAbsences())),
               ],
             ),
           ),
         ),
       ],
-
     );
   }
 
-  Widget buildFlexTimeAccount() {
+  Widget _buildFlexTimeAccount() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -90,34 +94,34 @@ class _OverviewCardsState extends State<OverviewCards> {
               Text(AppLocalizations.of(context)
                   .translate('OVERVIEW_CARD1_OVER_HOURS')),
               Text(
-                '8h',
+                '${widget._employeeDetails.currentWorkDetails.flexTime}',
                 textAlign: TextAlign.right,
               )
             ]),
-            TableRow(children: [
-              Text(AppLocalizations.of(context)
-                  .translate('OVERVIEW_CARD1_SHORT_TERM_ACCOUNT')),
-              Text(
-                '8,5h',
-                textAlign: TextAlign.right,
-              )
-            ]),
-            TableRow(children: [
-              Text(AppLocalizations.of(context)
-                  .translate('OVERVIEW_CARD1_LONG_TERM_ACCOUNT')),
-              Text(
-                '12',
-                textAlign: TextAlign.right,
-              )
-            ]),
-            TableRow(children: [
-              Text(AppLocalizations.of(context)
-                  .translate('OVERVIEW_CARD1_OVERTIME_PREV_YEAR')),
-              Text(
-                '0',
-                textAlign: TextAlign.right,
-              )
-            ])
+//            TableRow(children: [
+//              Text(AppLocalizations.of(context)
+//                  .translate('OVERVIEW_CARD1_SHORT_TERM_ACCOUNT')),
+//              Text(
+//                '8,5h',
+//                textAlign: TextAlign.right,
+//              )
+//            ]),
+//            TableRow(children: [
+//              Text(AppLocalizations.of(context)
+//                  .translate('OVERVIEW_CARD1_LONG_TERM_ACCOUNT')),
+//              Text(
+//                '12',
+//                textAlign: TextAlign.right,
+//              )
+//            ]),
+//            TableRow(children: [
+//              Text(AppLocalizations.of(context)
+//                  .translate('OVERVIEW_CARD1_OVERTIME_PREV_YEAR')),
+//              Text(
+//                '0',
+//                textAlign: TextAlign.right,
+//              )
+//            ])
           ],
         ),
         FlatButton(
@@ -139,7 +143,7 @@ class _OverviewCardsState extends State<OverviewCards> {
     );
   }
 
-  Widget buildVacationAccount() {
+  Widget _buildVacationAccount() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -154,23 +158,23 @@ class _OverviewCardsState extends State<OverviewCards> {
               Text(AppLocalizations.of(context)
                   .translate('OVERVIEW_CARD2_VAC_DAYS_CLAIM')),
               Text(
-                '8h',
+                '${widget._employeeDetails.contractDetails.vacation}',
                 textAlign: TextAlign.right,
               )
             ]),
-            TableRow(children: [
-              Text(AppLocalizations.of(context)
-                  .translate('OVERVIEW_CARD2_VAC_DAYS_PREV_YEAR')),
-              Text(
-                '8,5h',
-                textAlign: TextAlign.right,
-              )
-            ]),
+//            TableRow(children: [
+//              Text(AppLocalizations.of(context)
+//                  .translate('OVERVIEW_CARD2_VAC_DAYS_PREV_YEAR')),
+//              Text(
+//                '${widget._employeeDetails.currentWorkDetails.remainingVacationLastYear}',
+//                textAlign: TextAlign.right,
+//              )
+//            ]),
             TableRow(children: [
               Text(AppLocalizations.of(context)
                   .translate('OVERVIEW_CARD2_VAC_TAKEN')),
               Text(
-                '12',
+                '${widget._employeeDetails.currentWorkDetails.takenVacation}',
                 textAlign: TextAlign.right,
               )
             ]),
@@ -178,7 +182,7 @@ class _OverviewCardsState extends State<OverviewCards> {
               Text(AppLocalizations.of(context)
                   .translate('OVERVIEW_CARD2_VAC_APPLIED')),
               Text(
-                '0',
+                '${widget._employeeDetails.currentWorkDetails.appliedVacation}',
                 textAlign: TextAlign.right,
               )
             ]),
@@ -186,7 +190,7 @@ class _OverviewCardsState extends State<OverviewCards> {
               Text(AppLocalizations.of(context)
                   .translate('OVERVIEW_CARD2_VAC_PLAN')),
               Text(
-                '0',
+                '${widget._employeeDetails.contractDetails.vacation - widget._employeeDetails.currentWorkDetails.takenVacation}',
                 textAlign: TextAlign.right,
               )
             ])
@@ -211,7 +215,7 @@ class _OverviewCardsState extends State<OverviewCards> {
     );
   }
 
-  Widget buildOtherAbsences() {
+  Widget _buildOtherAbsences() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -226,18 +230,18 @@ class _OverviewCardsState extends State<OverviewCards> {
               Text(AppLocalizations.of(context)
                   .translate('OVERVIEW_CARD3_SICK_DAYS')),
               Text(
-                '8h',
+                '${widget._employeeDetails.currentWorkDetails.sickDaysCurrentMonth}',
                 textAlign: TextAlign.right,
               )
             ]),
-            TableRow(children: [
-              Text(AppLocalizations.of(context)
-                  .translate('OVERVIEW_CARD3_PUBLIC_HOLIDAYS')),
-              Text(
-                '8,5h',
-                textAlign: TextAlign.right,
-              )
-            ]),
+//            TableRow(children: [
+//              Text(AppLocalizations.of(context)
+//                  .translate('OVERVIEW_CARD3_PUBLIC_HOLIDAYS')),
+//              Text(
+//                '8,5h',
+//                textAlign: TextAlign.right,
+//              )
+//            ]),
           ],
         ),
       ],

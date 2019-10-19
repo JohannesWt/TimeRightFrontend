@@ -60,8 +60,20 @@ T _$enumDecodeNullable<T>(Map<T, dynamic> enumValues, dynamic source) {
 
 const _$TimeStampTypeEnumMap = <TimeStampType, dynamic>{
   TimeStampType.vacation: 'vacation',
+  TimeStampType.vacationValidation: 'vacationValidation',
+  TimeStampType.vacationValidationFail: 'vacationValidationFail',
   TimeStampType.flexDay: 'flexDay',
+  TimeStampType.flexDayValidation: 'flexDayValidation',
+  TimeStampType.flexDayValidationFail: 'flexDayValidationFail',
   TimeStampType.stampIn: 'stampIn',
+  TimeStampType.stampInFail: 'stampInFail',
+  TimeStampType.stampInValidation: 'stampInValidation',
+  TimeStampType.stampInValidationFail: 'stampInValidationFail',
   TimeStampType.stampOut: 'stampOut',
-  TimeStampType.sickDay: 'sickDay'
+  TimeStampType.stampOutFail: 'stampOutFail',
+  TimeStampType.stampOutValidation: 'stampOutValidation',
+  TimeStampType.stampOutValidationFail: 'stampOutValidationFail',
+  TimeStampType.sickDay: 'sickDay',
+  TimeStampType.sickDayValidation: 'sickDayValidation',
+  TimeStampType.sickDayValidationFail: 'sickDayValidationFail'
 };

@@ -1,6 +1,6 @@
 import 'package:provider/provider.dart';
 import 'package:time_right/core/services/authentication_service.dart';
-import 'package:time_right/core/services/calendar_service.dart';
+import 'package:time_right/core/services/time_stamp_service.dart';
 import 'package:time_right/core/services/employee_details_service.dart';
 
 import 'core/models/employee/employee.dart';
@@ -25,8 +25,8 @@ List<SingleChildCloneableWidget> dependentServices = [
     builder: (context, api, employeeDetailsService) =>
         EmployeeDetailsService(api: api),
   ),
-  ProxyProvider<Api, CalendarService>(
-    builder: (context, api, calendarService) => CalendarService(api: api),
+  ProxyProvider<Api, TimeStampService>(
+    builder: (context, api, timeStampService) => TimeStampService(api: api),
   ),
 ];
 

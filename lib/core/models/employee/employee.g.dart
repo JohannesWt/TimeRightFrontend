@@ -8,7 +8,7 @@ part of 'employee.dart';
 
 Employee _$EmployeeFromJson(Map<String, dynamic> json) {
   return Employee(
-      employeeID: json['employeeID'] as String,
+      employeeID: json['employeeID'] as int,
       employeeLevel:
           _$enumDecodeNullable(_$EmployeeLevelEnumMap, json['employeeLevel']));
 }
