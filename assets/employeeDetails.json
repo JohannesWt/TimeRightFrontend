@@ -1,0 +1,15 @@
+{
+  "contractDetails": {
+    "workHours": 40,
+    "vacation": 30
+  },
+  "currentWorkDetails": {
+    "flexTime": 7.23,
+    "remainingVacation": 5.0,
+    "remainingVacationLastYear": 2.0,
+    "appliedVacation": 1.0,
+    "takenVacation": 5.0,
+    "sickDaysMonth": 2
+  },
+  "stampFailsSum": 1
+}

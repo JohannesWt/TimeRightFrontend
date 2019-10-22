@@ -1,0 +1,75 @@
+[
+  {
+    "date": "2019-10-08T22:00:00Z",
+    "timeStampEvents": [
+      {
+        "timeStampType": "stampIn",
+        "dateTime": "2019-10-09T05:04:23Z"
+      },
+      {
+        "timeStampType": "stampOutFail",
+        "dateTime": "2019-10-09T14:45:43Z"
+      }
+    ]
+  },
+  {
+    "date": "2019-10-09T22:00:00Z",
+    "timeStampEvents": [
+      {
+        "timeStampType": "stampOut",
+        "dateTime": "2019-10-10T16:25:43Z"
+      },
+      {
+        "timeStampType": "stampIn",
+        "dateTime": "2019-10-10T07:12:03Z"
+      }
+    ]
+  },
+  {
+    "date": "2019-10-10T22:00:00Z",
+    "timeStampEvents": [
+      {
+        "timeStampType": "stampOut",
+        "dateTime": "2019-10-11T15:45:12Z"
+      },
+      {
+        "timeStampType": "stampIn",
+        "dateTime": "2019-10-11T06:56:23Z"
+      }
+    ]
+  },
+  {
+    "date": "2019-10-11T22:00:00Z",
+    "timeStampEvents": [
+      {
+        "timeStampType": "stampOut",
+        "dateTime": "2019-10-12T09:45:23Z"
+      },
+      {
+        "timeStampType": "stampIn",
+        "dateTime": "2019-10-12T09:24:23Z"
+      },
+      {
+        "timeStampType": "stampOut",
+        "dateTime": "2019-10-12T09:12:23Z"
+      },
+      {
+        "timeStampType": "stampIn",
+        "dateTime": "2019-10-12T06:56:23Z"
+      }
+    ]
+  },
+  {
+    "date": "2019-10-15T22:00:00Z",
+    "timeStampEvents": [
+      {
+        "timeStampType": "stampIn",
+        "dateTime": "2019-10-16T06:56:23Z"
+      },
+      {
+        "timeStampType": "stampOut",
+        "dateTime": "2019-10-16T07:40:23Z"
+      }
+    ]
+  }
+]

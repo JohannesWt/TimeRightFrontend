@@ -9,5 +9,65 @@
   "HOME_CARD_OVERTIME" : "Überstunden:",
   "HOME_CARD_LEFT_VAC" : "Resturlaubstage:",
   "HOME_CARD_SICK_DAYS" : "Kranktage:",
-  "HOME_CARD_OVERVIEW_BTN" : "Zur Übersicht"
+  "HOME_CARD_OVERVIEW_BTN" : "Zur Übersicht",
+
+  "OVERVIEW_TITLE" : "Übersicht",
+
+  "OVERVIEW_CARD1_TITLE": "Gleitzeitkonto",
+  "OVERVIEW_CARD1_OVER_HOURS" : "Überstunden des akt. Monats:",
+  "OVERVIEW_CARD1_SHORT_TERM_ACCOUNT": "Kurzzeitkonto:",
+  "OVERVIEW_CARD1_LONG_TERM_ACCOUNT": "Langzeitkonto:",
+  "OVERVIEW_CARD1_OVERTIME_PREV_YEAR": "Überstunden aus Vorjahr:",
+  "OVERVIEW_CARD1_APPLY_FLEXTIME_BTN": "Gleitzeit beantragen",
+
+  "OVERVIEW_CARD2_TITLE": "Urlaubskonto",
+  "OVERVIEW_CARD2_VAC_DAYS_CLAIM": "Urlaubsktage Anspruch:",
+  "OVERVIEW_CARD2_VAC_DAYS_PREV_YEAR": "Urlaubstage aus Vorjahr:",
+  "OVERVIEW_CARD2_VAC_TAKEN": "Genommmen:",
+  "OVERVIEW_CARD2_VAC_APPLIED": "Beantragt:",
+  "OVERVIEW_CARD2_VAC_PLAN": "Planbar:",
+  "OVERVIEW_CARD2_VAC_APPLY_BTN": "Urlaub beantragen",
+
+  "OVERVIEW_CARD3_TITLE": "Sonstige Abwesenheiten",
+  "OVERVIEW_CARD3_SICK_DAYS": "Krankheitstage:",
+  "OVERVIEW_CARD3_PUBLIC_HOLIDAYS": "Feiertage (bis heute):",
+
+  "PROFILE_TITLE": "Profil",
+  "PROFILE_INFO": "Profilinformation",
+  "PROFILE_FIRST_NAME": "Vorname:",
+  "PROFILE_LAST_NAME": "Nachname:",
+  "PROFILE_DOB": "Geburtstag:",
+  "PROFILE_EMAIL": "E-mail:",
+  "PROFILE_PHONE": "Telefon:",
+  "PROFILE_ADDRESS": "Adresse:",
+
+  "PROFILE_BANK_TITLE": "Bankverbindung",
+  "PROFILE_BANK_RECIPIENT": "Empfänger:",
+  "PROFILE_BANK_IBAN": "IBAN:",
+  "PROFILE_BANK_NAME": "Bank:",
+  "PROFILE_BANK_VALID_FROM": "Gültig ab:",
+
+
+  "PROFILE_INSURANCE_TITLE": "Krankenkasse",
+  "PROFILE_INSURANCE_NAME": "Krankenkasse:",
+  "PROFILE_INSURANCE_STATUS": "Status:",
+
+  "PROFILE_COMPANY_TITLE": "Unternehmen",
+  "PROFILE_COMPANY_Name": "Unternehmen:",
+  "PROFILE_COMPANY_POSITION": "Position:",
+  "PROFILE_COMPANY_SUPERIOR": "Vorgesetzte/r:",
+  "PROFILE_COMPANY_DIVISION": "Abteilung:",
+
+  "PROFILE_CAREER_TITLE": "Werdegang",
+  "PROFILE_CAREER_DEGREE": "Abschluss:",
+
+  "CLOCK_IN": "Einstempeln",
+  "CLOCK_OUT": "Ausstempeln",
+  "CLOCK_IN_TIME": "Einstempeln um:",
+  "CLOCK_OUT_AT": "Ausstempeln um:",
+  "HOURS_WORKED": "Gearbeitete Stunden:",
+  "EDIT_HOURS": "Nachtragen",
+
+  "CONFIRM": "Bestätigen",
+  "CANCEL": "Abbrechen"
 }

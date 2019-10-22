@@ -9,32 +9,44 @@ import 'package:time_right/ui/widgets/time_stamps_list.dart';
 import '../../app_localizations.dart';
 
 class HomeView extends StatefulWidget {
+  HomeView({@required int stampFails})
+      : _stampFails = stampFails;
+
+  final int _stampFails;
+
   @override
   _HomeViewState createState() => _HomeViewState();
 }
 
 class _HomeViewState extends State<HomeView> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: buildAppBar(),
+      appBar: _buildAppBar(),
       body: Column(
         children: <Widget>[
           Padding(
             padding: const EdgeInsets.only(left: 10.0, right: 10.0),
             child: ShortOverviewCard(),
           ),
-          buildMenuButtons(),
-          TimeStampsList()
+          _buildMenuButtons(),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.only(top: 15.0),
+              child: TimeStampsList(),
+            ),
+          ),
         ],
       ),
-      floatingActionButton: buildFloatingActionButton(),
+      floatingActionButton: _buildFloatingActionButton(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 
-  Widget buildAppBar() {
+  Widget _buildAppBar() {
     return AppBar(
+      automaticallyImplyLeading: false,
       title: Text(
         AppLocalizations.of(context).translate('HOME_TITLE'),
       ),
@@ -50,7 +62,7 @@ class _HomeViewState extends State<HomeView> {
     );
   }
 
-  Widget buildFloatingActionButton() {
+  Widget _buildFloatingActionButton() {
     return FloatingActionButton.extended(
       onPressed: () {},
       label: Text(
@@ -65,14 +77,14 @@ class _HomeViewState extends State<HomeView> {
     );
   }
 
-  Widget buildMenuButtons() {
+  Widget _buildMenuButtons() {
     return Padding(
       padding: const EdgeInsets.only(top: 20.0, left: 5, right: 5),
       child: IntrinsicHeight(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
-            buildMenuButton(
+            _buildMenuButton(
                 AppLocalizations.of(context).translate('HOME_CAL_BTN_LABEL'),
                 Icons.calendar_today,
                 true,
@@ -82,7 +94,7 @@ class _HomeViewState extends State<HomeView> {
               width: 20,
               thickness: 1.2,
             ),
-            buildMenuButton(
+            _buildMenuButton(
                 AppLocalizations.of(context).translate('HOME_ABS_BTN_LABEL'),
                 Icons.add,
                 false,
@@ -93,8 +105,8 @@ class _HomeViewState extends State<HomeView> {
     );
   }
 
-  Widget buildMenuButton(
-      String title, IconData icon, bool notBatch, String target) {
+  Widget _buildMenuButton(
+      String title, IconData icon, bool notificationBatch, String target) {
     return Expanded(
       child: FlatButton(
         child: Padding(
@@ -103,7 +115,7 @@ class _HomeViewState extends State<HomeView> {
           ),
           child: Column(
             children: <Widget>[
-              !notBatch
+              !notificationBatch
                   ? Icon(
                       icon,
                       size: 26,
@@ -118,19 +130,21 @@ class _HomeViewState extends State<HomeView> {
                         Positioned(
                           right: 0,
                           top: 1,
-                          child: Container(
-                            padding: EdgeInsets.all(2.0),
-                            decoration: BoxDecoration(
-                                color: mainRed,
-                                borderRadius: BorderRadius.circular(6.0)),
-                            constraints:
-                                BoxConstraints(minWidth: 14, minHeight: 14),
-                            child: Text(
-                              '2',
-                              style: TextStyle(fontSize: 8, color: white),
-                              textAlign: TextAlign.center,
-                            ),
-                          ),
+                          child: widget._stampFails > 0
+                              ? Container(
+                                  padding: EdgeInsets.all(2.0),
+                                  decoration: BoxDecoration(
+                                      color: mainRed,
+                                      borderRadius: BorderRadius.circular(6.0)),
+                                  constraints: BoxConstraints(
+                                      minWidth: 14, minHeight: 14),
+                                  child: Text(
+                                    '${widget._stampFails}',
+                                    style: TextStyle(fontSize: 8, color: white),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                )
+                              : Container(),
                         ),
                       ],
                     ),

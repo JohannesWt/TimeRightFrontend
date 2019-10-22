@@ -20,6 +20,6 @@ class CareerDetail {
   String companyName;
   String department;
   String workArea;
-  String startDate;
-  String endDate;
+  DateTime startDate;
+  DateTime endDate;
 }
