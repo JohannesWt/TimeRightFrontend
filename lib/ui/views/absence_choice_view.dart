@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
+import '../../app_localizations.dart';
 
 class AbsenceChoiceView extends StatelessWidget {
   AbsenceChoiceView({@required this.onPressed});
@@ -9,7 +10,8 @@ class AbsenceChoiceView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text('Abwesenheit')),
+        appBar: AppBar(title:Text(
+            AppLocalizations.of(context).translate('HOME_ABS_BTN_LABEL'))),
 
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
