@@ -6,4 +6,8 @@ class RoutePaths {
   static const String profileView = 'profileView';
   static const String overviewView = 'overviewView';
   static const String timeStampView= 'timeStampView';
+  static const String editDataView= 'editDataView';
+  static const String vacationView= 'vacationView';
+  static const String sickLeaveView= 'sickLeaveView';
+  static const String flexDayView= 'flexDayView';
 }

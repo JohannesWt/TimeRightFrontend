@@ -126,7 +126,7 @@ class _OverviewCardsState extends State<OverviewCards> {
         ),
         FlatButton(
           onPressed: () =>
-              Navigator.pushNamed(context, RoutePaths.overviewView),
+              Navigator.pushNamed(context, RoutePaths.flexDayView),
           padding: const EdgeInsets.all(0.0),
           child: Row(
             children: <Widget>[
@@ -198,7 +198,7 @@ class _OverviewCardsState extends State<OverviewCards> {
         ),
         FlatButton(
           onPressed: () =>
-              Navigator.pushNamed(context, RoutePaths.overviewView),
+              Navigator.pushNamed(context, RoutePaths.vacationView),
           padding: const EdgeInsets.all(0.0),
           child: Row(
             children: <Widget>[
