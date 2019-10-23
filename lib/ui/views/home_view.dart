@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:provider/provider.dart';
 import 'package:time_right/core/constants/app_constants.dart';
 import 'package:time_right/core/viewmodels/views/base_widget.dart';
@@ -8,7 +9,6 @@ import 'package:time_right/core/viewmodels/views/home_view_model.dart';
 import 'package:time_right/ui/shared/colors.dart';
 import 'package:time_right/ui/widgets/short_overview_card.dart';
 import 'package:time_right/ui/widgets/time_stamps_list.dart';
-
 import '../../app_localizations.dart';
 
 class HomeView extends StatefulWidget {
@@ -42,10 +42,25 @@ class _HomeViewState extends State<HomeView> {
                     TimeStampsList(),
                   ],
                 ),
-                floatingActionButton: buildFloatingActionButton(),
+            /*   floatingActionButton: SpeedDial(marginBottom: 16,
+                  animatedIcon: AnimatedIcons.menu_close,
+                  children: [
+                    SpeedDialChild(
+                      child: Icon(Icons.input),
+                      label: AppLocalizations.of(context).translate('CLOCK_IN'),
+                      onTap: buildFloatingActionButton
+                    ),
+                    SpeedDialChild(
+                      child: Icon(Icons.close),
+                      label:
+                          AppLocalizations.of(context).translate('CLOCK_OUT'),
+                    ),
+                  ],
+                )*/
+               floatingActionButton: buildFloatingActionButton(),
                 floatingActionButtonLocation:
                     FloatingActionButtonLocation.centerFloat,
-              ),
+                ),
       ),
     );
   }
@@ -70,7 +85,7 @@ class _HomeViewState extends State<HomeView> {
 
   Widget buildFloatingActionButton() {
     return FloatingActionButton.extended(
-      onPressed: () {},
+      onPressed: () => Navigator.pushNamed(context, RoutePaths.editDataView),
       label: Text(
         AppLocalizations.of(context).translate('HOME_FAB_LABEL'),
         style: TextStyle(fontSize: 20),

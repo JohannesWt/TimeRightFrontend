@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:time_right/ui/widgets/overview_view_cards.dart';
 import 'package:time_right/ui/widgets/profileview_list.dart';
 import 'package:time_right/core/constants/app_constants.dart';
 
