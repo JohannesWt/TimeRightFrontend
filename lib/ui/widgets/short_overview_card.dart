@@ -32,10 +32,11 @@ class _ShortOverviewCardState extends State<ShortOverviewCard> {
             children: <Widget>[
               WorkTimeClock(),
               Expanded(
-                  child: Padding(
-                padding: const EdgeInsets.only(left: 16.0),
-                child: buildShortOverview(),
-              )),
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 16.0),
+                  child: buildShortOverview(),
+                ),
+              ),
             ],
           ),
         ),
@@ -74,7 +75,7 @@ class _ShortOverviewCardState extends State<ShortOverviewCard> {
               Text(
                   AppLocalizations.of(context).translate('HOME_CARD_LEFT_VAC')),
               Text(
-                '${_shortOverviewCardModel.currentWorkDetails.remainingVacation}',
+                '${_shortOverviewCardModel.contractDetails.vacation - _shortOverviewCardModel.currentWorkDetails.takenVacation}',
                 textAlign: TextAlign.right,
               )
             ]),
@@ -82,15 +83,15 @@ class _ShortOverviewCardState extends State<ShortOverviewCard> {
               Text(AppLocalizations.of(context)
                   .translate('HOME_CARD_SICK_DAYS')),
               Text(
-                '${_shortOverviewCardModel.currentWorkDetails.sickDaysMonth}',
+                '${_shortOverviewCardModel.currentWorkDetails.sickDaysCurrentMonth}',
                 textAlign: TextAlign.right,
               )
             ])
           ],
         ),
         FlatButton(
-          onPressed: () =>
-              Navigator.pushNamed(context, RoutePaths.overviewView),
+          onPressed: () => Navigator.pushNamed(context, RoutePaths.overviewView,
+              arguments: _shortOverviewCardModel.employeeDetails),
           padding: const EdgeInsets.all(3.0),
           child: Row(
             children: <Widget>[

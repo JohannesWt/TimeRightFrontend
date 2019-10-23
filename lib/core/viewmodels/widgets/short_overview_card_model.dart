@@ -9,6 +9,8 @@ class ShortOverviewCardModel extends BaseModel {
 
   final EmployeeDetailsService _employeeDetailService;
 
+  EmployeeDetails get employeeDetails => _employeeDetailService.employeeDetails;
+
   CurrentWorkDetails get currentWorkDetails =>
       _employeeDetailService.employeeDetails.currentWorkDetails;
 
