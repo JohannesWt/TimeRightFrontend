@@ -68,6 +68,15 @@
   "HOURS_WORKED": "Gearbeitete Stunden:",
   "EDIT_HOURS": "Nachtragen",
 
+  "VAC_FROM": "Von:",
+  "VAC_TO": "Bis:",
+  "VAC_DAYS_SUM": "Summe:",
+  "VAC_DAYS_REMAINING": "Resturlaub:",
+  "SICK_LEAVE": "Krankmeldung",
+  "DATE": "Datum:",
+  "HOURS": "Stunden",
+  "HOURS_APPLIED": "Anzahl Stunden:",
+
   "CONFIRM": "Bestätigen",
   "CANCEL": "Abbrechen"
 }

@@ -8,17 +8,14 @@ import 'package:time_right/ui/widgets/overview_view_cards.dart';
 
 import '../../app_localizations.dart';
 
-class TimeStampView extends StatefulWidget {
-//  TimeStampView({@required TimeStampType timeStampType}) : _timeStampType = timeStampType;
-//
-//  final TimeStampType _timeStampType;
-
+class SickLeaveView extends StatefulWidget {
   @override
-  _ClockInState createState() => _ClockInState();
+  _SickLeaveState createState() => _SickLeaveState();
 }
 
-class _ClockInState extends State<TimeStampView> {
-  var _currentValueSelected = 'CLOCK_IN';
+class _SickLeaveState extends State<SickLeaveView> {
+  DateTime _date = new DateTime.now();
+  TimeOfDay _time = new TimeOfDay.now();
 
   @override
   Widget build(BuildContext context) {
@@ -33,12 +30,13 @@ class _ClockInState extends State<TimeStampView> {
               children: <Widget>[
                 Padding(
                   padding: const EdgeInsets.only(left: 10.0, right: 10.0),
-                  child: _dropdownButton(),
+                  //  child: _dropdownButton(),
                 ),
                 Padding(
                     padding: const EdgeInsets.only(left: 10.0, right: 10.0),
-                    child: clockIn(),
-                    ),
+                    child: sickLeave()
+                  //clockIn(),
+                ),
               ],
             ),
           ),
@@ -91,7 +89,7 @@ class _ClockInState extends State<TimeStampView> {
     );
   }
 
-  Widget clockIn() {
+  Widget sickLeave() {
     return Column(
       children: <Widget>[
         Column(
@@ -104,7 +102,7 @@ class _ClockInState extends State<TimeStampView> {
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsets.only(left: 10.0, right: 10.0),
-                      child: clockInWidget(),
+                      child: sickLeaveWidget(),
                     ),
                   ),
                 ],
@@ -116,104 +114,94 @@ class _ClockInState extends State<TimeStampView> {
     );
   }
 
-  Widget clockOut() {
+  Widget sickLeaveWidget() {
     return Column(
-      children: <Widget>[
-        Column(
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: <Widget>[
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 10.0, right: 10.0),
-                      child: clockOutWidget(),
-                    ),
-                  ),
-                ],
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: <Widget>[
+          Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              Text(
+                AppLocalizations.of(context).translate('SICK_LEAVE'),
+                style: Theme.of(context).textTheme.headline,
+                textScaleFactor: 1.3,
               ),
+            ],
+          ),
+          FlatButton(
+            onPressed: () {
+              {
+                _selectDate(context);
+              }
+            },
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text(
+                  '${_date.day.toString()}. ${_date.month.toString()}. ${_date.year.toString()} ',
+                  style: Theme.of(context).textTheme.title,
+                  textScaleFactor: 1.3,
+                ),
+                Icon(
+                  Icons.calendar_today,
+                  size: 20,
+                )
+              ],
             ),
-          ],
-        ),
-      ],
+          ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Text(
+                AppLocalizations.of(context).translate('HOURS'),
+                style: Theme.of(context).textTheme.subhead,
+                textScaleFactor: 1.3,
+              ),
+            ],
+          ),
+          FlatButton(
+            onPressed: () {
+              _selectTime(context);
+            },
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text(
+                  '${_time.format(context)}  ',
+                  style: Theme.of(context).textTheme.title,
+                  textScaleFactor: 1.3,
+                ),
+                Icon(
+                  Icons.access_time,
+                  size: 20,
+                )
+              ],
+            ),
+          ),
+        ]);
+  }
+
+  Future<Null> _selectDate(BuildContext context) async {
+    final DateTime picked = await showDatePicker(
+      context: context,
+      initialDate: _date,
+      firstDate: new DateTime(2018,6),
+      lastDate: _date,
     );
+    if (picked != null && picked != _date) {
+      setState(() {
+        _date = picked;
+      });
+    }
   }
 
-
-
-  DropdownButton _dropdownButton() => DropdownButton<String>(
-        items: [
-          DropdownMenuItem(
-            value: "1",
-            child: Text(
-              AppLocalizations.of(context).translate('CLOCK_IN'),
-            ),
-          ),
-          DropdownMenuItem(
-            value: "2",
-            child: Text(
-              AppLocalizations.of(context).translate('CLOCK_OUT'),
-            ),
-          ),
-        ],
-//        value: _currentValueSelected,
-        onChanged: (newValueSelected) {
-          setState(() {
-            this._currentValueSelected = newValueSelected;
-            if (newValueSelected == 'CLOCK_IN') {
-              clockIn();
-            } else
-              clockOut();
-          });
-        },
-        // value: _currentValueSelected,
-      );
-
-  Widget clockInWidget() {
-    return Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Text(
-            AppLocalizations.of(context).translate('CLOCK_IN'),
-            style: Theme.of(context).textTheme.headline,
-            textScaleFactor: 1.3,
-          ),
-          Text(
-            AppLocalizations.of(context).translate('CLOCK_IN_TIME'),
-            style: Theme.of(context).textTheme.subhead,
-            textScaleFactor: 1.2,
-          ),
-          Text(
-            '10:33:23',
-            style: Theme.of(context).textTheme.title,
-            textScaleFactor: 1.2,
-          ),
-        ]);
+  Future<Null> _selectTime(BuildContext context) async {
+    final TimeOfDay picked =
+    await showTimePicker(context: context, initialTime: _time);
+    if (picked != null && picked != _time) {
+      setState(() {
+        _time = picked;
+      });
+    }
   }
-
-  Widget clockOutWidget() {
-    return Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Text(
-            AppLocalizations.of(context).translate('CLOCK_OUT'),
-            style: Theme.of(context).textTheme.headline,
-            textScaleFactor: 1.3,
-          ),
-          Text(
-            AppLocalizations.of(context).translate('CLOCK_OUT_AT'),
-            style: Theme.of(context).textTheme.subhead,
-            textScaleFactor: 1.2,
-          ),
-          Text(
-            '19:33:23',
-            style: Theme.of(context).textTheme.title,
-            textScaleFactor: 1.2,
-          ),
-        ]);
-  }
-
-
 }

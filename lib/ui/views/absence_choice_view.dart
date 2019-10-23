@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import '../../app_localizations.dart';
@@ -31,7 +32,6 @@ class AbsenceChoiceView extends StatelessWidget {
                             child: Icon(Icons.arrow_forward_ios)))
                   ],
                 )
-
             ),
             FlatButton(
                 onPressed: () {},
@@ -47,7 +47,6 @@ class AbsenceChoiceView extends StatelessWidget {
                             child: Icon(Icons.arrow_forward_ios)))
                   ],
                 )
-
             ),
             FlatButton(
                 onPressed: () {},
@@ -63,11 +62,7 @@ class AbsenceChoiceView extends StatelessWidget {
                             child: Icon(Icons.arrow_forward_ios)))
                   ],
                 )
-
             )
-
-
-
           ],
         )
     );
@@ -75,3 +70,4 @@ class AbsenceChoiceView extends StatelessWidget {
 
 
 }
+

@@ -30,7 +30,7 @@
   "OVERVIEW_CARD2_VAC_APPLY_BTN": "Apply for vacation",
 
   "OVERVIEW_CARD3_TITLE": "Other absences",
-  "OVERVIEW_CARD3_SICK_DAYS": "Sick day:",
+  "OVERVIEW_CARD3_SICK_DAYS": "Sick days:",
   "OVERVIEW_CARD3_PUBLIC_HOLIDAYS": "Public holidays (until today):",
 
 
@@ -65,10 +65,20 @@
 
   "CLOCK_IN": "Clock in",
   "CLOCK_OUT": "Clock out",
-  "CLOCK_IN_TIME": "Clock in at: ",
-  "CLOCK_OUT_AT": "Clock out at: ",
+  "CLOCK_IN_TIME": "Stamp in at: ",
+  "CLOCK_OUT_AT": "Stamp out at: ",
   "HOURS_WORKED": "Hours worked:",
-  "EDIT_HOURS": "Edit hours:",
+  "EDIT_HOURS": "Edit hours",
+
+  "VAC_FROM": "From:",
+  "VAC_TO": "Until:",
+  "VAC_DAYS_SUM": "Total:",
+  "VAC_DAYS_REMAINING": "Remaining vacation:",
+
+  "SICK_LEAVE": "Sick leave",
+  "DATE": "Date:",
+  "HOURS": "Hours",
+  "HOURS_APPLIED": "Applied Hours:",
 
   "CONFIRM": "Confirm",
   "CANCEL": "Cancel"

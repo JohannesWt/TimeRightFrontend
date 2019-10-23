@@ -5,7 +5,6 @@ import 'package:time_right/core/constants/app_constants.dart';
 import 'package:time_right/ui/shared/colors.dart';
 import 'package:time_right/ui/widgets/short_overview_card.dart';
 import 'package:time_right/ui/widgets/time_stamps_list.dart';
-
 import '../../app_localizations.dart';
 
 class HomeView extends StatefulWidget {
@@ -64,7 +63,7 @@ class _HomeViewState extends State<HomeView> {
 
   Widget _buildFloatingActionButton() {
     return FloatingActionButton.extended(
-      onPressed: () {},
+      onPressed: () => Navigator.pushNamed(context, RoutePaths.editDataView),
       label: Text(
         AppLocalizations.of(context).translate('HOME_FAB_LABEL'),
         style: TextStyle(fontSize: 20),
