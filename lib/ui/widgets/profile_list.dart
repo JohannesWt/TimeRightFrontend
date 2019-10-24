@@ -1,12 +1,17 @@
+/*
+ * Copyright (c) 2019. Julian Börste, Nico Kindervater, Steffen Montag, Chris McQueen, Johannes Wiest. All rights reserved.
+ */
+
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:time_right/app_localizations.dart';
+import 'package:time_right/core/models/employee_profile/employee_profile.dart';
+import 'package:time_right/ui/views/base_widget.dart';
+import 'package:time_right/core/viewmodels/views/profile_view_model.dart';
+import 'package:time_right/ui/views/profile_view.dart';
 
-class ProfileList extends StatefulWidget {
-  @override
-  _ProfileListState createState() => _ProfileListState();
-}
-
-class _ProfileListState extends State<ProfileList> {
+/// Class builds the profile list displayed in the [ProfileView].
+class ProfileList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView(
@@ -24,7 +29,7 @@ class _ProfileListState extends State<ProfileList> {
                     child: Padding(
                   padding: const EdgeInsets.only(left: 10.0, right: 10.0),
                   //how do I call a list of widgets here?
-                  child: profileInformation(),
+                  child: _profileInformation(context),
                 )),
               ],
             ),
@@ -41,7 +46,7 @@ class _ProfileListState extends State<ProfileList> {
                       child: Padding(
                     padding: const EdgeInsets.only(left: 10.0, right: 10.0),
                     //how do I call a list of widgets here?
-                    child: profileBankDetails(),
+                    child: _profileBankDetails(context),
                   )),
                 ],
               ),
@@ -60,7 +65,7 @@ class _ProfileListState extends State<ProfileList> {
                       child: Padding(
                     padding: const EdgeInsets.only(left: 10.0, right: 10.0),
                     //how do I call a list of widgets here?
-                    child: profileInsuranceDetails(),
+                    child: _profileInsuranceDetails(context),
                   )),
                 ],
               ),
@@ -79,7 +84,7 @@ class _ProfileListState extends State<ProfileList> {
                       child: Padding(
                     padding: const EdgeInsets.only(left: 10.0, right: 10.0),
                     //how do I call a list of widgets here?
-                    child: profileCompanyDetails(),
+                    child: _profileCompanyDetails(context),
                   )),
                 ],
               ),
@@ -90,7 +95,8 @@ class _ProfileListState extends State<ProfileList> {
     );
   }
 
-  Widget profileInformation() {
+  /// Return Column with personal information of the current logged in employee
+  Widget _profileInformation(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -150,7 +156,8 @@ class _ProfileListState extends State<ProfileList> {
     );
   }
 
-  Widget profileBankDetails() {
+  /// Return column of bank details information of the current logged in employee
+  Widget _profileBankDetails(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -158,7 +165,8 @@ class _ProfileListState extends State<ProfileList> {
           AppLocalizations.of(context).translate('PROFILE_BANK_TITLE'),
           style: Theme.of(context).textTheme.title,
         ),
-        Table(columnWidths: {1: FractionColumnWidth(.6)},
+        Table(
+          columnWidths: {1: FractionColumnWidth(.6)},
           children: [
             TableRow(children: [
               Text(AppLocalizations.of(context)
@@ -196,7 +204,8 @@ class _ProfileListState extends State<ProfileList> {
     );
   }
 
-  Widget profileInsuranceDetails() {
+  /// Return column with insurance details of the current logged in employee
+  Widget _profileInsuranceDetails(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -229,7 +238,9 @@ class _ProfileListState extends State<ProfileList> {
     );
   }
 
-  Widget profileCompanyDetails() {
+  /// Return column with company details (department, position) of the current
+  /// logged in employee
+  Widget _profileCompanyDetails(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[

@@ -1,56 +1,58 @@
+/*
+ * Copyright (c) 2019. Julian Börste, Nico Kindervater, Steffen Montag, Chris McQueen, Johannes Wiest. All rights reserved.
+ */
+
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:time_right/app_localizations.dart';
 import 'package:time_right/core/constants/app_constants.dart';
-import 'package:time_right/core/viewmodels/views/base_widget.dart';
-import 'package:time_right/core/viewmodels/widgets/short_overview_card_model.dart';
+import 'package:time_right/core/models/employee_details/employee_details.dart';
+import 'package:time_right/ui/views/home_view.dart';
 
 import 'work_time_clock.dart';
 
-class ShortOverviewCard extends StatefulWidget {
-  @override
-  _ShortOverviewCardState createState() => _ShortOverviewCardState();
-}
+/// Class builds the short overview card on the [HomeView].
+class ShortOverviewCard extends StatelessWidget {
+  ShortOverviewCard({@required EmployeeDetails employeeDetails})
+      : _employeeDetails = employeeDetails;
 
-class _ShortOverviewCardState extends State<ShortOverviewCard> {
-  ShortOverviewCardModel _shortOverviewCardModel;
+  /// [EmployeeDetails] to get access to all information for the overview.
+  final EmployeeDetails _employeeDetails;
 
+  /// Build short overview card.
   @override
   Widget build(BuildContext context) {
-    return BaseWidget(
-      model:
-          ShortOverviewCardModel(employeeDetailsService: Provider.of(context)),
-      onModelReady: (model) => _shortOverviewCardModel = model,
-      builder: (context, model, child) => Card(
-        shape:
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
-        elevation: 5,
-        child: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              WorkTimeClock(),
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 16.0),
-                  child: buildShortOverview(),
-                ),
+    return Card(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+      elevation: 5,
+      child: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            WorkTimeClock(),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.only(left: 16.0),
+                child: _buildShortOverview(context),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
   }
 
-  Widget buildShortOverview() {
+  /// Return column with all information included in the short over view card.
+  Widget _buildShortOverview(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Text(
           AppLocalizations.of(context).translate('HOME_CARD_TITLE'),
-          style: Theme.of(context).textTheme.title,
+          style: Theme
+              .of(context)
+              .textTheme
+              .title,
         ),
         Table(
           columnWidths: {1: FractionColumnWidth(.25)},
@@ -59,7 +61,7 @@ class _ShortOverviewCardState extends State<ShortOverviewCard> {
               Text(AppLocalizations.of(context)
                   .translate('HOME_CARD_WORK_TIME')),
               Text(
-                '${_shortOverviewCardModel.contractDetails.workHours / 5}',
+                '${_employeeDetails.contractDetails.workHours / 5}',
                 textAlign: TextAlign.right,
               )
             ]),
@@ -67,7 +69,7 @@ class _ShortOverviewCardState extends State<ShortOverviewCard> {
               Text(
                   AppLocalizations.of(context).translate('HOME_CARD_OVERTIME')),
               Text(
-                '${_shortOverviewCardModel.currentWorkDetails.flexTime}',
+                '${_employeeDetails.currentWorkDetails.flexTime}',
                 textAlign: TextAlign.right,
               )
             ]),
@@ -75,7 +77,8 @@ class _ShortOverviewCardState extends State<ShortOverviewCard> {
               Text(
                   AppLocalizations.of(context).translate('HOME_CARD_LEFT_VAC')),
               Text(
-                '${_shortOverviewCardModel.contractDetails.vacation - _shortOverviewCardModel.currentWorkDetails.takenVacation}',
+                '${_employeeDetails.contractDetails.vacation -
+                    _employeeDetails.currentWorkDetails.takenVacation}',
                 textAlign: TextAlign.right,
               )
             ]),
@@ -83,15 +86,16 @@ class _ShortOverviewCardState extends State<ShortOverviewCard> {
               Text(AppLocalizations.of(context)
                   .translate('HOME_CARD_SICK_DAYS')),
               Text(
-                '${_shortOverviewCardModel.currentWorkDetails.sickDaysCurrentMonth}',
+                '${_employeeDetails.currentWorkDetails.sickDaysCurrentMonth}',
                 textAlign: TextAlign.right,
               )
             ])
           ],
         ),
         FlatButton(
-          onPressed: () => Navigator.pushNamed(context, RoutePaths.overviewView,
-              arguments: _shortOverviewCardModel.employeeDetails),
+          onPressed: () =>
+              Navigator.pushNamed(context, RoutePaths.overviewView,
+                  arguments: _employeeDetails),
           padding: const EdgeInsets.all(3.0),
           child: Row(
             children: <Widget>[
