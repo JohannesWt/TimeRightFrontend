@@ -1,11 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:time_right/core/constants/app_constants.dart';
-import 'package:time_right/core/models/time_stamp_details/time_stamp_details.dart';
-import 'package:time_right/ui/shared/colors.dart';
-import 'package:time_right/ui/widgets/overview_view_cards.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:time_right/core/constants/app_constants.dart';
+import 'package:time_right/ui/shared/colors.dart';
 
 import '../../app_localizations.dart';
 
@@ -125,7 +123,8 @@ class _FlexDayState extends State<FlexDayView> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
               Text(
-                AppLocalizations.of(context).translate('OVERVIEW_CARD1_APPLY_FLEXTIME_BTN'),
+                AppLocalizations.of(context)
+                    .translate('OVERVIEW_CARD1_APPLY_FLEXTIME_BTN'),
                 style: Theme.of(context).textTheme.headline,
                 textScaleFactor: 1.3,
               ),
@@ -138,9 +137,9 @@ class _FlexDayState extends State<FlexDayView> {
           ),
           FlatButton(
             onPressed: () {
-              {
-                _selectDate(context);
-              }
+//              {
+//                _selectDate(context);
+//              }
             },
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -169,9 +168,10 @@ class _FlexDayState extends State<FlexDayView> {
             ],
           ),
           FlatButton(
-            onPressed: () { print('Edit button was pressed');
+            onPressed: () {
+              print('Edit button was pressed');
 
-            //  Text(titleValue);
+              //  Text(titleValue);
               //_selectTime(context);
             },
             child: Row(
@@ -194,23 +194,15 @@ class _FlexDayState extends State<FlexDayView> {
             children: <Widget>[
               Text(
                 AppLocalizations.of(context).translate('OVERVIEW_CARD1_TITLE'),
-                style: Theme
-                    .of(context)
-                    .textTheme
-                    .title,
+                style: Theme.of(context).textTheme.title,
                 textScaleFactor: 1.3,
               ),
               Text(
                 'Mock hours worked',
-                style: Theme
-                    .of(context)
-                    .textTheme
-                    .title,
+                style: Theme.of(context).textTheme.title,
                 textScaleFactor: 1.3,
               ),
-
             ],
-
           ),
         ]);
   }
@@ -238,14 +230,14 @@ class _FlexDayState extends State<FlexDayView> {
       });
     }
   }
-  editHours() {
-    TextField(
+
+  Widget editHours() {
+    return TextField(
         keyboardType: TextInputType.number,
         style: Theme.of(context).textTheme.display1,
         decoration: InputDecoration(
           labelText: 'Enter working hours:',
-          errorText:
-          _inputIsValid ? null : 'Please enter a double value',
+          errorText: _inputIsValid ? null : 'Please enter a double value',
           border: OutlineInputBorder(
             borderRadius: BorderRadius.all(
               Radius.circular(10),
@@ -257,9 +249,8 @@ class _FlexDayState extends State<FlexDayView> {
         },
         onChanged: (String val) {
           setState(() {
-            titleValue= val;
+            titleValue = val;
           });
-        }
-    );
+        });
   }
 }

@@ -1,11 +1,17 @@
+/*
+ * Copyright (c) 2019. Julian Börste, Nico Kindervater, Steffen Montag, Chris McQueen, Johannes Wiest. All rights reserved.
+ */
+
 import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:time_right/core/viewmodels/views/base_widget.dart';
+import 'package:time_right/ui/views/base_widget.dart';
 import 'package:time_right/core/viewmodels/widgets/work_time_clock_model.dart';
 import 'package:time_right/ui/shared/colors.dart';
+import 'package:time_right/ui/views/home_view.dart';
 
+/// Class builds the work time clock on the [HomeView].
 class WorkTimeClock extends StatefulWidget {
   @override
   _WorkTimeClockState createState() => _WorkTimeClockState();
@@ -16,16 +22,14 @@ class _WorkTimeClockState extends State<WorkTimeClock> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
-    print('dispose');
     _workTimeClockModel.dispose();
     super.dispose();
   }
 
+  /// Builds the work time clock.
   @override
   Widget build(BuildContext context) {
-    print('build');
-    return BaseWidget(
+    return BaseWidget<WorkTimeClockModel>(
       model: WorkTimeClockModel(
           employeeDetailsService: Provider.of(context),
           timeStampService: Provider.of(context)),
@@ -61,6 +65,7 @@ class _WorkTimeClockState extends State<WorkTimeClock> {
   }
 }
 
+/// Class draws the borders around the clock and work time string.
 class HoursDrawer extends CustomPainter {
   Color lineColor;
   Color completeColor;
@@ -70,6 +75,8 @@ class HoursDrawer extends CustomPainter {
   HoursDrawer(
       {this.lineColor, this.completeColor, this.completePercent, this.width});
 
+  /// Paint the border around the clock.
+  /// The percentage indicates how much the outer border should is painted.
   @override
   void paint(Canvas canvas, Size size) {
     Paint line = new Paint()
@@ -90,6 +97,8 @@ class HoursDrawer extends CustomPainter {
         arcAngle, false, complete);
   }
 
+  /// Every time the percentage changes the borders of the work time clock should
+  /// be rebuild.
   @override
   bool shouldRepaint(CustomPainter oldDelegate) {
     return true;

@@ -1,19 +1,23 @@
+/*
+ * Copyright (c) 2019. Julian Börste, Nico Kindervater, Steffen Montag, Chris McQueen, Johannes Wiest. All rights reserved.
+ */
+
 import 'package:flutter/material.dart';
 import 'package:time_right/app_localizations.dart';
 import 'package:time_right/core/constants/app_constants.dart';
+import 'package:time_right/core/models/contract_details/contract_details.dart';
 import 'package:time_right/core/models/employee_details/employee_details.dart';
+import 'package:time_right/ui/views/overview_view.dart';
 
-class OverviewCards extends StatefulWidget {
+/// Class builds the single cards in the [OverviewView].
+class OverviewCards extends StatelessWidget {
   OverviewCards({@required EmployeeDetails employeeDetails})
       : _employeeDetails = employeeDetails;
 
+  /// [EmployeeDetails] to display the [CurrentWorkDetails] and [ContractDetails].
   final EmployeeDetails _employeeDetails;
 
-  @override
-  _OverviewCardsState createState() => _OverviewCardsState();
-}
-
-class _OverviewCardsState extends State<OverviewCards> {
+  /// Build the list of cards.
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -31,7 +35,7 @@ class _OverviewCardsState extends State<OverviewCards> {
                     child: Padding(
                         padding: const EdgeInsets.only(left: 10.0, right: 10.0),
                         //how do I call a list of widgets here?
-                        child: _buildFlexTimeAccount()
+                        child: _buildFlexTimeAccount(context)
                         // buildVacationAccount(),   buildOtherAbsences()
                         )),
               ],
@@ -51,7 +55,7 @@ class _OverviewCardsState extends State<OverviewCards> {
                     child: Padding(
                         padding: const EdgeInsets.only(left: 10.0, right: 10.0),
                         //how do I call a list of widgets here?
-                        child: _buildVacationAccount()
+                        child: _buildVacationAccount(context)
                         // buildVacationAccount(),   buildOtherAbsences()
                         )),
               ],
@@ -70,7 +74,7 @@ class _OverviewCardsState extends State<OverviewCards> {
                 Expanded(
                     child: Padding(
                         padding: const EdgeInsets.only(left: 10.0, right: 10.0),
-                        child: _buildOtherAbsences())),
+                        child: _buildOtherAbsences(context))),
               ],
             ),
           ),
@@ -79,7 +83,8 @@ class _OverviewCardsState extends State<OverviewCards> {
     );
   }
 
-  Widget _buildFlexTimeAccount() {
+  /// Return column with all flex time information
+  Widget _buildFlexTimeAccount(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -94,11 +99,11 @@ class _OverviewCardsState extends State<OverviewCards> {
               Text(AppLocalizations.of(context)
                   .translate('OVERVIEW_CARD1_OVER_HOURS')),
               Text(
-                '${widget._employeeDetails.currentWorkDetails.flexTime}',
+                '${_employeeDetails.currentWorkDetails.flexTime}',
                 textAlign: TextAlign.right,
               )
             ]),
-//            TableRow(children: [
+//            TableRow(children:
 //              Text(AppLocalizations.of(context)
 //                  .translate('OVERVIEW_CARD1_SHORT_TERM_ACCOUNT')),
 //              Text(
@@ -143,7 +148,8 @@ class _OverviewCardsState extends State<OverviewCards> {
     );
   }
 
-  Widget _buildVacationAccount() {
+  /// Return column with all vacation information
+  Widget _buildVacationAccount(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -158,7 +164,7 @@ class _OverviewCardsState extends State<OverviewCards> {
               Text(AppLocalizations.of(context)
                   .translate('OVERVIEW_CARD2_VAC_DAYS_CLAIM')),
               Text(
-                '${widget._employeeDetails.contractDetails.vacation}',
+                '${_employeeDetails.contractDetails.vacation}',
                 textAlign: TextAlign.right,
               )
             ]),
@@ -174,7 +180,7 @@ class _OverviewCardsState extends State<OverviewCards> {
               Text(AppLocalizations.of(context)
                   .translate('OVERVIEW_CARD2_VAC_TAKEN')),
               Text(
-                '${widget._employeeDetails.currentWorkDetails.takenVacation}',
+                '${_employeeDetails.currentWorkDetails.takenVacation}',
                 textAlign: TextAlign.right,
               )
             ]),
@@ -182,7 +188,7 @@ class _OverviewCardsState extends State<OverviewCards> {
               Text(AppLocalizations.of(context)
                   .translate('OVERVIEW_CARD2_VAC_APPLIED')),
               Text(
-                '${widget._employeeDetails.currentWorkDetails.appliedVacation}',
+                '${_employeeDetails.currentWorkDetails.appliedVacation}',
                 textAlign: TextAlign.right,
               )
             ]),
@@ -190,7 +196,7 @@ class _OverviewCardsState extends State<OverviewCards> {
               Text(AppLocalizations.of(context)
                   .translate('OVERVIEW_CARD2_VAC_PLAN')),
               Text(
-                '${widget._employeeDetails.contractDetails.vacation - widget._employeeDetails.currentWorkDetails.takenVacation}',
+                '${_employeeDetails.contractDetails.vacation - _employeeDetails.currentWorkDetails.takenVacation}',
                 textAlign: TextAlign.right,
               )
             ])
@@ -215,7 +221,8 @@ class _OverviewCardsState extends State<OverviewCards> {
     );
   }
 
-  Widget _buildOtherAbsences() {
+  /// Return column with information of other absences.
+  Widget _buildOtherAbsences(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -230,18 +237,10 @@ class _OverviewCardsState extends State<OverviewCards> {
               Text(AppLocalizations.of(context)
                   .translate('OVERVIEW_CARD3_SICK_DAYS')),
               Text(
-                '${widget._employeeDetails.currentWorkDetails.sickDaysCurrentMonth}',
+                '${_employeeDetails.currentWorkDetails.sickDaysCurrentMonth}',
                 textAlign: TextAlign.right,
               )
             ]),
-//            TableRow(children: [
-//              Text(AppLocalizations.of(context)
-//                  .translate('OVERVIEW_CARD3_PUBLIC_HOLIDAYS')),
-//              Text(
-//                '8,5h',
-//                textAlign: TextAlign.right,
-//              )
-//            ]),
           ],
         ),
       ],

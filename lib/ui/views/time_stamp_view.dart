@@ -1,219 +1,241 @@
+/*
+ * Copyright (c) 2019. Julian Börste, Nico Kindervater, Steffen Montag, Chris McQueen, Johannes Wiest. All rights reserved.
+ */
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:provider/provider.dart';
 import 'package:time_right/core/constants/app_constants.dart';
 import 'package:time_right/core/models/time_stamp_details/time_stamp_details.dart';
+import 'package:time_right/core/viewmodels/views/time_stamp_view_model.dart';
 import 'package:time_right/ui/shared/colors.dart';
-import 'package:time_right/ui/widgets/overview_view_cards.dart';
+import 'package:time_right/ui/shared/stamp_fail_alerts.dart';
+import 'package:time_right/ui/shared/string_formatter.dart';
+import 'package:time_right/ui/views/base_widget.dart';
 
 import '../../app_localizations.dart';
 
+/// Class build the time stamp view.
 class TimeStampView extends StatefulWidget {
-//  TimeStampView({@required TimeStampType timeStampType}) : _timeStampType = timeStampType;
-//
-//  final TimeStampType _timeStampType;
-
   @override
-  _ClockInState createState() => _ClockInState();
+  _TimeStampViewState createState() => _TimeStampViewState();
 }
 
-class _ClockInState extends State<TimeStampView> {
-  var _currentValueSelected = 'CLOCK_IN';
+class _TimeStampViewState extends State<TimeStampView> {
+  /// [TimeStampViewModel] handling the business logic for the [TimeStampView].
+  TimeStampViewModel _timeStampViewModel;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(),
-      body: Column(
-        children: <Widget>[
-          Expanded(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.only(left: 10.0, right: 10.0),
-                  child: _dropdownButton(),
-                ),
-                Padding(
-                    padding: const EdgeInsets.only(left: 10.0, right: 10.0),
-                    child: clockIn(),
-                    ),
-              ],
+    return BaseWidget<TimeStampViewModel>(
+      model: TimeStampViewModel(
+          timeStampService: Provider.of(context),
+          employeeDetailsService: Provider.of(context)),
+      onModelReady: (model) => _timeStampViewModel = model,
+      child: AppBar(),
+      builder: (context, model, child) => Scaffold(
+        appBar: child,
+        body: Column(
+          children: <Widget>[
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.only(
+                        bottom: 30.0,
+                        left: MediaQuery.of(context).size.width * 0.2),
+                    child: _buildChangeTypeButton(),
+                  ),
+                  Align(
+                    alignment: Alignment.center,
+                    child: _timeStampViewModel.currentSelected ==
+                            TimeStampType.stampIn
+                        ? _buildStampInForm()
+                        : _buildStampOutForm(),
+                  ),
+                ],
+              ),
             ),
-          ),
-          ButtonBar(
-            mainAxisSize: MainAxisSize.max,
-            alignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              FlatButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, RoutePaths.homeView);
-                    print(' Cancel Button was pressed');
-                  },
-                  child: Column(
-                    children: <Widget>[
-                      Icon(
-                        Icons.cancel,
-                        color: red1,
-                        size: 40,
-                      ),
-                      Text(
-                        AppLocalizations.of(context).translate('CANCEL'),
-                        style: Theme.of(context).textTheme.button,
-                        textScaleFactor: 1.2,
-                      ),
-                    ],
-                  )),
-              FlatButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, RoutePaths.homeView);
-                    print('Confirm Button was pressed');
-                  },
-                  child: Column(
-                    children: <Widget>[
-                      Icon(
-                        Icons.check_circle,
-                        color: green1,
-                        size: 40,
-                      ),
-                      Text(
-                        AppLocalizations.of(context).translate('CONFIRM'),
-                        style: Theme.of(context).textTheme.button,
-                        textScaleFactor: 1.2,
-                      ),
-                    ],
-                  )),
-            ],
-          ),
-        ],
+            _buildButtonBar(),
+          ],
+        ),
       ),
     );
   }
 
-  Widget clockIn() {
-    return Column(
+  /// Return button to change from the stamp in to the stamp out form or the
+  /// other way round.
+  Widget _buildChangeTypeButton() {
+    return Row(
       children: <Widget>[
-        Column(
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: <Widget>[
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 10.0, right: 10.0),
-                      child: clockInWidget(),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
+        _getChangeButtonLabel(),
+        Padding(
+          padding: const EdgeInsets.only(left: 8.0),
+          child: IconButton(
+            icon: Icon(Icons.autorenew),
+            onPressed: () => _timeStampViewModel.changeTimeStampType(),
+          ),
+        )
       ],
     );
   }
 
-  Widget clockOut() {
-    return Column(
+  /// Return the right label (stamp in our out) for the change button.
+  Widget _getChangeButtonLabel() {
+    switch (_timeStampViewModel.currentSelected) {
+      case TimeStampType.stampIn:
+        return Text(
+          AppLocalizations.of(context).translate('CLOCK_IN'),
+          style: Theme.of(context).textTheme.headline,
+          textScaleFactor: 1.1,
+        );
+      case TimeStampType.stampOut:
+        return Text(
+          AppLocalizations.of(context).translate('CLOCK_OUT'),
+          style: Theme.of(context).textTheme.headline,
+          textScaleFactor: 1.1,
+        );
+      default:
+        return Text('unknown Type');
+    }
+  }
+
+  /// Return the button bar in the bottom to submit a stamp or cancel it.
+  Widget _buildButtonBar() {
+    return ButtonBar(
+      mainAxisSize: MainAxisSize.max,
+      alignment: MainAxisAlignment.spaceEvenly,
       children: <Widget>[
-        Column(
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: <Widget>[
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 10.0, right: 10.0),
-                      child: clockOutWidget(),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
+        FlatButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: Column(
+              children: <Widget>[
+                Icon(
+                  Icons.cancel,
+                  color: red1,
+                  size: 40,
+                ),
+                Text(
+                  AppLocalizations.of(context).translate('CANCEL'),
+                  style: Theme.of(context).textTheme.button,
+                  textScaleFactor: 1.2,
+                ),
+              ],
+            )),
+        FlatButton(
+            onPressed: () async {
+              TimeStampResponse timeStampResponse =
+                  await _timeStampViewModel.stamp(DateTime.now());
+              _showResponseWidget(timeStampResponse);
+            },
+            child: Column(
+              children: <Widget>[
+                Icon(
+                  Icons.check_circle_outline,
+                  color: green1,
+                  size: 40,
+                ),
+                Text(
+                  AppLocalizations.of(context).translate('CONFIRM'),
+                  style: Theme.of(context).textTheme.button,
+                  textScaleFactor: 1.2,
+                ),
+              ],
+            )),
       ],
     );
   }
 
-
-
-  DropdownButton _dropdownButton() => DropdownButton<String>(
-        items: [
-          DropdownMenuItem(
-            value: "1",
-            child: Text(
-              AppLocalizations.of(context).translate('CLOCK_IN'),
-            ),
-          ),
-          DropdownMenuItem(
-            value: "2",
-            child: Text(
-              AppLocalizations.of(context).translate('CLOCK_OUT'),
-            ),
-          ),
-        ],
-//        value: _currentValueSelected,
-        onChanged: (newValueSelected) {
-          setState(() {
-            this._currentValueSelected = newValueSelected;
-            if (newValueSelected == 'CLOCK_IN') {
-              clockIn();
-            } else
-              clockOut();
-          });
-        },
-        // value: _currentValueSelected,
-      );
-
-  Widget clockInWidget() {
-    return Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Text(
-            AppLocalizations.of(context).translate('CLOCK_IN'),
-            style: Theme.of(context).textTheme.headline,
-            textScaleFactor: 1.3,
-          ),
-          Text(
-            AppLocalizations.of(context).translate('CLOCK_IN_TIME'),
-            style: Theme.of(context).textTheme.subhead,
-            textScaleFactor: 1.2,
-          ),
-          Text(
-            '10:33:23',
-            style: Theme.of(context).textTheme.title,
-            textScaleFactor: 1.2,
-          ),
-        ]);
+  /// Show an alert if the [TimeStampResponse] includes an error.
+  void _showResponseWidget(TimeStampResponse timeStampResponse) {
+    switch (timeStampResponse) {
+      case (TimeStampResponse.stampOutFirstFail):
+        showDialog(
+            context: context,
+            builder: (context) {
+              return StampOutFirstFailAlert();
+            });
+        _timeStampViewModel.changeTimeStampType();
+        break;
+      case (TimeStampResponse.stampInFirstFail):
+        showDialog(
+            context: context,
+            builder: (context) {
+              return StampInFirstFailAlert();
+            });
+        _timeStampViewModel.changeTimeStampType();
+        break;
+      case (TimeStampResponse.stampVacationFail):
+        showDialog(
+            context: context,
+            builder: (context) {
+              return StampVacationFailAlert();
+            });
+        break;
+      case (TimeStampResponse.stampFlexDayFail):
+        showDialog(
+            context: context,
+            builder: (context) {
+              return StampFlexDayFailAlert();
+            });
+        break;
+      default:
+        Navigator.pushNamed(context, RoutePaths.homeView,
+            arguments: _timeStampViewModel.employeeDetails);
+    }
   }
 
-  Widget clockOutWidget() {
+  /// Return the stamp in form.
+  Widget _buildStampInForm() {
     return Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Text(
-            AppLocalizations.of(context).translate('CLOCK_OUT'),
-            style: Theme.of(context).textTheme.headline,
-            textScaleFactor: 1.3,
-          ),
-          Text(
-            AppLocalizations.of(context).translate('CLOCK_OUT_AT'),
-            style: Theme.of(context).textTheme.subhead,
-            textScaleFactor: 1.2,
-          ),
-          Text(
-            '19:33:23',
-            style: Theme.of(context).textTheme.title,
-            textScaleFactor: 1.2,
-          ),
-        ]);
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Text(
+          AppLocalizations.of(context).translate('CLOCK_IN_TIME'),
+          style: Theme.of(context).textTheme.subhead,
+          textScaleFactor: 1.1,
+        ),
+        Text(
+          '${StringFormatter.getFormattedClockTimeString(_timeStampViewModel.stampTime)}',
+          style: TextStyle(fontSize: 40),
+        )
+      ],
+    );
   }
 
+  /// Return the stamp out form
+  Widget _buildStampOutForm() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Text(
+          AppLocalizations.of(context).translate('CLOCK_OUT_AT'),
+          style: Theme.of(context).textTheme.subhead,
+          textScaleFactor: 1.1,
+        ),
+        Text(
+          '${StringFormatter.getFormattedClockTimeString(_timeStampViewModel.stampTime)}',
+          style: TextStyle(fontSize: 40),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(top: 10.0),
+          child: Text(
+            'Gearbeitete Stunden:',
+            style: Theme.of(context).textTheme.subhead,
+            textScaleFactor: 1.1,
+          ),
+        ),
+        Text(
+          '${StringFormatter.formatDuration(_timeStampViewModel.workHours)}',
+          style: TextStyle(fontSize: 30),
+        ),
+      ],
+    );
+  }
 
 }

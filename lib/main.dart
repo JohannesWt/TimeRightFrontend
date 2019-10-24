@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2019. Julian Börste, Nico Kindervater, Steffen Montag, Chris McQueen, Johannes Wiest. All rights reserved.
+ */
+
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
@@ -5,13 +9,15 @@ import 'package:time_right/core/constants/app_constants.dart';
 import 'package:time_right/provider_setup.dart';
 import 'package:time_right/ui/router.dart';
 import 'package:time_right/ui/shared/colors.dart';
-import 'package:time_right/ui/views/home_view.dart';
 import 'package:time_right/ui/views/login_view.dart';
 
 import 'app_localizations.dart';
 
+/// Method is executed first when starting the app.
 void main() => runApp(MyApp());
 
+/// Class is the starting point of the app and gets created first.
+/// Every global setting like locales, styles and start route is set here.
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

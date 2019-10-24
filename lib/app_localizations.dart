@@ -1,6 +1,5 @@
 /*
- * Copyright (c) 2019. Johannes Wiest (johannes.wiest@porsche.de).
- * All rights reserved.
+ * Copyright (c) 2019. Julian Börste, Nico Kindervater, Steffen Montag, Chris McQueen, Johannes Wiest. All rights reserved.
  */
 
 import 'dart:async';
@@ -10,7 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 /// Handles app language dynamically with device language
-/// Tutorial: https://resocoder.com/2019/06/01/flutter-localization-the-easy-way-internationalization-with-json/
 class AppLocalizations {
   AppLocalizations(this.locale);
 

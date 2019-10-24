@@ -4,16 +4,15 @@ import 'package:flutter/widgets.dart';
 import 'package:time_right/core/constants/app_constants.dart';
 import 'package:time_right/core/models/time_stamp_details/time_stamp_details.dart';
 import 'package:time_right/ui/shared/colors.dart';
-import 'package:time_right/ui/widgets/overview_view_cards.dart';
 
 import '../../app_localizations.dart';
 
-class HolidayView extends StatefulWidget {
+class VacationView extends StatefulWidget {
   @override
-  _HolidayState createState() => _HolidayState();
+  _VacationViewState createState() => _VacationViewState();
 }
 
-class _HolidayState extends State<HolidayView> {
+class _VacationViewState extends State<VacationView> {
   DateTime _dateFrom = new DateTime.now();
   DateTime _dateTo = new DateTime.now();
   int _dateDifference = 0;

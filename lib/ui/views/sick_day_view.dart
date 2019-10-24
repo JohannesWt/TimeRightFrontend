@@ -2,18 +2,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:time_right/core/constants/app_constants.dart';
-import 'package:time_right/core/models/time_stamp_details/time_stamp_details.dart';
 import 'package:time_right/ui/shared/colors.dart';
-import 'package:time_right/ui/widgets/overview_view_cards.dart';
 
 import '../../app_localizations.dart';
 
-class SickLeaveView extends StatefulWidget {
+class SickDayView extends StatefulWidget {
   @override
-  _SickLeaveState createState() => _SickLeaveState();
+  _SickDayViewState createState() => _SickDayViewState();
 }
 
-class _SickLeaveState extends State<SickLeaveView> {
+class _SickDayViewState extends State<SickDayView> {
   DateTime _date = new DateTime.now();
   TimeOfDay _time = new TimeOfDay.now();
 

@@ -1,53 +1,72 @@
+/*
+ * Copyright (c) 2019. Julian Börste, Nico Kindervater, Steffen Montag, Chris McQueen, Johannes Wiest. All rights reserved.
+ */
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:provider/provider.dart';
 import 'package:time_right/core/constants/app_constants.dart';
+import 'package:time_right/core/models/employee/employee.dart';
+import 'package:time_right/core/models/employee_details/employee_details.dart';
 import 'package:time_right/ui/shared/colors.dart';
+import 'package:time_right/ui/views/absence_choice_view.dart';
+import 'package:time_right/ui/views/calendar_view.dart';
+import 'package:time_right/ui/views/profile_view.dart';
+import 'package:time_right/ui/views/time_stamp_view.dart';
 import 'package:time_right/ui/widgets/short_overview_card.dart';
 import 'package:time_right/ui/widgets/time_stamps_list.dart';
 import '../../app_localizations.dart';
 
-class HomeView extends StatefulWidget {
-  HomeView({@required int stampFails})
-      : _stampFails = stampFails;
+/// Class  building the home view
+class HomeView extends StatelessWidget {
+  HomeView({@required EmployeeDetails employeeDetails})
+      : _employeeDetails = employeeDetails;
 
-  final int _stampFails;
+  /// Reference to [EmployeeDetails] to pass it to [ShortOverviewCard] and
+  /// get the amount of time stamp fails.
+  final EmployeeDetails _employeeDetails;
 
-  @override
-  _HomeViewState createState() => _HomeViewState();
-}
-
-class _HomeViewState extends State<HomeView> {
-
+  /// Build the home view with the Card, including the work timer and the short
+  /// overview.
+  /// Beneath that the two action buttons and under that the displayed time stamps
+  /// list.
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _buildAppBar(),
-      body: Column(
-        children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.only(left: 10.0, right: 10.0),
-            child: ShortOverviewCard(),
-          ),
-          _buildMenuButtons(),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.only(top: 15.0),
-              child: TimeStampsList(),
+      appBar: _buildAppBar(context),
+      body: WillPopScope(
+        onWillPop: () async {
+          return Future.value(false);
+        },
+        child: Column(
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.only(left: 10.0, right: 10.0),
+              child: ShortOverviewCard(employeeDetails: _employeeDetails,),
             ),
-          ),
-        ],
+            _buildMenuButtons(context),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.only(top: 15.0),
+                child: TimeStampsList(),
+              ),
+            ),
+          ],
+        ),
       ),
-      floatingActionButton: _buildFloatingActionButton(),
+      floatingActionButton: _buildFloatingActionButton(context),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 
-  Widget _buildAppBar() {
+  /// Return the app bar with the title and the action button leading to the
+  /// [ProfileView].
+  Widget _buildAppBar(BuildContext context) {
     return AppBar(
       automaticallyImplyLeading: false,
       title: Text(
-        AppLocalizations.of(context).translate('HOME_TITLE'),
+        AppLocalizations.of(context).translate('HOME_TITLE') + '\u{00AE}',
       ),
       actions: <Widget>[
         IconButton(
@@ -61,9 +80,10 @@ class _HomeViewState extends State<HomeView> {
     );
   }
 
-  Widget _buildFloatingActionButton() {
+  /// Return the floating action button leading to the [TimeStampView].
+  Widget _buildFloatingActionButton(BuildContext context) {
     return FloatingActionButton.extended(
-      onPressed: () => Navigator.pushNamed(context, RoutePaths.editDataView),
+      onPressed: () => Navigator.pushNamed(context, RoutePaths.timeStampView),
       label: Text(
         AppLocalizations.of(context).translate('HOME_FAB_LABEL'),
         style: TextStyle(fontSize: 20),
@@ -76,7 +96,9 @@ class _HomeViewState extends State<HomeView> {
     );
   }
 
-  Widget _buildMenuButtons() {
+  /// Return the both menu buttons leading to [CalendarView] with the notification
+  /// batch showing stamp fails and leading to [AbsenceChoiceView].
+  Widget _buildMenuButtons(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(top: 20.0, left: 5, right: 5),
       child: IntrinsicHeight(
@@ -84,6 +106,7 @@ class _HomeViewState extends State<HomeView> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
             _buildMenuButton(
+                context,
                 AppLocalizations.of(context).translate('HOME_CAL_BTN_LABEL'),
                 Icons.calendar_today,
                 true,
@@ -94,6 +117,7 @@ class _HomeViewState extends State<HomeView> {
               thickness: 1.2,
             ),
             _buildMenuButton(
+                context,
                 AppLocalizations.of(context).translate('HOME_ABS_BTN_LABEL'),
                 Icons.add,
                 false,
@@ -104,8 +128,9 @@ class _HomeViewState extends State<HomeView> {
     );
   }
 
-  Widget _buildMenuButton(
-      String title, IconData icon, bool notificationBatch, String target) {
+  /// Return one menu button for [_buildMenuButtons].
+  Widget _buildMenuButton(BuildContext context, String title, IconData icon,
+      bool notificationBatch, String target) {
     return Expanded(
       child: FlatButton(
         child: Padding(
@@ -129,7 +154,7 @@ class _HomeViewState extends State<HomeView> {
                         Positioned(
                           right: 0,
                           top: 1,
-                          child: widget._stampFails > 0
+                          child: _employeeDetails.stampFailsSum > 0
                               ? Container(
                                   padding: EdgeInsets.all(2.0),
                                   decoration: BoxDecoration(
@@ -138,7 +163,7 @@ class _HomeViewState extends State<HomeView> {
                                   constraints: BoxConstraints(
                                       minWidth: 14, minHeight: 14),
                                   child: Text(
-                                    '${widget._stampFails}',
+                                    '${_employeeDetails.stampFailsSum}',
                                     style: TextStyle(fontSize: 8, color: white),
                                     textAlign: TextAlign.center,
                                   ),

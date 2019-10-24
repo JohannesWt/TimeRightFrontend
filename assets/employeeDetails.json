@@ -9,7 +9,7 @@
     "remainingVacationLastYear": 2.0,
     "appliedVacation": 1.0,
     "takenVacation": 5.0,
-    "sickDaysMonth": 2
+    "sickDaysCurrentMonth": 2
   },
   "stampFailsSum": 1
 }
