@@ -1,6 +1,11 @@
+/*
+ * Copyright (c) 2019. Julian Börste, Nico Kindervater, Steffen Montag, Chris McQueen, Johannes Wiest. All rights reserved.
+ */
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+/// BaseWidget every Stateful widget extends from.
 class BaseWidget<T extends ChangeNotifier> extends StatefulWidget {
   BaseWidget({Key key, this.builder, this.model, this.child, this.onModelReady})
       : super(key: key);
@@ -17,6 +22,7 @@ class BaseWidget<T extends ChangeNotifier> extends StatefulWidget {
 class _BaseWidgetState<T extends ChangeNotifier> extends State<BaseWidget<T>> {
   T model;
 
+  /// When model != null execute the function [widget.onModelReady].
   @override
   void initState() {
     model = widget.model;
@@ -27,6 +33,8 @@ class _BaseWidgetState<T extends ChangeNotifier> extends State<BaseWidget<T>> {
     super.initState();
   }
 
+  /// Return a widget with a [ChangeNotifierProvider] to rebuild after a model
+  /// calls notifyListeners().
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<T>(

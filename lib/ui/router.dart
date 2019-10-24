@@ -1,25 +1,31 @@
+/*
+ * Copyright (c) 2019. Julian Börste, Nico Kindervater, Steffen Montag, Chris McQueen, Johannes Wiest. All rights reserved.
+ */
+
 import 'package:flutter/material.dart';
 import 'package:time_right/core/constants/app_constants.dart';
-import 'package:time_right/core/models/employee/employee.dart';
 import 'package:time_right/core/models/employee_details/employee_details.dart';
 import 'package:time_right/ui/views/absence_choice_view.dart';
 import 'package:time_right/ui/views/calendar_view.dart';
-import 'package:time_right/ui/views/time_stamp_view.dart';
 import 'package:time_right/ui/views/home_view.dart';
 import 'package:time_right/ui/views/login_view.dart';
 import 'package:time_right/ui/views/overview_view.dart';
 import 'package:time_right/ui/views/profile_view.dart';
+import 'package:time_right/ui/views/time_stamp_view.dart';
 
+/// Class handles the routing through the app.
+/// Depending on the static [RoutePaths] variable it chooses a certain view and
+/// navigates to it.
 class Router {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case RoutePaths.loginView:
         return MaterialPageRoute(builder: (_) => LoginView());
       case RoutePaths.homeView:
-        var stampFails = settings.arguments as int;
+        var employeeDetails = settings.arguments as EmployeeDetails;
         return MaterialPageRoute(
             builder: (_) => HomeView(
-                  stampFails: stampFails,
+                  employeeDetails: employeeDetails,
                 ));
       case RoutePaths.calendarView:
         return MaterialPageRoute(builder: (_) => CalendarView());
@@ -33,6 +39,8 @@ class Router {
             builder: (_) => OverviewView(
                   employeeDetails: employeeDetails,
                 ));
+      case RoutePaths.timeStampView:
+        return MaterialPageRoute(builder: (_) => TimeStampView());
       default:
         return MaterialPageRoute(
             builder: (_) => Scaffold(

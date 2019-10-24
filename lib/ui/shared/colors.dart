@@ -1,17 +1,26 @@
+/*
+ * Copyright (c) 2019. Julian Börste, Nico Kindervater, Steffen Montag, Chris McQueen, Johannes Wiest. All rights reserved.
+ */
+
 import 'package:flutter/material.dart';
 
+/// List of all corporate identity colors of TimeRight.
+
+/// Main colors.
 const mainRed = const Color(0xFFD5001C);
 
 const blueAccent = Colors.blueAccent;
 const amber = Colors.amber;
 
+const black = const Color(0xFF000000);
+const white = const Color(0xFFFFFFFF);
+
+/// Further colors.
 const gray1 = const Color(0xFFDAD9DE);
 const gray2 = const Color(0xFFB5B4BA);
 const gray3 = const Color(0xFF737278);
 const gray4 = const Color(0xFF403F45);
 
-const black = const Color(0xFF000000);
-const white = const Color(0xFFFFFFFF);
 
 const blue1 =  const Color(0xFF2A4B6D);
 const blue2 =  const Color(0xFF3A6B9B);
