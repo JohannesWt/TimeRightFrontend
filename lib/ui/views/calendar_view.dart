@@ -35,6 +35,12 @@ class _CalendarViewState extends State<CalendarView> {
       model: CalendarViewModel(calendarService: Provider.of(context)),
       child: AppBar(
         title: Text('Kalender'),
+        leading: IconButton(
+            onPressed: () {
+              _calendarViewModel.currentSelectedDay = DateTime.now();
+              Navigator.pop(context);
+            },
+            icon: Icon(Icons.arrow_back)),
       ),
       onModelReady: (model) async {
         _calendarViewModel = model;
@@ -82,8 +88,9 @@ class _CalendarViewState extends State<CalendarView> {
   Widget _buildFloatingActionButton() {
     return FloatingActionButton(
       child: Icon(Icons.add),
-      onPressed: () =>
-          Navigator.pushNamed(context, RoutePaths.absenceChoiceView),
+      onPressed: () => Navigator.pushNamed(
+          context, RoutePaths.absenceChoiceView,
+          arguments: _calendarViewModel.currentSelectedDay),
     );
   }
 
@@ -115,7 +122,8 @@ class _CalendarViewState extends State<CalendarView> {
         markedDatesMap: _calendarViewModel.eventList,
         onDayLongPressed: (dateTime) {
           if (_calendarViewModel.checkDates(dateTime)) {
-            Navigator.pushNamed(context, RoutePaths.absenceChoiceView);
+            Navigator.pushNamed(context, RoutePaths.absenceChoiceView,
+                arguments: _calendarViewModel.currentSelectedDay);
           }
         });
   }

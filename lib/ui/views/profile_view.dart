@@ -20,7 +20,9 @@ class ProfileView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseWidget<ProfileViewModel>(
-      model: ProfileViewModel(authenticationService: Provider.of(context)),
+      model: ProfileViewModel(
+          authenticationService: Provider.of(context),
+          timeStampService: Provider.of(context)),
       builder: (context, model, child) => Scaffold(
         appBar: AppBar(
           title: Text(
@@ -29,8 +31,8 @@ class ProfileView extends StatelessWidget {
           actions: <Widget>[
             IconButton(
               icon: Icon(Icons.exit_to_app),
-              onPressed: () {
-                model.logOut();
+              onPressed: () async {
+                await model.logOut();
                 Navigator.pushNamed(context, RoutePaths.loginView);
               },
             )

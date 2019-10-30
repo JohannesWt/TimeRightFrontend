@@ -17,7 +17,6 @@ class TimeStampDay {
       _$TimeStampDayFromJson(json);
 
   Map<String, dynamic> toJson() => _$TimeStampDayToJson(this);
-
   final DateTime date;
   List<TimeStampEvent> timeStampEvents;
 
@@ -38,6 +37,7 @@ class TimeStampEvent {
   TimeStampEvent({
     this.timeStampType,
     this.dateTime,
+    this.employeeID,
     this.employeeName,
   });
 
@@ -48,6 +48,9 @@ class TimeStampEvent {
 
   final TimeStampType timeStampType;
   final DateTime dateTime;
+  @JsonKey(includeIfNull: false)
+  final int employeeID;
+  @JsonKey(includeIfNull: false)
   final String employeeName;
 }
 
@@ -74,6 +77,7 @@ enum TimeStampType {
 
 /// Defines different types of time stamp responses
 enum TimeStampResponse {
+  stampTypeFail,
   stampInSuccess,
   stampOutSuccess,
   stampOutForValidation,

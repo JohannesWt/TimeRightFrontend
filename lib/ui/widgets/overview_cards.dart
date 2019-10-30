@@ -130,8 +130,8 @@ class OverviewCards extends StatelessWidget {
           ],
         ),
         FlatButton(
-          onPressed: () =>
-              Navigator.pushNamed(context, RoutePaths.flexDayView),
+          onPressed: () => Navigator.pushNamed(context, RoutePaths.flexDayView,
+              arguments: DateTime.now()),
           padding: const EdgeInsets.all(0.0),
           child: Row(
             children: <Widget>[
@@ -196,15 +196,15 @@ class OverviewCards extends StatelessWidget {
               Text(AppLocalizations.of(context)
                   .translate('OVERVIEW_CARD2_VAC_PLAN')),
               Text(
-                '${_employeeDetails.contractDetails.vacation - _employeeDetails.currentWorkDetails.takenVacation}',
+                '${_employeeDetails.contractDetails.vacation - _employeeDetails.currentWorkDetails.takenVacation - _employeeDetails.currentWorkDetails.appliedVacation}',
                 textAlign: TextAlign.right,
               )
             ])
           ],
         ),
         FlatButton(
-          onPressed: () =>
-              Navigator.pushNamed(context, RoutePaths.vacationView),
+          onPressed: () => Navigator.pushNamed(context, RoutePaths.vacationView,
+              arguments: DateTime.now()),
           padding: const EdgeInsets.all(0.0),
           child: Row(
             children: <Widget>[

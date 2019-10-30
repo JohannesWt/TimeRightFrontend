@@ -5,8 +5,12 @@
 import 'package:flutter/material.dart';
 import 'package:time_right/core/constants/app_constants.dart';
 import 'package:time_right/core/models/employee_details/employee_details.dart';
+import 'package:time_right/core/models/time_stamp_details/time_stamp_details.dart';
+import 'package:time_right/core/viewmodels/views/application_view_model.dart';
 import 'package:time_right/ui/views/absence_choice_view.dart';
+import 'package:time_right/ui/views/application_view.dart';
 import 'package:time_right/ui/views/calendar_view.dart';
+import 'package:time_right/ui/views/correct_stamp_view.dart';
 import 'package:time_right/ui/views/flex_day_view.dart';
 import 'package:time_right/ui/views/home_view.dart';
 import 'package:time_right/ui/views/login_view.dart';
@@ -33,7 +37,11 @@ class Router {
       case RoutePaths.calendarView:
         return MaterialPageRoute(builder: (_) => CalendarView());
       case RoutePaths.absenceChoiceView:
-        return MaterialPageRoute(builder: (_) => AbsenceChoiceView());
+        var dateTime = settings.arguments as DateTime;
+        return MaterialPageRoute(
+            builder: (_) => AbsenceChoiceView(
+                  dateTime: dateTime,
+                ));
       case RoutePaths.profileView:
         return MaterialPageRoute(builder: (_) => ProfileView());
       case RoutePaths.overviewView:
@@ -46,11 +54,35 @@ class Router {
       case RoutePaths.timeStampView:
         return MaterialPageRoute(builder: (_) => TimeStampView());
       case RoutePaths.vacationView:
-        return MaterialPageRoute(builder: (_) => VacationView());
+        var startDate = settings.arguments as DateTime;
+        return MaterialPageRoute(
+            builder: (_) => VacationView(
+                  startDate: startDate,
+                ));
       case RoutePaths.flexDayView:
-        return MaterialPageRoute(builder: (_) => FlexDayView());
+        var dateTime = settings.arguments as DateTime;
+        return MaterialPageRoute(
+            builder: (_) => FlexDayView(
+                  dateTime: dateTime,
+                ));
       case RoutePaths.sickDayView:
-        return MaterialPageRoute(builder: (_) => SickDayView());
+        var dateTime = settings.arguments as DateTime;
+        return MaterialPageRoute(
+            builder: (_) => SickDayView(
+                  initialDate: dateTime,
+                ));
+      case RoutePaths.correctStampView:
+        var list = settings.arguments as List;
+        var date = list[0] as DateTime;
+        var timeStampType = list[1] as TimeStampType;
+        print(timeStampType);
+        return MaterialPageRoute(
+            builder: (_) => CorrectStampView(
+                  initialDate: date,
+                  initialStampType: timeStampType,
+                ));
+      case RoutePaths.applicationView:
+        return MaterialPageRoute(builder: (_) => ApplicationView());
       default:
         return MaterialPageRoute(
             builder: (_) => Scaffold(

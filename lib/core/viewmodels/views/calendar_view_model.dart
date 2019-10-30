@@ -55,7 +55,7 @@ class CalendarViewModel extends BaseModel {
   /// in [_timeStampService].
   Future fetchTimeStampDaysForMonth(int employeeID, DateTime dateTime) async {
     setBusy(true);
-    await _timeStampService.fetchTimeStampDaysForMonth(employeeID, dateTime);
+    await _timeStampService.fetchTimeStampDaysForMonth(dateTime);
     notifyListeners();
     setBusy(false);
   }
@@ -73,9 +73,10 @@ class CalendarViewModel extends BaseModel {
         date: dateTime.toLocal(),
         dot: Container(
           margin: EdgeInsets.symmetric(horizontal: 1.0),
-          color: _timeStampService.isFailInTimeStampEventList(timeStampEventList)
-              ? mainRed
-              : green2,
+          color:
+              _timeStampService.isFailInTimeStampEventList(timeStampEventList)
+                  ? mainRed
+                  : green2,
           height: 5.0,
           width: 5.0,
         ),
@@ -90,7 +91,9 @@ class CalendarViewModel extends BaseModel {
   ///
   /// --> It is not possible to apply an absence day after today´s date.
   bool checkDates(DateTime dateTime) {
-    return ((currentSelectedDay.compareTo(dateTime) > 0) ||
-        DateCalculator.isOnSameDay(currentSelectedDay, dateTime));
+    return (((currentSelectedDay.compareTo(dateTime) > 0) ||
+            DateCalculator.isOnSameDay(currentSelectedDay, dateTime)) &&
+        currentSelectedDay.weekday != 6 &&
+        currentSelectedDay.weekday != 7);
   }
 }

@@ -21,15 +21,24 @@ class TimeStampService {
   /// Return [_timeStampMap].
   Map<DateTime, List<TimeStampEvent>> get timeStampMap => _timeStampMap;
 
+  List<TimeStampEvent> _executiveApplicationList = [];
+
+  List<TimeStampEvent> get executiveApplicationList =>
+      _executiveApplicationList;
+
   /// Is true if a new [TimeStampEvent] gets added to the [_timeStampMap].
   bool _newStamp = true;
 
   /// Fetch time stamp days for the month of [dateTime] and ad all to the
   /// [_timeStampMap].
-  Future fetchTimeStampDaysForMonth(int employeeID, DateTime dateTime) async {
+  Future fetchTimeStampDaysForMonth(DateTime dateTime) async {
     Map<DateTime, List<TimeStampEvent>> tmpMap =
-        await _api.fetchTimeStampDaysForMonth(employeeID, dateTime);
+        await _api.fetchTimeStampDaysForMonth(dateTime);
     _timeStampMap.addAll(tmpMap);
+  }
+
+  Future fetchApplicationsForMonth(DateTime dateTime) async {
+    _executiveApplicationList = await _api.fetchApplicationsForMonth(dateTime);
   }
 
   /// Calculate suitable UTC-DateTime for [compDate].
@@ -48,20 +57,25 @@ class TimeStampService {
     }
   }
 
-  /// Calculate suitable UTC DateTime for [newDate].
-  /// If the key for [newDate] is already in [_timeStampMap] add a new
-  /// [TimeStampEvent] with the specified [newDate] and [timeStampType].
+  /// Calculate suitable UTC DateTime for [timeStampEvent.dateTime].
+  /// If the key for [dateTime] is already in [_timeStampMap] add a the new [TimeStampEvent] .
   /// Otherwise add a new key to the [_timeStampMap] and insert the new
   /// [TimeStampEvent] to the values.
-  void _addTimeStampEvent(DateTime newDate, TimeStampType timeStampType) {
-    DateTime dateTime = DateCalculator.shortFormDateTime(newDate).toUtc();
-    TimeStampEvent newEvent =
-        TimeStampEvent(timeStampType: timeStampType, dateTime: newDate);
+  void _addTimeStampEvent(TimeStampEvent timeStampEvent) {
+    DateTime dateTime =
+        DateCalculator.shortFormDateTime(timeStampEvent.dateTime).toUtc();
     if (timeStampMap[dateTime] == null) {
-      timeStampMap[dateTime] = [newEvent];
+      timeStampMap[dateTime] = [timeStampEvent];
     } else {
-      timeStampMap[dateTime].add(newEvent);
+      timeStampMap[dateTime].add(timeStampEvent);
     }
+  }
+
+  /// Return [TimeStampEvent] for [dateTime] and [timeStampType]
+  TimeStampEvent _createNewTimeStampEvent(
+      DateTime dateTime, TimeStampType timeStampType) {
+    return TimeStampEvent(
+        timeStampType: timeStampType, dateTime: dateTime.toUtc());
   }
 
   /// Check if there is a stamp fail included in [timeStampEventList]
@@ -151,9 +165,13 @@ class TimeStampService {
     if (timeStampResponse == TimeStampResponse.stampInSuccess) {
       timeStampResponse = _checkWorkDay(dateTime, timeStampResponse);
       if (timeStampResponse == TimeStampResponse.stampInSuccess) {
-        _api.stamp(dateTime, TimeStampType.stampIn);
-        _addTimeStampEvent(dateTime, TimeStampType.stampIn);
-        print(_timeStampMap);
+        TimeStampEvent newTimeStampEvent =
+            _createNewTimeStampEvent(dateTime, TimeStampType.stampIn);
+        await _api
+            .stamp(newTimeStampEvent, TimeStampType.stampIn)
+            .then((value) {
+          _addTimeStampEvent(newTimeStampEvent);
+        });
         _newStamp = true;
       }
     }
@@ -192,8 +210,13 @@ class TimeStampService {
     if (timeStampResponse == TimeStampResponse.stampOutSuccess) {
       timeStampResponse = _checkWorkDay(dateTime, timeStampResponse);
       if (timeStampResponse == TimeStampResponse.stampOutSuccess) {
-        // TODO: connect to API
-        _addTimeStampEvent(dateTime, TimeStampType.stampOut);
+        TimeStampEvent newTimeStampEvent =
+            _createNewTimeStampEvent(dateTime, TimeStampType.stampOut);
+        await _api
+            .stamp(newTimeStampEvent, TimeStampType.stampOut)
+            .then((value) {
+          _addTimeStampEvent(newTimeStampEvent);
+        });
         _newStamp = true;
         return timeStampResponse;
       }
@@ -238,6 +261,18 @@ class TimeStampService {
     return timeStampResponse;
   }
 
+  Future<TimeStampResponse> stampAbsence(
+      TimeStampType timeStampType, DateTime startDate, DateTime endDate) async {
+    await _api.stampAbsence(timeStampType, startDate, endDate).then((value) {
+      DateTime tmpDate = startDate;
+      do {
+        _addTimeStampEvent(
+            TimeStampEvent(timeStampType: timeStampType, dateTime: tmpDate));
+        tmpDate.add(Duration(days: 1));
+      } while (tmpDate != endDate);
+    });
+  }
+
   /// Check last event of [getTimeStampEventsForDay] of [dateTime] and.
   /// Check [TimeStampType] of that last event against [sourceResponse].
   ///
@@ -279,6 +314,10 @@ class TimeStampService {
         default:
           return sourceResponse;
       }
+    } else {
+      if (sourceResponse == TimeStampResponse.stampOutSuccess) {
+        return TimeStampResponse.stampInFirstFail;
+      }
     }
     return sourceResponse;
   }
@@ -287,8 +326,7 @@ class TimeStampService {
   /// If true return [sourceResponse] else [TimeStampResponse.stampWorkDayFail].
   TimeStampResponse _checkWorkDay(
       DateTime dateTime, TimeStampResponse sourceResponse) {
-    return (dateTime.weekday == DateTime.saturday ||
-            dateTime.weekday == DateTime.sunday)
+    return (dateTime.weekday == 6 || dateTime.weekday == 7)
         ? TimeStampResponse.stampWorkDayFail
         : sourceResponse;
   }

@@ -134,11 +134,41 @@ class _TimeStampsListState extends State<TimeStampsList> {
           if (timeStampEvent.timeStampType == TimeStampType.stampOutFail) {
             return TimeStampsListButtonItem(timeStampEvent: timeStampEvent);
           } else {
-            return TimeStampsListStampItem(
-              timeStampEvent: timeStampEvent,
-            );
+            return _buildTimeStampListItem(timeStampEvent);
           }
         });
+  }
+
+  /// Build time stamp list item (not a button item)
+  Widget _buildTimeStampListItem(TimeStampEvent timeStampEvent) {
+    return Padding(
+      padding: EdgeInsets.only(left: 20.0, right: 20.0, top: 6.0, bottom: 6.0),
+      child: _getCorrectItem(timeStampEvent),
+    );
+  }
+
+  /// Get the correct item class for the time stamp list.
+  Widget _getCorrectItem(TimeStampEvent timeStampEvent) {
+    if (timeStampEvent.timeStampType == TimeStampType.sickDay ||
+        timeStampEvent.timeStampType == TimeStampType.flexDay ||
+        timeStampEvent.timeStampType == TimeStampType.vacation) {
+      return TimeStampsListAbsenceValidationItem(
+        timeStampEvent: timeStampEvent,
+      );
+    } else if (timeStampEvent.timeStampType ==
+            TimeStampType.sickDayValidation ||
+        timeStampEvent.timeStampType == TimeStampType.flexDayValidation) {
+      return TimeStampsListAbsenceValidationItem(
+        timeStampEvent: timeStampEvent,
+      );
+    } else
+//      if (timeStampEvent.timeStampType == TimeStampType.stampIn ||
+//        timeStampEvent.timeStampType == TimeStampType.stampOut)
+    {
+      return TimeStampsListStampItem(
+        timeStampEvent: timeStampEvent,
+      );
+    }
   }
 }
 
@@ -152,26 +182,21 @@ class TimeStampsListStampItem extends StatelessWidget {
   /// Build a list item.
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(left: 20.0, right: 20.0, top: 6.0, bottom: 6.0),
-      child: Row(
-        children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.only(right: 18.0),
-            child: _getListTileIcon(),
+    return Row(
+      children: <Widget>[
+        Padding(
+          padding: const EdgeInsets.only(right: 18.0),
+          child: _getListTileIcon(),
+        ),
+        _getListTileLabel(),
+        Expanded(
+          child: Text(
+            StringFormatter.getFormattedClockTimeString(
+                _timeStampEvent.dateTime),
+            textAlign: TextAlign.right,
           ),
-          _getListTileLabel(),
-          _isTimeVisible()
-              ? Expanded(
-                  child: Text(
-                    StringFormatter.getFormattedClockTimeString(
-                        _timeStampEvent.dateTime),
-                    textAlign: TextAlign.right,
-                  ),
-                )
-              : Container(),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
@@ -182,12 +207,6 @@ class TimeStampsListStampItem extends StatelessWidget {
         return Text('Einstempeln');
       case TimeStampType.stampOut:
         return Text('Ausstempeln');
-      case TimeStampType.flexDay:
-        return Text('Gleittag');
-      case TimeStampType.vacation:
-        return Text('Urlaub');
-      case TimeStampType.sickDay:
-        return Text('Kranktag');
       default:
         return Text('Unbekanntes Ereignis');
     }
@@ -210,17 +229,9 @@ class TimeStampsListStampItem extends StatelessWidget {
         return Icon(Icons.unarchive);
     }
   }
-
-  /// Return if the stamp time should be visible or not.
-  /// (E.g. a list item displaying a flex day should not display the stamp
-  /// time of it)
-  bool _isTimeVisible() {
-    return (_timeStampEvent.timeStampType == TimeStampType.stampOut ||
-        _timeStampEvent.timeStampType == TimeStampType.stampIn);
-  }
 }
 
-/// Builds a list item for a stamp fail.
+/// Class of list item for a stamp fail.
 class TimeStampsListButtonItem extends StatelessWidget {
   TimeStampsListButtonItem({@required TimeStampEvent timeStampEvent})
       : _timeStampEvent = timeStampEvent;
@@ -232,9 +243,9 @@ class TimeStampsListButtonItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return FlatButton(
       padding:
-      const EdgeInsets.only(left: 20.0, right: 20.0, bottom: 0, top: 0),
-      onPressed: () =>
-          Navigator.pushNamed(context, RoutePaths.absenceChoiceView),
+          const EdgeInsets.only(left: 18.0, right: 18.0, bottom: 0, top: 0),
+      onPressed: () => Navigator.pushNamed(context, RoutePaths.correctStampView,
+          arguments: [_timeStampEvent.dateTime, TimeStampType.stampOut]),
       child: Row(
         children: <Widget>[
           Padding(
@@ -251,5 +262,101 @@ class TimeStampsListButtonItem extends StatelessWidget {
         ],
       ),
     );
+  }
+}
+
+/// Class of a absence stamp list item.
+class TimeStampsListAbsenceItem extends StatelessWidget {
+  TimeStampsListAbsenceItem({@required TimeStampEvent timeStampEvent})
+      : _timeStampEvent = timeStampEvent;
+
+  final TimeStampEvent _timeStampEvent;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: <Widget>[
+        Padding(
+          padding: const EdgeInsets.only(right: 18.0),
+          child: _getCorrectIcon(),
+        ),
+        Text(_getCorrectLabel()),
+      ],
+    );
+  }
+
+  String _getCorrectLabel() {
+    switch (_timeStampEvent.timeStampType) {
+      case (TimeStampType.vacation):
+        return 'Urlaub';
+      case (TimeStampType.flexDay):
+        return 'Gleittag';
+      case (TimeStampType.sickDay):
+        return 'Kranktag';
+      default:
+        return 'Unbekanntes Ereignis';
+    }
+  }
+
+  Icon _getCorrectIcon() {
+    switch (_timeStampEvent.timeStampType) {
+      case (TimeStampType.vacation):
+        return Icon(Icons.flight_takeoff);
+      case (TimeStampType.flexDay):
+        return Icon(Icons.block);
+      case (TimeStampType.sickDay):
+        return Icon(Icons.local_hospital);
+      default:
+        return Icon(Icons.unarchive);
+    }
+  }
+}
+
+/// Class of a absence in validation stamp list item.
+class TimeStampsListAbsenceValidationItem extends StatelessWidget {
+  TimeStampsListAbsenceValidationItem({@required TimeStampEvent timeStampEvent})
+      : _timeStampEvent = timeStampEvent;
+
+  final TimeStampEvent _timeStampEvent;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: <Widget>[
+        Padding(
+          padding: const EdgeInsets.only(right: 18.0),
+          child: Icon(
+            _getCorrectIcon(),
+            color: amber,
+          ),
+        ),
+        Text(
+          _getCorrectLabel(),
+          style: TextStyle(color: amber),
+        ),
+      ],
+    );
+  }
+
+  String _getCorrectLabel() {
+    switch (_timeStampEvent.timeStampType) {
+      case (TimeStampType.vacationValidation):
+        return 'Urlaub in Prüfung';
+      case (TimeStampType.flexDayValidation):
+        return 'Gleittag in Prüfung';
+      default:
+        return 'Unbekanntes Ereignis';
+    }
+  }
+
+  IconData _getCorrectIcon() {
+    switch (_timeStampEvent.timeStampType) {
+      case (TimeStampType.vacationValidation):
+        return Icons.flight_takeoff;
+      case (TimeStampType.flexDayValidation):
+        return Icons.block;
+      default:
+        return Icons.unarchive;
+    }
   }
 }

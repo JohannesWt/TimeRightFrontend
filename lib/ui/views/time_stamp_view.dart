@@ -129,8 +129,11 @@ class _TimeStampViewState extends State<TimeStampView> {
             )),
         FlatButton(
             onPressed: () async {
-              TimeStampResponse timeStampResponse =
-                  await _timeStampViewModel.stamp(DateTime.now());
+              TimeStampResponse timeStampResponse = await _timeStampViewModel
+                  .stamp(_timeStampViewModel.stampTime)
+                  .catchError((error) {
+                print('error');
+              });
               _showResponseWidget(timeStampResponse);
             },
             child: Column(
@@ -183,6 +186,14 @@ class _TimeStampViewState extends State<TimeStampView> {
             builder: (context) {
               return StampFlexDayFailAlert();
             });
+        break;
+      case (TimeStampResponse.stampTypeFail):
+        showDialog(
+            context: context,
+            builder: (context) => UnknownStampTypeFailAlert());
+        break;
+      case (TimeStampResponse.stampWorkDayFail):
+        showDialog(context: context, builder: (context) => WorkDayFailAlert());
         break;
       default:
         Navigator.pushNamed(context, RoutePaths.homeView,
@@ -237,5 +248,4 @@ class _TimeStampViewState extends State<TimeStampView> {
       ],
     );
   }
-
 }

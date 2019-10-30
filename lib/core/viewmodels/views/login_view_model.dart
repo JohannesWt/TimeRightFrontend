@@ -72,7 +72,10 @@ class LoginViewModel extends BaseModel {
   /// Fetch time stamp map from [employeeID] from the current month.
   Future getEmployeeDetails(int employeeID) async {
     await _employeeDetailsService.fetchEmployeeDetails(employeeID);
-    await _timeStampService.fetchTimeStampDaysForMonth(
-        employeeID, DateTime.now());
+    await _timeStampService.fetchTimeStampDaysForMonth(DateTime.now());
+  }
+
+  Future getExecutiveDetails() async {
+    await _timeStampService.fetchApplicationsForMonth(DateTime.now());
   }
 }

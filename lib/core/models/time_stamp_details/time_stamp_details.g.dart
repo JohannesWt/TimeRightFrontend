@@ -30,15 +30,26 @@ TimeStampEvent _$TimeStampEventFromJson(Map<String, dynamic> json) {
       dateTime: json['dateTime'] == null
           ? null
           : DateTime.parse(json['dateTime'] as String),
+      employeeID: json['employeeID'] as int,
       employeeName: json['employeeName'] as String);
 }
 
-Map<String, dynamic> _$TimeStampEventToJson(TimeStampEvent instance) =>
-    <String, dynamic>{
-      'timeStampType': _$TimeStampTypeEnumMap[instance.timeStampType],
-      'dateTime': instance.dateTime?.toIso8601String(),
-      'employeeName': instance.employeeName
-    };
+Map<String, dynamic> _$TimeStampEventToJson(TimeStampEvent instance) {
+  final val = <String, dynamic>{
+    'timeStampType': _$TimeStampTypeEnumMap[instance.timeStampType],
+    'dateTime': instance.dateTime?.toIso8601String(),
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('employeeID', instance.employeeID);
+  writeNotNull('employeeName', instance.employeeName);
+  return val;
+}
 
 T _$enumDecode<T>(Map<T, dynamic> enumValues, dynamic source) {
   if (source == null) {

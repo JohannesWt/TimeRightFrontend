@@ -3,8 +3,10 @@
  */
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:time_right/app_localizations.dart';
 import 'package:time_right/core/constants/app_constants.dart';
+import 'package:time_right/core/models/employee/employee.dart';
 import 'package:time_right/core/models/employee_details/employee_details.dart';
 import 'package:time_right/ui/views/home_view.dart';
 
@@ -29,12 +31,14 @@ class ShortOverviewCard extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            WorkTimeClock(),
+            Provider.of<Employee>(context).employeeLevel ==
+                    EmployeeLevel.teamMember
+                ? Padding(
+                    padding: const EdgeInsets.only(right: 16.0),
+                    child: WorkTimeClock())
+                : Container(),
             Expanded(
-              child: Padding(
-                padding: const EdgeInsets.only(left: 16.0),
-                child: _buildShortOverview(context),
-              ),
+              child: _buildShortOverview(context),
             ),
           ],
         ),
@@ -49,10 +53,7 @@ class ShortOverviewCard extends StatelessWidget {
       children: <Widget>[
         Text(
           AppLocalizations.of(context).translate('HOME_CARD_TITLE'),
-          style: Theme
-              .of(context)
-              .textTheme
-              .title,
+          style: Theme.of(context).textTheme.title,
         ),
         Table(
           columnWidths: {1: FractionColumnWidth(.25)},
@@ -77,8 +78,7 @@ class ShortOverviewCard extends StatelessWidget {
               Text(
                   AppLocalizations.of(context).translate('HOME_CARD_LEFT_VAC')),
               Text(
-                '${_employeeDetails.contractDetails.vacation -
-                    _employeeDetails.currentWorkDetails.takenVacation}',
+                '${_employeeDetails.contractDetails.vacation - _employeeDetails.currentWorkDetails.takenVacation - _employeeDetails.currentWorkDetails.appliedVacation}',
                 textAlign: TextAlign.right,
               )
             ]),
@@ -93,9 +93,8 @@ class ShortOverviewCard extends StatelessWidget {
           ],
         ),
         FlatButton(
-          onPressed: () =>
-              Navigator.pushNamed(context, RoutePaths.overviewView,
-                  arguments: _employeeDetails),
+          onPressed: () => Navigator.pushNamed(context, RoutePaths.overviewView,
+              arguments: _employeeDetails),
           padding: const EdgeInsets.all(3.0),
           child: Row(
             children: <Widget>[

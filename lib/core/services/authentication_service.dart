@@ -33,7 +33,7 @@ class AuthenticationService {
   }
 
   /// Execute login-method of [_api].
-  void logOut() {
-    _api.logOut();
+  Future logOut() async {
+    await _api.logOut();
   }
 }
