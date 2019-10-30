@@ -40,7 +40,8 @@ class TimeStampViewModel extends BaseModel {
   EmployeeDetailsService _employeeDetailsService;
 
   /// Return [EmployeeDetails]
-  EmployeeDetails get employeeDetails => _employeeDetailsService.employeeDetails;
+  EmployeeDetails get employeeDetails =>
+      _employeeDetailsService.employeeDetails;
 
   /// Time displayed in the ui as the current stamp time.
   DateTime _stampTime = DateTime.now();
@@ -75,9 +76,11 @@ class TimeStampViewModel extends BaseModel {
   Future<TimeStampResponse> stamp(DateTime dateTime) async {
     TimeStampResponse timeStampResponse = TimeStampResponse.unknownResult;
     if (_currentSelected == TimeStampType.stampIn) {
-      timeStampResponse = await _timeStampService.stampIn(dateTime);
+      timeStampResponse =
+          await _timeStampService.stampIn(dateTime);
     } else {
-      timeStampResponse = await _timeStampService.stampOut(dateTime);
+      timeStampResponse =
+          await _timeStampService.stampOut(dateTime);
     }
     return timeStampResponse;
   }

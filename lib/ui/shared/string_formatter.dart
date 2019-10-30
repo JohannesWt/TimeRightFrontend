@@ -18,6 +18,12 @@ class StringFormatter {
     return formatter.format(dateString);
   }
 
+  /// Retrun a formated strting as yyyy-MM-dd
+  static String getFormattedShortDateStringWithLines(DateTime datetTime) {
+    var formatter = DateFormat('yyyy-MM-dd');
+    return formatter.format(datetTime);
+  }
+
   /// Return a formatted string of a [Duration].
   static String formatDuration(Duration duration) {
     String twoDigits(int n) {

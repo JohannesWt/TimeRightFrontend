@@ -41,11 +41,12 @@ class Api {
   /// Return Employee object, decoded from the JSON response.
   Future<Employee> fetchEmployee(String employeeID, String password) async {
     // TODO: Remove testUser
-    String employeeTest = 'testUser';
-    String passwordTest = 'test';
+//    String employeeTest = 'testUser';
+//    String passwordTest = 'test';
+//    var response = await rootBundle.loadString('assets/employee.json');
     var response = await http.post('$endpoint/login',
         headers: {HttpHeaders.contentTypeHeader: 'application/json'},
-        body: '{"username" : "$employeeTest", "password" : "$passwordTest"}');
+        body: '{"username" : "$employeeID", "password" : "$password"}');
     _setCookie(response);
     Map dataMap = jsonDecode(response.body);
     return Employee.fromJson(dataMap);
@@ -56,49 +57,88 @@ class Api {
   /// Return EmployeeDetails object decoded from the JSON response
   Future<EmployeeDetails> fetchEmployeeDetails(int employeeID) async {
     // TODO: Connect to backend
-//    var response = await rootBundle.loadString('assets/employeeDetails.json');
-    var response = await http.get('$endpoint/startPage', headers: headers);
-    Map dataMap = jsonDecode(response.body);
+    var response = await rootBundle.loadString('assets/employeeDetails.json');
+//    var response = await http.get('$endpoint/startPage', headers: headers);
+    Map dataMap = jsonDecode(response);
     return EmployeeDetails.fromJson(dataMap);
   }
 
-  /// Fetch time stamp for an [employeeID] and a certain [dateTime] from the
+  /// Fetch time stamp for an certain [dateTime] from the
   /// backend. The backend returns a list of [TimeStampDay] from the current
   /// month, written in the specified date.
   ///
   /// Return a map of all [TimeStampDay] of the specified month.
   Future<Map<DateTime, List<TimeStampEvent>>> fetchTimeStampDaysForMonth(
-      int employeeID, DateTime dateTime) async {
-    // TODO: Connect to backend
+      DateTime dateTime) async {
+//    var response = await http.get(
+//        '$endpoint/calendarData?date="${StringFormatter.getFormattedShortDateStringWithLines(DateTime(dateTime.year, dateTime.month, dateTime.day))}"',
+//        headers: headers);
+//    print(response.body);
+//    print(StringFormatter.getFormattedShortDateStringWithLines(
+//        DateTime(dateTime.year, dateTime.month, dateTime.day)));
     var response = await rootBundle.loadString('assets/calendar.json');
     Map<DateTime, List<TimeStampEvent>> dataMap = {};
     List<TimeStampDay> timeStampList = jsonDecode(response)
         .map<TimeStampDay>((json) => TimeStampDay.fromJson(json))
         .toList();
     timeStampList.forEach((timeStampDay) {
-      dataMap[timeStampDay.date] = timeStampDay.timeStampEvents;
+      dataMap[timeStampDay.date.subtract(Duration(hours: 1))] =
+          timeStampDay.timeStampEvents;
     });
+//    print('List ${timeStampList.length}');
+//    print(dataMap.length);
     return dataMap;
+  }
+
+  /// Fetch time stamp applications for a certain [dateTime] from the
+  /// backend. The backend returns a list of [TimeStampDay] from the current
+  /// month, written in the specified date.
+  ///
+  /// Return a map of all [TimeStampDay] applications of the specified month.
+  Future<List<TimeStampEvent>> fetchApplicationsForMonth(
+      DateTime dateTime) async {
+    var response = await rootBundle.loadString('assets/calendarFails.json');
+    List<TimeStampEvent> timeStampList = jsonDecode(response)
+        .map<TimeStampEvent>((json) => TimeStampEvent.fromJson(json))
+        .toList();
+    return timeStampList;
   }
 
   /// Post a time stamp for a [dateTime] and a certain [timeStampType] to the
   /// backend.
   ///
   /// Return the [timeStampResponse] of the backend.
-  void stamp(DateTime dateTime, TimeStampType timeStampType) async {
-    print(dateTime.toUtc().toIso8601String());
+  Future stamp(
+      TimeStampEvent timeStampEvent, TimeStampType timeStampType) async {
     String body =
-        '{"stampTime":"${dateTime.toUtc().toIso8601String()}", "stampType":"${StringFormatter.getEnumString(timeStampType)}"}';
+        '{"stampTime":"${timeStampEvent.dateTime.toUtc().toIso8601String()}", "timeStampType":"${StringFormatter.getEnumString(timeStampType)}"}';
     print(body);
     var response =
         await http.post('$endpoint/stamp', headers: headers, body: body);
-    print('Header ${response.headers}');
-    print('Stamp response ${response.body}');
+    print(response.body);
+    if (response.statusCode == 400) {
+      throw Exception(TimeStampResponse.stampTypeFail);
+    }
+  }
+
+  /// Post a time stamp for a [startDate], [endDate] and a certain [timeStampType] to the
+  /// backend.
+  Future stampAbsence(
+      TimeStampType timeStampType, DateTime startDate, DateTime endDate) async {
+    String body =
+        '{"startDate":"${startDate.toUtc().toIso8601String()}","endDate":"${endDate.toUtc().toIso8601String()}","type":"${StringFormatter.getEnumString(timeStampType)}"}';
+    print(body);
+    var response =
+        await http.post('$endpoint/applyAbsence', headers: headers, body: body);
+    print(response.body);
+    if (response.statusCode == 400) {
+      throw Exception(TimeStampResponse.stampTypeFail);
+    }
   }
 
   /// Logs the current user out.
   /// The sessionID on the backend server gets deleted.
-  void logOut() async {
+  Future logOut() async {
     await http.get('$endpoint/logout', headers: headers);
   }
 }

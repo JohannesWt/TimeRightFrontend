@@ -43,7 +43,9 @@ class HomeView extends StatelessWidget {
           children: <Widget>[
             Padding(
               padding: const EdgeInsets.only(left: 10.0, right: 10.0),
-              child: ShortOverviewCard(employeeDetails: _employeeDetails,),
+              child: ShortOverviewCard(
+                employeeDetails: _employeeDetails,
+              ),
             ),
             _buildMenuButtons(context),
             Expanded(
@@ -82,18 +84,36 @@ class HomeView extends StatelessWidget {
 
   /// Return the floating action button leading to the [TimeStampView].
   Widget _buildFloatingActionButton(BuildContext context) {
-    return FloatingActionButton.extended(
-      onPressed: () => Navigator.pushNamed(context, RoutePaths.timeStampView),
-      label: Text(
-        AppLocalizations.of(context).translate('HOME_FAB_LABEL'),
-        style: TextStyle(fontSize: 20),
-      ),
-      icon: Icon(
-        Icons.input,
-        size: 24,
-      ),
-      backgroundColor: blueAccent,
-    );
+    EmployeeLevel employeeLevel = Provider.of<Employee>(context).employeeLevel;
+    print(employeeLevel);
+    if (employeeLevel == EmployeeLevel.teamMember) {
+      return FloatingActionButton.extended(
+        onPressed: () => Navigator.pushNamed(context, RoutePaths.timeStampView),
+        label: Text(
+          AppLocalizations.of(context).translate('HOME_FAB_LABEL'),
+          style: TextStyle(fontSize: 20),
+        ),
+        icon: Icon(
+          Icons.input,
+          size: 24,
+        ),
+        backgroundColor: blueAccent,
+      );
+    } else {
+      return FloatingActionButton.extended(
+        onPressed: () =>
+            Navigator.pushNamed(context, RoutePaths.applicationView),
+        label: Text(
+          'Anträge',
+          style: TextStyle(fontSize: 20),
+        ),
+        icon: Icon(
+          Icons.input,
+          size: 24,
+        ),
+        backgroundColor: blueAccent,
+      );
+    }
   }
 
   /// Return the both menu buttons leading to [CalendarView] with the notification
@@ -117,11 +137,12 @@ class HomeView extends StatelessWidget {
               thickness: 1.2,
             ),
             _buildMenuButton(
-                context,
-                AppLocalizations.of(context).translate('HOME_ABS_BTN_LABEL'),
-                Icons.add,
-                false,
-                RoutePaths.absenceChoiceView),
+              context,
+              AppLocalizations.of(context).translate('HOME_ABS_BTN_LABEL'),
+              Icons.add,
+              false,
+              RoutePaths.absenceChoiceView,
+            ),
           ],
         ),
       ),
@@ -179,7 +200,8 @@ class HomeView extends StatelessWidget {
             ],
           ),
         ),
-        onPressed: () => Navigator.pushNamed(context, target),
+        onPressed: () =>
+            Navigator.pushNamed(context, target, arguments: DateTime.now()),
       ),
     );
   }

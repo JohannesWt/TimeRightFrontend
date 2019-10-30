@@ -1,0 +1,38 @@
+[
+  {
+    "timeStampType": "stampOutValidation",
+    "dateTime": "2019-10-21T16:00:00Z",
+    "employeeName": "testUser",
+    "employeeID": 1
+  },
+  {
+    "timeStampType": "stampInValidation",
+    "dateTime": "2019-10-22T07:00:00Z",
+    "employeeName": "testUser",
+    "employeeID": 1
+  },
+  {
+    "timeStampType": "stampOutValidation",
+    "dateTime": "2019-10-23T20:00:00Z",
+    "employeeName": "testUser",
+    "employeeID": 1
+  },
+  {
+    "timeStampType": "vacationValidation",
+    "dateTime": "2019-10-23T20:00:00Z",
+    "employeeName": "testUser2",
+    "employeeID": 2
+  },
+  {
+    "timeStampType": "flexDayValidation",
+    "dateTime": "2019-10-23T20:00:00Z",
+    "employeeName": "testUser2",
+    "employeeID": 2
+  },
+  {
+    "timeStampType": "vacationValidation",
+    "dateTime": "2019-10-24T20:00:00Z",
+    "employeeName": "testUser4",
+    "employeeID": 2
+  }
+]

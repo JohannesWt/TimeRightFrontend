@@ -72,27 +72,32 @@ class _LoginViewState extends State<LoginView> {
                         ),
                         Padding(
                           padding: const EdgeInsets.only(top: 30.0),
-                          child: Column(
+                          child: Stack(
                             children: <Widget>[
-                              TextField(
-                                controller: model.employeeIDController,
-                                decoration: InputDecoration(
-                                    hintText: 'Mitarbeiter ID',
-                                    icon: Icon(Icons.perm_identity)),
-                                cursorColor: blueAccent,
+                              Column(
+                                children: <Widget>[
+                                  TextField(
+                                    controller: model.employeeIDController,
+                                    decoration: InputDecoration(
+                                        hintText: 'Mitarbeiter ID',
+                                        icon: Icon(Icons.perm_identity)),
+                                    cursorColor: blueAccent,
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 20.0),
+                                    child: TextField(
+                                      controller: model.passwordController,
+                                      decoration: InputDecoration(
+                                          hintText: 'Passwort',
+                                          icon: Icon(Icons.lock)),
+                                      obscureText: true,
+                                    ),
+                                  ),
+                                ],
                               ),
-                              Padding(
-                                padding: const EdgeInsets.only(top: 20.0),
-                                child: TextField(
-                                  controller: model.passwordController,
-                                  decoration: InputDecoration(
-                                      hintText: 'Passwort',
-                                      icon: Icon(Icons.lock)),
-                                  obscureText: true,
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
+                              Align(
+                                alignment: Alignment.center,
+//                              child: CircularProgressIndicator(),
                                 child: model.busy
                                     ? CircularProgressIndicator()
                                     : Container(),
@@ -112,9 +117,31 @@ class _LoginViewState extends State<LoginView> {
           elevation: 2,
           child: Icon(Icons.arrow_forward),
           onPressed: () async {
-            Employee employeeProfile = await model.login();
+            Employee employeeProfile = await model.login().catchError((error) {
+              showDialog(
+                  context: context,
+                  builder: (context) {
+                    return AlertDialog(
+                      title: Text('Fehler'),
+                      content:
+                          Text('Beim Einloggen ist ein Fehler aufgetreten'),
+                      actions: <Widget>[
+                        FlatButton(
+                          child: Text('ok'),
+                          onPressed: () {
+                            model.setBusy(false);
+                            Navigator.pop(context);
+                          },
+                        )
+                      ],
+                    );
+                  });
+            });
             if (employeeProfile != null) {
-              print(employeeProfile.employeeLevel);
+              if (Provider.of<Employee>(context).employeeLevel ==
+                  EmployeeLevel.executive) {
+                model.getExecutiveDetails();
+              }
               Navigator.pushNamed(context, RoutePaths.homeView,
                   arguments: model.employeeDetails);
             }

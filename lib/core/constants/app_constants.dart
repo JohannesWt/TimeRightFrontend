@@ -15,4 +15,6 @@ class RoutePaths {
   static const String vacationView = 'vacationView';
   static const String sickDayView = 'sickLeaveView';
   static const String flexDayView = 'flexDayView';
+  static const String correctStampView = 'correctStampView';
+  static const String applicationView = 'applicationView';
 }

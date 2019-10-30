@@ -67,6 +67,7 @@ flutter:
     - assets/employeeDetails.json
     - assets/employeeProfile.json
     - assets/calendar.json
+    - assets/calendarFails.json
 
   # To add assets to your application, add an assets section, like this:
   # assets:
