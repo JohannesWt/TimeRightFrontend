@@ -61,21 +61,29 @@ class LoginViewModel extends BaseModel {
     setBusy(true);
     var fetchedEmployee = await _authenticationService.login(
         _employeeIDController.text, _passwordController.text);
-    if (fetchedEmployee != null) {
-      await getEmployeeDetails(fetchedEmployee.employeeID);
-    }
     setBusy(false);
     return fetchedEmployee;
   }
 
   /// Fetch details from employee with [employeeID].
-  /// Fetch time stamp map from [employeeID] from the current month.
-  Future getEmployeeDetails(int employeeID) async {
-    await _employeeDetailsService.fetchEmployeeDetails(employeeID);
-    await _timeStampService.fetchTimeStampDaysForMonth(DateTime.now());
+  Future getEmployeeDetails() async {
+    setBusy(true);
+    await _employeeDetailsService.fetchEmployeeDetails();
+    setBusy(false);
   }
 
+  /// Fetch time stamp map from [employeeID] from the current month.
+  Future getTimeStampsForMonth(DateTime dateTime) async {
+    setBusy(true);
+    await _timeStampService.fetchTimeStampDaysForMonth(DateTime.now());
+    setBusy(false);
+  }
+
+  /// Fetch executive details like applications if current logged in employee
+  /// as an executive.
   Future getExecutiveDetails() async {
+    setBusy(true);
     await _timeStampService.fetchApplicationsForMonth(DateTime.now());
+    setBusy(false);
   }
 }

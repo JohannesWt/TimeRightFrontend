@@ -5,13 +5,20 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:time_right/app_localizations.dart';
+import 'package:time_right/core/models/employee/employee.dart';
 import 'package:time_right/core/models/employee_profile/employee_profile.dart';
+import 'package:time_right/ui/shared/string_formatter.dart';
 import 'package:time_right/ui/views/base_widget.dart';
 import 'package:time_right/core/viewmodels/views/profile_view_model.dart';
 import 'package:time_right/ui/views/profile_view.dart';
 
 /// Class builds the profile list displayed in the [ProfileView].
 class ProfileList extends StatelessWidget {
+  ProfileList({@required EmployeeProfile employeeProfile})
+      : _employeeProfile = employeeProfile;
+
+  final EmployeeProfile _employeeProfile;
+
   @override
   Widget build(BuildContext context) {
     return ListView(
@@ -107,49 +114,49 @@ class ProfileList extends StatelessWidget {
         Table(
           columnWidths: {1: FractionColumnWidth(.6)},
           children: [
-            TableRow(children: [
-              Text(
-                  AppLocalizations.of(context).translate('PROFILE_FIRST_NAME')),
-              Text(
-                'Lightning',
-                textAlign: TextAlign.left,
-              )
-            ]),
+//            TableRow(children: [
+//              Text(
+//                  AppLocalizations.of(context).translate('PROFILE_FIRST_NAME')),
+//              Text(
+//                '${_employeeProfile.firstName}',
+//                textAlign: TextAlign.left,
+//              )
+//            ]),
             TableRow(children: [
               Text(AppLocalizations.of(context).translate('PROFILE_LAST_NAME')),
               Text(
-                'McQueen',
+                '${_employeeProfile.lastName}',
                 textAlign: TextAlign.left,
               )
             ]),
             TableRow(children: [
               Text(AppLocalizations.of(context).translate('PROFILE_DOB')),
               Text(
-                '01.01.2000',
+                '${StringFormatter.getFormattedShortDateString(_employeeProfile.dateOfBirth)}',
                 textAlign: TextAlign.left,
               )
             ]),
             TableRow(children: [
               Text(AppLocalizations.of(context).translate('PROFILE_EMAIL')),
               Text(
-                'lightning@thunder.com',
+                '${_employeeProfile.emailAddress}',
                 textAlign: TextAlign.left,
               )
             ]),
             TableRow(children: [
               Text(AppLocalizations.of(context).translate('PROFILE_PHONE')),
               Text(
-                '080022222222',
+                '${_employeeProfile.phoneNumber}',
                 textAlign: TextAlign.left,
               )
             ]),
-            TableRow(children: [
-              Text(AppLocalizations.of(context).translate('PROFILE_ADDRESS')),
-              Text(
-                'Radiator Springs 66 7777 California',
-                textAlign: TextAlign.left,
-              )
-            ])
+//            TableRow(children: [
+//              Text(AppLocalizations.of(context).translate('PROFILE_ADDRESS')),
+//              Text(
+//                '${_employeeProfile.address.street}, ${_employeeProfile.address.houseNr}\n ${_employeeProfile.address.postCode} ${_employeeProfile.address.city}',
+//                textAlign: TextAlign.left,
+//              )
+//            ])
           ],
         ),
       ],
@@ -168,36 +175,36 @@ class ProfileList extends StatelessWidget {
         Table(
           columnWidths: {1: FractionColumnWidth(.6)},
           children: [
-            TableRow(children: [
-              Text(AppLocalizations.of(context)
-                  .translate('PROFILE_BANK_RECIPIENT')),
-              Text(
-                'Lightning McQueen',
-                textAlign: TextAlign.left,
-              )
-            ]),
+//            TableRow(children: [
+//              Text(AppLocalizations.of(context)
+//                  .translate('PROFILE_BANK_RECIPIENT')),
+//              Text(
+//                '${_employeeProfile.bankDetails.receiver}',
+//                textAlign: TextAlign.left,
+//              )
+//            ]),
             TableRow(children: [
               Text(AppLocalizations.of(context).translate('PROFILE_BANK_IBAN')),
               Text(
-                'DE76 3333 5555 7777 9999 20',
+                '${_employeeProfile.bankDetails.iBAN}',
                 textAlign: TextAlign.left,
               )
             ]),
             TableRow(children: [
               Text(AppLocalizations.of(context).translate('PROFILE_BANK_NAME')),
               Text(
-                'Tow Mater Bank',
+                '${_employeeProfile.bankDetails.bankName}',
                 textAlign: TextAlign.left,
               )
             ]),
-            TableRow(children: [
-              Text(AppLocalizations.of(context)
-                  .translate('PROFILE_BANK_VALID_FROM')),
-              Text(
-                '12.12.2022',
-                textAlign: TextAlign.left,
-              )
-            ])
+//            TableRow(children: [
+//              Text(AppLocalizations.of(context)
+//                  .translate('PROFILE_BANK_VALID_FROM')),
+//              Text(
+//                '${_employeeProfile.bankDetails.validFrom}',
+//                textAlign: TextAlign.left,
+//              )
+//            ])
           ],
         ),
       ],
@@ -220,18 +227,18 @@ class ProfileList extends StatelessWidget {
               Text(AppLocalizations.of(context)
                   .translate('PROFILE_INSURANCE_NAME')),
               Text(
-                'RiskItForTheBuiscuit',
+                '${_employeeProfile.insuranceDetails.name}',
                 textAlign: TextAlign.left,
               )
             ]),
-            TableRow(children: [
-              Text(AppLocalizations.of(context)
-                  .translate('PROFILE_INSURANCE_STATUS')),
-              Text(
-                'General Fund',
-                textAlign: TextAlign.left,
-              )
-            ]),
+//            TableRow(children: [
+//              Text(AppLocalizations.of(context)
+//                  .translate('PROFILE_INSURANCE_STATUS')),
+//              Text(
+//                '${_employeeProfile.insuranceDetails}',
+//                textAlign: TextAlign.left,
+//              )
+//            ]),
           ],
         ),
       ],
@@ -255,23 +262,23 @@ class ProfileList extends StatelessWidget {
               Text(AppLocalizations.of(context)
                   .translate('PROFILE_COMPANY_Name')),
               Text(
-                'Lightning McQueens Racing Academy',
+                '${_employeeProfile.companyDetails.companyName}',
                 textAlign: TextAlign.left,
               )
             ]),
-            TableRow(children: [
-              Text(AppLocalizations.of(context)
-                  .translate('PROFILE_COMPANY_POSITION')),
-              Text(
-                'Big Boss',
-                textAlign: TextAlign.left,
-              )
-            ]),
+//            TableRow(children: [
+//              Text(AppLocalizations.of(context)
+//                  .translate('PROFILE_COMPANY_POSITION')),
+//              Text(
+//                '${_employeeProfile.companyDetails.}',
+//                textAlign: TextAlign.left,
+//              )
+//            ]),
             TableRow(children: [
               Text(AppLocalizations.of(context)
                   .translate('PROFILE_COMPANY_SUPERIOR')),
               Text(
-                'Nodbody',
+                '${_employeeProfile.companyDetails.department.executiveName}',
                 textAlign: TextAlign.left,
               )
             ]),
@@ -279,7 +286,7 @@ class ProfileList extends StatelessWidget {
               Text(AppLocalizations.of(context)
                   .translate('PROFILE_COMPANY_DIVISION')),
               Text(
-                'Racing',
+                '${_employeeProfile.companyDetails.department.departmentName}',
                 textAlign: TextAlign.left,
               )
             ])

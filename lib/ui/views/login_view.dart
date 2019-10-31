@@ -117,29 +117,34 @@ class _LoginViewState extends State<LoginView> {
           elevation: 2,
           child: Icon(Icons.arrow_forward),
           onPressed: () async {
-            Employee employeeProfile = await model.login().catchError((error) {
-              showDialog(
-                  context: context,
-                  builder: (context) {
-                    return AlertDialog(
-                      title: Text('Fehler'),
-                      content:
-                          Text('Beim Einloggen ist ein Fehler aufgetreten'),
-                      actions: <Widget>[
-                        FlatButton(
-                          child: Text('ok'),
-                          onPressed: () {
-                            model.setBusy(false);
-                            Navigator.pop(context);
-                          },
-                        )
-                      ],
-                    );
-                  });
-            });
+            Employee employeeProfile = await model.login()
+//                .catchError((error) {
+//              showDialog(
+//                  context: context,
+//                  builder: (context) {
+//                    return AlertDialog(
+//                      title: Text('Fehler'),
+//                      content:
+////                          Text(error.toString()),
+//                          Text('Beim Einloggen ist ein Fehler aufgetreten'),
+//                      actions: <Widget>[
+//                        FlatButton(
+//                          child: Text('ok'),
+//                          onPressed: () {
+//                            model.setBusy(false);
+//                            Navigator.pop(context);
+//                          },
+//                        )
+//                      ],
+//                    );
+//                  });
+//            })
+                ;
             if (employeeProfile != null) {
-              if (Provider.of<Employee>(context).employeeLevel ==
-                  EmployeeLevel.executive) {
+              print(employeeProfile.employeeLevel);
+              await model.getEmployeeDetails();
+              await model.getTimeStampsForMonth(DateTime.now());
+              if (employeeProfile.employeeLevel == EmployeeLevel.executive) {
                 model.getExecutiveDetails();
               }
               Navigator.pushNamed(context, RoutePaths.homeView,

@@ -29,8 +29,8 @@ class CompanyDetails {
 class Department {
   Department(
       {this.positionDescription,
-      this.supervisorID,
-      this.supervisorName,
+      this.executiveID,
+      this.executiveName,
       this.departmentName,
       this.departmentID});
 
@@ -40,8 +40,8 @@ class Department {
   Map<String, dynamic> toJson() => _$DepartmentToJson(this);
 
   final String positionDescription;
-  final String supervisorID;
-  final String supervisorName;
+  final int executiveID;
+  final String executiveName;
   final String departmentName;
-  final String departmentID;
+  final int departmentID;
 }

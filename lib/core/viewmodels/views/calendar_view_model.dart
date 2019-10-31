@@ -51,9 +51,9 @@ class CalendarViewModel extends BaseModel {
   /// Return [_eventList].
   EventList<Event> get eventList => _eventList;
 
-  /// Set time stamp events for month of [dateTime] for a [employeeID] from
+  /// Set time stamp events for month of [dateTime]
   /// in [_timeStampService].
-  Future fetchTimeStampDaysForMonth(int employeeID, DateTime dateTime) async {
+  Future fetchTimeStampDaysForMonth(DateTime dateTime) async {
     setBusy(true);
     await _timeStampService.fetchTimeStampDaysForMonth(dateTime);
     notifyListeners();

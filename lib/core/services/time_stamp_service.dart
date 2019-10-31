@@ -34,7 +34,12 @@ class TimeStampService {
   Future fetchTimeStampDaysForMonth(DateTime dateTime) async {
     Map<DateTime, List<TimeStampEvent>> tmpMap =
         await _api.fetchTimeStampDaysForMonth(dateTime);
-    _timeStampMap.addAll(tmpMap);
+    tmpMap.forEach((dateTime, eventList) {
+      if(!_timeStampMap.containsKey(dateTime)) {
+        _timeStampMap[dateTime] = eventList;
+      }
+    });
+//    _timeStampMap.addAll(tmpMap);
   }
 
   Future fetchApplicationsForMonth(DateTime dateTime) async {
@@ -261,16 +266,27 @@ class TimeStampService {
     return timeStampResponse;
   }
 
-  Future<TimeStampResponse> stampAbsence(
+  Future applyAbsence(
       TimeStampType timeStampType, DateTime startDate, DateTime endDate) async {
-    await _api.stampAbsence(timeStampType, startDate, endDate).then((value) {
+    await _api.applyAbsence(timeStampType, startDate, endDate);
+//    .then((value) {
       DateTime tmpDate = startDate;
       do {
         _addTimeStampEvent(
             TimeStampEvent(timeStampType: timeStampType, dateTime: tmpDate));
         tmpDate.add(Duration(days: 1));
       } while (tmpDate != endDate);
-    });
+//    });
+  }
+
+  Future proveStamp(TimeStampEvent timeStampEvent, String action) async {
+    if (timeStampEvent.timeStampType == TimeStampType.flexDayValidation ||
+        timeStampEvent.timeStampType == TimeStampType.vacationValidation) {
+      await _api.proveAbsence(timeStampEvent, action);
+    } else {
+      await _api.proveStamp(timeStampEvent, action);
+    }
+    _executiveApplicationList.remove(timeStampEvent);
   }
 
   /// Check last event of [getTimeStampEventsForDay] of [dateTime] and.

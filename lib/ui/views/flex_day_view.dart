@@ -159,7 +159,7 @@ class _FlexDayState extends State<FlexDayView> {
       children: <Widget>[
         FlatButton(
             onPressed: () {
-              Navigator.pushNamed(context, RoutePaths.homeView);
+              Navigator.pop(context);
             },
             child: Column(
               children: <Widget>[

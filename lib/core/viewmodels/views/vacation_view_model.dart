@@ -72,13 +72,15 @@ class VacationViewModel extends BaseModel {
           .employeeDetails.currentWorkDetails.appliedVacation;
 
   /// Stamp vacation in the [_timeStampService].
-  Future<TimeStampResponse> stampVacation() async {
-    await _timeStampService
-        .stampAbsence(TimeStampType.vacation, _startDate, _endDate)
-        .then((value) {
-      _employeeDetailsService.employeeDetails.currentWorkDetails
-          .appliedVacation += selectedDaysSum.inDays;
+  Future applyAbsence() async {
+    await _timeStampService.applyAbsence(
+        TimeStampType.vacation, _startDate, _endDate);
+    _employeeDetailsService.employeeDetails.currentWorkDetails
+        .appliedVacation += selectedDaysSum.inDays;
+//        .then((value) {
+
 //      print(selectedDaysSum.inDays);
-    });
   }
+
+//  );
 }

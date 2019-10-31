@@ -250,7 +250,7 @@ class _VacationViewState extends State<VacationView> {
         FlatButton(
             onPressed: () async {
 //              Navigator.pop(context);
-              await _vacationViewModel.stampVacation().then((value) {
+              await _vacationViewModel.applyAbsence().then((value) {
                 Navigator.pushNamed(context, RoutePaths.homeView,
                     arguments: _vacationViewModel.employeeDetails);
                 print('Confirm Button was pressed');
