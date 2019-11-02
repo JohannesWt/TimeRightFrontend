@@ -2,7 +2,7 @@
   "lastName": "Mustermann",
   "firstName": "Max",
   "dateOfBirth": "2012-04-23 18:25:43",
-  "phoneNumber": "0151 1234567",
+  "phoneNumber": 1511234567,
   "emailAddress": "max.mustermann@webjump.pro",
   "bankDetails": {
     "receiver": "rec1",
@@ -12,8 +12,8 @@
   },
   "insuranceDetails": {
     "insuranceName": "AOK",
-    "insuranceNumber": "E123412341",
-    "socialSecurityNumber": "1234512345"
+    "insuranceNumber": 123412341,
+    "socialSecurityNumber": 1234512345
   },
   "companyDetails": {
     "companyName": "Volkswagen AG",

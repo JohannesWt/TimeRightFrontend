@@ -34,48 +34,50 @@ class OverviewCards extends StatelessWidget {
                 Expanded(
                     child: Padding(
                         padding: const EdgeInsets.only(left: 10.0, right: 10.0),
-                        //how do I call a list of widgets here?
-                        child: _buildFlexTimeAccount(context)
-                        // buildVacationAccount(),   buildOtherAbsences()
-                        )),
+                        child: _buildFlexTimeAccount(context))),
               ],
             ),
           ),
         ),
-        Card(
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
-          elevation: 5,
-          child: Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                Expanded(
-                    child: Padding(
-                        padding: const EdgeInsets.only(left: 10.0, right: 10.0),
-                        //how do I call a list of widgets here?
-                        child: _buildVacationAccount(context)
-                        // buildVacationAccount(),   buildOtherAbsences()
-                        )),
-              ],
+        Padding(
+          padding: const EdgeInsets.only(top: 12.0),
+          child: Card(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0)),
+            elevation: 5,
+            child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Expanded(
+                      child: Padding(
+                          padding:
+                              const EdgeInsets.only(left: 10.0, right: 10.0),
+                          child: _buildVacationAccount(context))),
+                ],
+              ),
             ),
           ),
         ),
-        Card(
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
-          elevation: 5,
-          child: Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                Expanded(
-                    child: Padding(
-                        padding: const EdgeInsets.only(left: 10.0, right: 10.0),
-                        child: _buildOtherAbsences(context))),
-              ],
+        Padding(
+          padding: const EdgeInsets.only(top: 12.0),
+          child: Card(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0)),
+            elevation: 5,
+            child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Expanded(
+                      child: Padding(
+                          padding:
+                              const EdgeInsets.only(left: 10.0, right: 10.0),
+                          child: _buildOtherAbsences(context))),
+                ],
+              ),
             ),
           ),
         ),
@@ -103,30 +105,6 @@ class OverviewCards extends StatelessWidget {
                 textAlign: TextAlign.right,
               )
             ]),
-//            TableRow(children:
-//              Text(AppLocalizations.of(context)
-//                  .translate('OVERVIEW_CARD1_SHORT_TERM_ACCOUNT')),
-//              Text(
-//                '8,5h',
-//                textAlign: TextAlign.right,
-//              )
-//            ]),
-//            TableRow(children: [
-//              Text(AppLocalizations.of(context)
-//                  .translate('OVERVIEW_CARD1_LONG_TERM_ACCOUNT')),
-//              Text(
-//                '12',
-//                textAlign: TextAlign.right,
-//              )
-//            ]),
-//            TableRow(children: [
-//              Text(AppLocalizations.of(context)
-//                  .translate('OVERVIEW_CARD1_OVERTIME_PREV_YEAR')),
-//              Text(
-//                '0',
-//                textAlign: TextAlign.right,
-//              )
-//            ])
           ],
         ),
         FlatButton(
@@ -168,14 +146,6 @@ class OverviewCards extends StatelessWidget {
                 textAlign: TextAlign.right,
               )
             ]),
-//            TableRow(children: [
-//              Text(AppLocalizations.of(context)
-//                  .translate('OVERVIEW_CARD2_VAC_DAYS_PREV_YEAR')),
-//              Text(
-//                '${widget._employeeDetails.currentWorkDetails.remainingVacationLastYear}',
-//                textAlign: TextAlign.right,
-//              )
-//            ]),
             TableRow(children: [
               Text(AppLocalizations.of(context)
                   .translate('OVERVIEW_CARD2_VAC_TAKEN')),
@@ -242,6 +212,20 @@ class OverviewCards extends StatelessWidget {
               )
             ]),
           ],
+        ),
+        FlatButton(
+          onPressed: () => Navigator.pushNamed(context, RoutePaths.sickDayView,
+              arguments: DateTime.now()),
+          padding: const EdgeInsets.all(0.0),
+          child: Row(
+            children: <Widget>[
+              Text(AppLocalizations.of(context).translate('OVERVIEW_CARD3_SICK_APPLY_BTN')),
+              Expanded(
+                  child: Align(
+                      alignment: Alignment.centerRight,
+                      child: Icon(Icons.arrow_forward_ios)))
+            ],
+          ),
         ),
       ],
     );

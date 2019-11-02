@@ -8,6 +8,7 @@ import 'package:time_right/core/services/authentication_service.dart';
 import 'package:time_right/core/services/employee_details_service.dart';
 import 'package:time_right/core/services/time_stamp_service.dart';
 import 'package:time_right/core/viewmodels/base_model.dart';
+import 'package:time_right/core/viewmodels/widgets/work_time_clock_model.dart';
 import 'package:time_right/ui/views/profile_view.dart';
 
 /// Model which handles the business logic for the [ProfileView]
@@ -31,7 +32,11 @@ class ProfileViewModel extends BaseModel {
   /// Logs the current logged in user out.
   Future logOut() async {
     await _authenticationService.logOut().then((value) {
+      print('rein');
+      WorkTimeClockModel.workTimer.cancel();
       _timeStampService.timeStampMap.clear();
+      _employeeDetailsService.employeeDetailsLoaded = false;
+      _employeeDetailsService.employeeProfileLoaded = false;
     });
   }
 
@@ -39,10 +44,8 @@ class ProfileViewModel extends BaseModel {
       _employeeDetailsService.employeeProfile;
 
   Future fetchEmployeeProfile() async {
-    if (employeeProfile == null) {
-      setBusy(true);
-      await _employeeDetailsService.fetchEmployeeProfile();
-      setBusy(false);
-    }
+    setBusy(true);
+    await _employeeDetailsService.fetchEmployeeProfile();
+    setBusy(false);
   }
 }

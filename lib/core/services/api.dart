@@ -5,13 +5,11 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:time_right/core/models/employee/employee.dart';
 import 'package:time_right/core/models/employee_details/employee_details.dart';
 import 'package:time_right/core/models/employee_profile/employee_profile.dart';
 import 'package:time_right/core/models/time_stamp_details/time_stamp_details.dart';
-import 'package:time_right/ui/shared/date_calculator.dart';
 import 'package:time_right/ui/shared/string_formatter.dart';
 
 /// Main service to handle connection to the backend and transfer data it.
@@ -43,19 +41,19 @@ class Api {
   /// Return Employee object, decoded from the JSON response.
   Future<Employee> fetchEmployee(String employeeID, String password) async {
     // TODO: Remove testUser
-    String employeeTest = 'montag';
-    String passwordTest = 'test';
+//    String employeeTest = 'testUser2';
+//    String passwordTest = 'test';
 //    var response = await rootBundle.loadString('assets/employee.json');
     var response = await http.post('$endpoint/login',
         headers: {HttpHeaders.contentTypeHeader: 'application/json'},
-        body: '{"username" : "$employeeTest", "password" : "$passwordTest"}');
+        body: '{"username" : "$employeeID", "password" : "$password"}');
     print(response.body);
     _setCookie(response);
     Map dataMap = jsonDecode(response.body);
     return Employee.fromJson(dataMap);
   }
 
-  /// Fetch main employee details for an [employeeID] from the backend.
+  /// Fetch main employee details for an employee from the backend.
   ///
   /// Return EmployeeDetails object decoded from the JSON response
   Future<EmployeeDetails> fetchEmployeeDetails() async {
@@ -66,7 +64,9 @@ class Api {
     return EmployeeDetails.fromJson(dataMap);
   }
 
+  /// Fetch profile data from  current logged in employee
   Future<EmployeeProfile> fetchEmployeeProfile() async {
+//    var response = await rootBundle.loadString('assets/employeeProfile.json');
     var response = await http.get('$endpoint/profileData', headers: headers);
     Map dataMap = jsonDecode(response.body);
     return EmployeeProfile.fromJson(dataMap);
@@ -94,8 +94,6 @@ class Api {
       dataMap[timeStampDay.date.subtract(Duration(hours: 1))] =
           timeStampDay.timeStampEvents;
     });
-//    print('List ${timeStampList.length}');
-//    print(dataMap.length);
     return dataMap;
   }
 
@@ -175,6 +173,7 @@ class Api {
     }
   }
 
+  /// Send corrected stamp to the backend
   Future correctStamp(TimeStampEvent timeStampEvent) async {
     var body =
         '{"stampTime":"${timeStampEvent.dateTime.toUtc().toIso8601String()}", "stampType":"${StringFormatter.getEnumString(timeStampEvent.timeStampType)}"}';

@@ -4,6 +4,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:time_right/app_localizations.dart';
 
 /// Show alert if the employee has to stamp out first, when the employee wanted
 /// to stamp in but is still stamped in.
@@ -11,11 +12,13 @@ class StampOutFirstFailAlert extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text('Stempelfehler'),
-      content: Text('Zuerst ausstempeln'),
+      title: Text(
+          AppLocalizations.of(context).translate('STAMP_FAIL_ALERT_TITLE')),
+      content: Text(AppLocalizations.of(context)
+          .translate('STAMP_OUT_FIRST_ALERT_CONTENT')),
       actions: <Widget>[
         FlatButton(
-          child: Text('Ok'),
+          child: Text(AppLocalizations.of(context).translate('STAMP_FAIL_ALERT_CONFIRM_BTN_LABEL')),
           onPressed: () => Navigator.pop(context),
         )
       ],
@@ -29,11 +32,11 @@ class StampInFirstFailAlert extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text('Stempelfehler'),
-      content: Text('Zuerst einstempeln'),
+      title: Text( AppLocalizations.of(context).translate('STAMP_FAIL_ALERT_TITLE')),
+      content: Text(AppLocalizations.of(context).translate('STAMP_IN_FIRST_ALERT_CONTENT')),
       actions: <Widget>[
         FlatButton(
-          child: Text('Ok'),
+          child: Text(AppLocalizations.of(context).translate('STAMP_FAIL_ALERT_CONFIRM_BTN_LABEL')),
           onPressed: () => Navigator.pop(context),
         )
       ],
@@ -47,11 +50,11 @@ class StampVacationFailAlert extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text('Stempelfehler'),
-      content: Text('Es liegt ein Urlaub vor'),
+      title: Text( AppLocalizations.of(context).translate('STAMP_FAIL_ALERT_TITLE')),
+      content: Text(AppLocalizations.of(context).translate('STAMP_VACATION_ALERT_CONTENT')),
       actions: <Widget>[
         FlatButton(
-          child: Text('Ok'),
+          child: Text(AppLocalizations.of(context).translate('STAMP_FAIL_ALERT_CONFIRM_BTN_LABEL')),
           onPressed: () => Navigator.pop(context),
         )
       ],
@@ -65,11 +68,11 @@ class StampFlexDayFailAlert extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text('Stempelfehler'),
-      content: Text('Es liegt ein Gleittag vor'),
+      title: Text( AppLocalizations.of(context).translate('STAMP_FAIL_ALERT_TITLE')),
+      content: Text(AppLocalizations.of(context).translate('STAMP_FLEXDAY_ALERT_CONTENT')),
       actions: <Widget>[
         FlatButton(
-          child: Text('Ok'),
+          child: Text(AppLocalizations.of(context).translate('STAMP_FAIL_ALERT_CONFIRM_BTN_LABEL')),
           onPressed: () => Navigator.pop(context),
         )
       ],
@@ -77,17 +80,16 @@ class StampFlexDayFailAlert extends StatelessWidget {
   }
 }
 
-
 /// Show alert for unknown errors
 class UnknownStampTypeFailAlert extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text('Stempelfehler'),
-      content: Text('Unbekannter Fehler'),
+      title: Text( AppLocalizations.of(context).translate('STAMP_FAIL_ALERT_TITLE')),
+      content: Text(AppLocalizations.of(context).translate('STAMP_UNKNOWN_ALERT_CONTENT')),
       actions: <Widget>[
         FlatButton(
-          child: Text('Ok'),
+          child: Text(AppLocalizations.of(context).translate('STAMP_FAIL_ALERT_CONFIRM_BTN_LABEL')),
           onPressed: () => Navigator.pop(context),
         )
       ],
@@ -100,11 +102,11 @@ class WorkDayFailAlert extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text('Stempelfehler'),
-      content: Text('Am Wochenende kann nicht gestempelt werden'),
+      title: Text( AppLocalizations.of(context).translate('STAMP_FAIL_ALERT_TITLE')),
+      content: Text(AppLocalizations.of(context).translate('STAMP_WORKDAY_ALERT_CONTENT')),
       actions: <Widget>[
         FlatButton(
-          child: Text('Ok'),
+          child: Text(AppLocalizations.of(context).translate('STAMP_FAIL_ALERT_CONFIRM_BTN_LABEL')),
           onPressed: () => Navigator.pop(context),
         )
       ],

@@ -23,80 +23,64 @@ class ProfileList extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView(
       children: <Widget>[
-        Card(
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
-          elevation: 5,
-          child: Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                Expanded(
-                    child: Padding(
-                  padding: const EdgeInsets.only(left: 10.0, right: 10.0),
-                  //how do I call a list of widgets here?
-                  child: _profileInformation(context),
-                )),
-              ],
+        Padding(
+          padding: const EdgeInsets.only(left: 10.0, right: 10.0),
+          child: Card(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0)),
+            elevation: 5,
+            child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Expanded(child: _profileInformation(context)),
+                ],
+              ),
             ),
           ),
         ),
-        Column(
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Expanded(
-                      child: Padding(
-                    padding: const EdgeInsets.only(left: 10.0, right: 10.0),
-                    //how do I call a list of widgets here?
-                    child: _profileBankDetails(context),
-                  )),
-                ],
-              ),
-            ),
-          ],
+        Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Expanded(
+                  child: Padding(
+                padding: const EdgeInsets.only(left: 10.0, right: 10.0),
+                //how do I call a list of widgets here?
+                child: _profileBankDetails(context),
+              )),
+            ],
+          ),
         ),
-        Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Expanded(
-                      child: Padding(
-                    padding: const EdgeInsets.only(left: 10.0, right: 10.0),
-                    //how do I call a list of widgets here?
-                    child: _profileInsuranceDetails(context),
-                  )),
-                ],
-              ),
-            ),
-          ],
+        Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Expanded(
+                  child: Padding(
+                padding: const EdgeInsets.only(left: 10.0, right: 10.0),
+                //how do I call a list of widgets here?
+                child: _profileInsuranceDetails(context),
+              )),
+            ],
+          ),
         ),
-        Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Expanded(
-                      child: Padding(
-                    padding: const EdgeInsets.only(left: 10.0, right: 10.0),
-                    //how do I call a list of widgets here?
-                    child: _profileCompanyDetails(context),
-                  )),
-                ],
-              ),
-            ),
-          ],
+        Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Expanded(
+                  child: Padding(
+                padding: const EdgeInsets.only(left: 10.0, right: 10.0),
+                //how do I call a list of widgets here?
+                child: _profileCompanyDetails(context),
+              )),
+            ],
+          ),
         ),
       ],
     );
@@ -114,14 +98,14 @@ class ProfileList extends StatelessWidget {
         Table(
           columnWidths: {1: FractionColumnWidth(.6)},
           children: [
-//            TableRow(children: [
-//              Text(
-//                  AppLocalizations.of(context).translate('PROFILE_FIRST_NAME')),
-//              Text(
-//                '${_employeeProfile.firstName}',
-//                textAlign: TextAlign.left,
-//              )
-//            ]),
+            TableRow(children: [
+              Text(
+                  AppLocalizations.of(context).translate('PROFILE_FIRST_NAME')),
+              Text(
+                '${_employeeProfile.firstName}',
+                textAlign: TextAlign.left,
+              )
+            ]),
             TableRow(children: [
               Text(AppLocalizations.of(context).translate('PROFILE_LAST_NAME')),
               Text(

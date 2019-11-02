@@ -72,14 +72,10 @@ class Router {
                   initialDate: dateTime,
                 ));
       case RoutePaths.correctStampView:
-        var list = settings.arguments as List;
-        var date = list[0] as DateTime;
-        var timeStampType = list[1] as TimeStampType;
-        print(timeStampType);
+        var timeStampEvent = settings.arguments as TimeStampEvent;
         return MaterialPageRoute(
             builder: (_) => CorrectStampView(
-                  initialDate: date,
-                  initialStampType: timeStampType,
+                  timeStampEvent: timeStampEvent,
                 ));
       case RoutePaths.applicationView:
         return MaterialPageRoute(builder: (_) => ApplicationView());

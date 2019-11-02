@@ -19,8 +19,8 @@ class VacationViewModel extends BaseModel {
       @required DateTime startDate})
       : _employeeDetailsService = employeeDetailsService,
         _timeStampService = timeStampService,
-        _startDate = startDate.add(Duration(days: 1)),
-        _endDate = startDate.add(Duration(days: 1));
+        _startDate = startDate,
+        _endDate = startDate;
 
   /// [EmployeeDetailsService] for editing the amount of vacations in [EmployeeDetails].
   final EmployeeDetailsService _employeeDetailsService;
@@ -59,9 +59,23 @@ class VacationViewModel extends BaseModel {
   EmployeeDetails get employeeDetails =>
       _employeeDetailsService.employeeDetails;
 
-  /// Return calculated difference between [_startDate] and [_endDate].
-  Duration get selectedDaysSum =>
-      _endDate.difference(_startDate) + Duration(days: 1);
+  /// Return calculated difference between [_startDate] and [_endDate] without
+  /// weekend days.
+  Duration get selectedDaysSum {
+    if (_startDate == _endDate) {
+      return Duration(days: 1);
+    } else {
+      Duration difference = Duration();
+      DateTime tmpDate = _startDate;
+      while (!tmpDate.isAfter(endDate)) {
+        if (tmpDate.weekday != 6 && tmpDate.weekday != 7) {
+          difference += Duration(days: 1);
+        }
+        tmpDate = tmpDate.add(Duration(days: 1));
+      }
+      return difference;
+    }
+  }
 
   /// Return calculated amount of remaining vacation of the current logged in
   /// employee.

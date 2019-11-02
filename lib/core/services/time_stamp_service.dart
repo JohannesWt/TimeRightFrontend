@@ -4,6 +4,7 @@
 
 import 'dart:async';
 
+import 'package:time_right/core/models/employee/employee.dart';
 import 'package:time_right/core/models/time_stamp_details/time_stamp_details.dart';
 import 'package:time_right/core/services/api.dart';
 import 'package:time_right/ui/shared/date_calculator.dart';
@@ -35,13 +36,14 @@ class TimeStampService {
     Map<DateTime, List<TimeStampEvent>> tmpMap =
         await _api.fetchTimeStampDaysForMonth(dateTime);
     tmpMap.forEach((dateTime, eventList) {
-      if(!_timeStampMap.containsKey(dateTime)) {
+      if (!_timeStampMap.containsKey(dateTime)) {
         _timeStampMap[dateTime] = eventList;
       }
     });
 //    _timeStampMap.addAll(tmpMap);
   }
 
+  /// Fetch application lists if current logged in employee has [EmployeeLevel.executive].
   Future fetchApplicationsForMonth(DateTime dateTime) async {
     _executiveApplicationList = await _api.fetchApplicationsForMonth(dateTime);
   }
@@ -81,6 +83,20 @@ class TimeStampService {
       DateTime dateTime, TimeStampType timeStampType) {
     return TimeStampEvent(
         timeStampType: timeStampType, dateTime: dateTime.toUtc());
+  }
+
+  /// Check if there is a stamp validation included in [timeStampEventList]
+  bool isValidationInTimeStampEventList(
+      List<TimeStampEvent> timeStampEventList) {
+    for (TimeStampEvent timeStampEvent in timeStampEventList) {
+      if (timeStampEvent.timeStampType == TimeStampType.vacationValidation ||
+          timeStampEvent.timeStampType == TimeStampType.flexDayValidation ||
+          timeStampEvent.timeStampType == TimeStampType.stampOutValidation ||
+          timeStampEvent.timeStampType == TimeStampType.stampInValidation) {
+        return true;
+      }
+    }
+    return false;
   }
 
   /// Check if there is a stamp fail included in [timeStampEventList]
@@ -183,28 +199,14 @@ class TimeStampService {
     return timeStampResponse;
   }
 
-//  // TODO: stamp in for Validation
-//  TimeStampResponse stampInForValidation(DateTime dateTime) {
-//    TimeStampResponse timeStampResponse =
-//        TimeStampResponse.stampInForValidation;
-//    timeStampResponse = _checkWorkDay(dateTime, timeStampResponse);
-//    if (timeStampResponse != TimeStampResponse.stampWorkDayFail) {
-//      getTimeStampEventsForDay(dateTime).add(TimeStampEvent(
-//          dateTime: dateTime, timeStampType: TimeStampType.stampInValidation));
-//    }
-//    return timeStampResponse;
-//  }
-
-  // TODO: stamp out for Validation
-  TimeStampResponse stampOutForValidation(DateTime dateTime) {
-    TimeStampResponse timeStampResponse =
-        TimeStampResponse.stampOutForValidation;
-    timeStampResponse = _checkWorkDay(dateTime, timeStampResponse);
-    if (timeStampResponse != TimeStampResponse.stampWorkDayFail) {
-      getTimeStampEventsForDay(dateTime).add(TimeStampEvent(
-          dateTime: dateTime, timeStampType: TimeStampType.stampOutValidation));
+  /// Correct stamp for a [timeStampEvent].
+  Future correctStamp(TimeStampEvent timeStampEvent) async {
+    if (timeStampEvent.timeStampType == TimeStampType.stampInFail) {
+      timeStampEvent.timeStampType = TimeStampType.stampInValidation;
+    } else {
+      timeStampEvent.timeStampType = TimeStampType.stampOutValidation;
     }
-    return timeStampResponse;
+    await _api.correctStamp(timeStampEvent);
   }
 
   /// Works similar to [stampIn] with the difference that the expected response
@@ -229,56 +231,22 @@ class TimeStampService {
     return timeStampResponse;
   }
 
-  // TODO: Connect to api response
-  TimeStampResponse stampVacationForValidation(DateTime dateTime) {
-    TimeStampResponse timeStampResponse =
-        TimeStampResponse.stampVacationSuccess;
-    timeStampResponse = _checkWorkDay(dateTime, timeStampResponse);
-    if (timeStampResponse != TimeStampResponse.stampWorkDayFail) {
-      // TODO: Connect to api
-      getTimeStampEventsForDay(dateTime).add(TimeStampEvent(
-          dateTime: dateTime, timeStampType: TimeStampType.vacationValidation));
-    }
-    return timeStampResponse;
-  }
-
-  // TODO: Connect to api response
-  TimeStampResponse stampFlexDayForValidation(DateTime dateTime) {
-    TimeStampResponse timeStampResponse = TimeStampResponse.stampFlexDaySuccess;
-    timeStampResponse = _checkWorkDay(dateTime, timeStampResponse);
-    if (timeStampResponse != TimeStampResponse.stampWorkDayFail) {
-      // TODO: Connect to api
-      getTimeStampEventsForDay(dateTime).add(TimeStampEvent(
-          dateTime: dateTime, timeStampType: TimeStampType.flexDayValidation));
-    }
-    return timeStampResponse;
-  }
-
-  // TODO: Connect to api response
-  TimeStampResponse stampSickDay(DateTime dateTime) {
-    TimeStampResponse timeStampResponse = TimeStampResponse.stampSickDaySuccess;
-    timeStampResponse = _checkWorkDay(dateTime, timeStampResponse);
-    if (timeStampResponse != TimeStampResponse.stampWorkDayFail) {
-      // TODO: Connect to api
-      getTimeStampEventsForDay(dateTime).add(TimeStampEvent(
-          dateTime: dateTime, timeStampType: TimeStampType.sickDayValidation));
-    }
-    return timeStampResponse;
-  }
-
+  /// Apply absence i [_api] and add the applied events to [_timeStampMap].
   Future applyAbsence(
       TimeStampType timeStampType, DateTime startDate, DateTime endDate) async {
-    await _api.applyAbsence(timeStampType, startDate, endDate);
-//    .then((value) {
+    await _api.applyAbsence(timeStampType, startDate, endDate).then((value) {
       DateTime tmpDate = startDate;
       do {
         _addTimeStampEvent(
             TimeStampEvent(timeStampType: timeStampType, dateTime: tmpDate));
-        tmpDate.add(Duration(days: 1));
-      } while (tmpDate != endDate);
-//    });
+        tmpDate = tmpDate.add(Duration(days: 1));
+      } while (!tmpDate.isAfter(endDate));
+    }).catchError((error) {
+      throw Exception();
+    });
   }
 
+  /// Prove stamp of a [timeStampEvent] with a [action] (declined or proved)
   Future proveStamp(TimeStampEvent timeStampEvent, String action) async {
     if (timeStampEvent.timeStampType == TimeStampType.flexDayValidation ||
         timeStampEvent.timeStampType == TimeStampType.vacationValidation) {

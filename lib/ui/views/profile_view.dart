@@ -40,9 +40,11 @@ class ProfileView extends StatelessWidget {
             )
           ],
         ),
-        body: ProfileList(
-          employeeProfile: model.employeeProfile,
-        ),
+        body: model.busy
+            ? Center(child: CircularProgressIndicator())
+            : ProfileList(
+                employeeProfile: model.employeeProfile,
+              ),
       ),
     );
   }

@@ -4,6 +4,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:time_right/app_localizations.dart';
 import 'package:time_right/core/constants/app_constants.dart';
 import 'package:time_right/core/models/time_stamp_details/time_stamp_details.dart';
 import 'package:time_right/ui/views/base_widget.dart';
@@ -73,7 +74,7 @@ class _TimeStampsListState extends State<TimeStampsList> {
                           (DateCalculator.isOnSameDay(
                                       _timeStampsListModel.currentTimeStampDay,
                                       DateTime.now())
-                                  ? 'Heute '
+                                  ? '${AppLocalizations.of(context).translate('TIME_STAMP_LIST_TODAY_LABEL')} '
                                   : '') +
                               StringFormatter.getFormattedShortDateString(
                                   _timeStampsListModel.currentTimeStampDay),
@@ -131,7 +132,8 @@ class _TimeStampsListState extends State<TimeStampsList> {
         itemBuilder: (BuildContext context, int index) {
           TimeStampEvent timeStampEvent =
               _timeStampsListModel.currentTimeStampEventList[index];
-          if (timeStampEvent.timeStampType == TimeStampType.stampOutFail) {
+          if (timeStampEvent.timeStampType == TimeStampType.stampOutFail ||
+              timeStampEvent.timeStampType == TimeStampType.stampInFail) {
             return TimeStampsListButtonItem(timeStampEvent: timeStampEvent);
           } else {
             return _buildTimeStampListItem(timeStampEvent);
@@ -152,11 +154,11 @@ class _TimeStampsListState extends State<TimeStampsList> {
     if (timeStampEvent.timeStampType == TimeStampType.sickDay ||
         timeStampEvent.timeStampType == TimeStampType.flexDay ||
         timeStampEvent.timeStampType == TimeStampType.vacation) {
-      return TimeStampsListAbsenceValidationItem(
+      return TimeStampsListAbsenceItem(
         timeStampEvent: timeStampEvent,
       );
     } else if (timeStampEvent.timeStampType ==
-            TimeStampType.sickDayValidation ||
+            TimeStampType.vacationValidation ||
         timeStampEvent.timeStampType == TimeStampType.flexDayValidation) {
       return TimeStampsListAbsenceValidationItem(
         timeStampEvent: timeStampEvent,
@@ -186,13 +188,20 @@ class TimeStampsListStampItem extends StatelessWidget {
       children: <Widget>[
         Padding(
           padding: const EdgeInsets.only(right: 18.0),
-          child: _getListTileIcon(),
+          child: Icon(
+            _getListTileIcon(),
+            color: _getCorrectColor(),
+          ),
         ),
-        _getListTileLabel(),
+        Text(
+          _getListTileLabel(context),
+          style: TextStyle(color: _getCorrectColor()),
+        ),
         Expanded(
           child: Text(
             StringFormatter.getFormattedClockTimeString(
                 _timeStampEvent.dateTime),
+            style: TextStyle(color: _getCorrectColor()),
             textAlign: TextAlign.right,
           ),
         ),
@@ -200,33 +209,51 @@ class TimeStampsListStampItem extends StatelessWidget {
     );
   }
 
+  Color _getCorrectColor() {
+    if (_timeStampEvent.timeStampType == TimeStampType.stampIn ||
+        _timeStampEvent.timeStampType == TimeStampType.stampOut) {
+      return black;
+    } else {
+      return amber;
+    }
+  }
+
   /// Return the suitable Label for the list item.
-  Text _getListTileLabel() {
+  String _getListTileLabel(BuildContext context) {
     switch (_timeStampEvent.timeStampType) {
       case TimeStampType.stampIn:
-        return Text('Einstempeln');
+        return AppLocalizations.of(context)
+            .translate('TIME_STAMP_LIST_ITEM_STAMP_IN');
       case TimeStampType.stampOut:
-        return Text('Ausstempeln');
+        return AppLocalizations.of(context)
+            .translate('TIME_STAMP_LIST_ITEM_STAMP_OUT');
+      case TimeStampType.stampInValidation:
+        return AppLocalizations.of(context)
+            .translate('TIME_STAMP_LIST_ITEM_STAMP_IN_VALIDATION');
+      case TimeStampType.stampOutValidation:
+        return AppLocalizations.of(context)
+            .translate('TIME_STAMP_LIST_ITEM_STAMP_OUT_VALIDATION');
       default:
-        return Text('Unbekanntes Ereignis');
+        return AppLocalizations.of(context)
+            .translate('TIME_STAMP_LIST_ITEM_STAMP_UNKNOWN');
     }
   }
 
   /// Return the suitable label for the list item.
-  Icon _getListTileIcon() {
+  IconData _getListTileIcon() {
     switch (_timeStampEvent.timeStampType) {
       case TimeStampType.stampIn:
-        return Icon(Icons.input);
+        return Icons.input;
       case TimeStampType.stampOut:
-        return Icon(Icons.call_missed_outgoing);
+        return Icons.call_missed_outgoing;
       case TimeStampType.flexDay:
-        return Icon(Icons.block);
+        return Icons.block;
       case TimeStampType.vacation:
-        return Icon(Icons.flight_takeoff);
+        return Icons.flight_takeoff;
       case TimeStampType.sickDay:
-        return Icon(Icons.local_hospital);
+        return Icons.local_hospital;
       default:
-        return Icon(Icons.unarchive);
+        return Icons.unarchive;
     }
   }
 }
@@ -245,7 +272,7 @@ class TimeStampsListButtonItem extends StatelessWidget {
       padding:
           const EdgeInsets.only(left: 18.0, right: 18.0, bottom: 0, top: 0),
       onPressed: () => Navigator.pushNamed(context, RoutePaths.correctStampView,
-          arguments: [_timeStampEvent.dateTime, TimeStampType.stampOut]),
+          arguments: _timeStampEvent),
       child: Row(
         children: <Widget>[
           Padding(
@@ -256,12 +283,22 @@ class TimeStampsListButtonItem extends StatelessWidget {
             ),
           ),
           Text(
-            'Ausstempelfehler',
+            _getCorrectLabel(context),
             style: TextStyle(color: mainRed, fontSize: 16),
           ),
         ],
       ),
     );
+  }
+
+  String _getCorrectLabel(BuildContext context) {
+    if (_timeStampEvent.timeStampType == TimeStampType.stampOutFail) {
+      return AppLocalizations.of(context)
+          .translate('TIME_STAMP_LIST_ITEM_STAMP_OUT_FAIL');
+    } else {
+      return AppLocalizations.of(context)
+          .translate('TIME_STAMP_LIST_ITEM_STAMP_IN_FAIL');
+    }
   }
 }
 
@@ -280,21 +317,25 @@ class TimeStampsListAbsenceItem extends StatelessWidget {
           padding: const EdgeInsets.only(right: 18.0),
           child: _getCorrectIcon(),
         ),
-        Text(_getCorrectLabel()),
+        Text(_getCorrectLabel(context)),
       ],
     );
   }
 
-  String _getCorrectLabel() {
+  String _getCorrectLabel(BuildContext context) {
     switch (_timeStampEvent.timeStampType) {
       case (TimeStampType.vacation):
-        return 'Urlaub';
+        return AppLocalizations.of(context)
+            .translate('TIME_STAMP_LIST_ITEM_STAMP_VAC');
       case (TimeStampType.flexDay):
-        return 'Gleittag';
+        return AppLocalizations.of(context)
+            .translate('TIME_STAMP_LIST_ITEM_STAMP_FLEX');
       case (TimeStampType.sickDay):
-        return 'Kranktag';
+        return AppLocalizations.of(context)
+            .translate('TIME_STAMP_LIST_ITEM_STAMP_SICK');
       default:
-        return 'Unbekanntes Ereignis';
+        return AppLocalizations.of(context)
+            .translate('TIME_STAMP_LIST_ITEM_STAMP_UNKNOWN');
     }
   }
 
@@ -331,21 +372,24 @@ class TimeStampsListAbsenceValidationItem extends StatelessWidget {
           ),
         ),
         Text(
-          _getCorrectLabel(),
+          _getCorrectLabel(context),
           style: TextStyle(color: amber),
         ),
       ],
     );
   }
 
-  String _getCorrectLabel() {
+  String _getCorrectLabel(BuildContext context) {
     switch (_timeStampEvent.timeStampType) {
       case (TimeStampType.vacationValidation):
-        return 'Urlaub in Prüfung';
+        return AppLocalizations.of(context)
+            .translate('TIME_STAMP_LIST_ITEM_STAMP_VAC_APPLY');
       case (TimeStampType.flexDayValidation):
-        return 'Gleittag in Prüfung';
+        return AppLocalizations.of(context)
+            .translate('TIME_STAMP_LIST_ITEM_STAMP_FLEX_APPLY');
       default:
-        return 'Unbekanntes Ereignis';
+        return AppLocalizations.of(context)
+            .translate('TIME_STAMP_LIST_ITEM_STAMP_UNKNOWN');
     }
   }
 

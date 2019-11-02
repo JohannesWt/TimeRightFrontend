@@ -50,7 +50,7 @@ class _SickDayViewState extends State<SickDayView> {
                         bottom: 30.0,
                         left: MediaQuery.of(context).size.width * 0.2),
                     child: Text(
-                      AppLocalizations.of(context).translate('SICK_LEAVE'),
+                      AppLocalizations.of(context).translate('SICK_DAY_VIEW_FORM_TITLE'),
                       style: Theme.of(context).textTheme.headline,
                       textScaleFactor: 1.1,
                     ),
@@ -75,7 +75,7 @@ class _SickDayViewState extends State<SickDayView> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Text(
-          'Date:',
+          AppLocalizations.of(context).translate('SICK_DAY_VIEW_FORM_DATE'),
           style: Theme.of(context).textTheme.subhead,
           textScaleFactor: 1.1,
         ),
@@ -98,9 +98,11 @@ class _SickDayViewState extends State<SickDayView> {
         initialDate: _sickDayViewModel.sickDayDate,
         firstDate: _sickDayViewModel.sickDayDate.subtract(Duration(days: 365)),
         lastDate: _sickDayViewModel.sickDayDate.add(Duration(days: 365)));
-    if (newDate != null &&
-        (newDate.isAfter(DateTime.now()) ||
-            DateCalculator.isOnSameDay(newDate, DateTime.now()))) {
+    if (newDate != null)
+//    &&
+//        (newDate.isAfter(DateTime.now()) ||
+//            DateCalculator.isOnSameDay(newDate, DateTime.now())))
+    {
       _sickDayViewModel.sickDayDate = newDate;
     } else {
       showDialog(
@@ -108,7 +110,7 @@ class _SickDayViewState extends State<SickDayView> {
           builder: (context) {
             return AlertDialog(
               title: Text('Fehler'),
-              content: Text('Das neue Datum muss heute oder danach liegen.'),
+              content: Text('Fehler beim Speichern des Kranktags.'),
               actions: <Widget>[
                 FlatButton(
                   child: Text('Ok'),

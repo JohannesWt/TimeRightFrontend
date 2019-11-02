@@ -27,10 +27,11 @@ class WorkTimeClockModel extends BaseModel {
   final TimeStampService _timeStampService;
 
   /// Timer to recalculate the work hours.
-  Timer _workTimer;
+  static Timer workTimer = Timer(Duration(seconds: 1), () => print('Tick'));
 
-  /// Return [_workTimer].
-  Timer get workTimer => _workTimer;
+//
+//  /// Return [_workTimer].
+//  Timer get workTimer => _workTimer;
 
   /// Work hour string displayed in the clock.
   String _workHoursString = '00:00:00';
@@ -46,7 +47,7 @@ class WorkTimeClockModel extends BaseModel {
 
   @override
   void dispose() {
-    _workTimer.cancel();
+    workTimer.cancel();
     super.dispose();
   }
 
@@ -54,7 +55,7 @@ class WorkTimeClockModel extends BaseModel {
   /// --> call [_getWorkHours]
   void startWorkTimer() async {
     _getWorkHours();
-    _workTimer = Timer.periodic(Duration(seconds: 1), (timer) {
+    workTimer = Timer.periodic(Duration(seconds: 1), (timer) {
       _getWorkHours();
     });
   }

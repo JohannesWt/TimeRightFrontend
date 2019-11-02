@@ -4,12 +4,15 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:time_right/app_localizations.dart';
 import 'package:time_right/core/models/time_stamp_details/time_stamp_details.dart';
 import 'package:time_right/core/viewmodels/views/application_view_model.dart';
 import 'package:time_right/ui/shared/colors.dart';
 import 'package:time_right/ui/shared/string_formatter.dart';
 import 'package:time_right/ui/views/base_widget.dart';
 
+/// View which shows the vacation/correct stamp and flex day application from an
+/// employee for its executive
 class ApplicationView extends StatefulWidget {
   @override
   _ApplicationViewState createState() => _ApplicationViewState();
@@ -17,8 +20,10 @@ class ApplicationView extends StatefulWidget {
 
 class _ApplicationViewState extends State<ApplicationView>
     with SingleTickerProviderStateMixin {
+  /// Model which handles the logic of [ApplicationView].
   ApplicationViewModel _applicationViewModel;
 
+  /// Handle the tab actions.
   TabController _tabController;
 
   @override
@@ -27,6 +32,7 @@ class _ApplicationViewState extends State<ApplicationView>
     super.initState();
   }
 
+  /// Builds the tab view.
   @override
   Widget build(BuildContext context) {
     return BaseWidget<ApplicationViewModel>(
@@ -36,7 +42,7 @@ class _ApplicationViewState extends State<ApplicationView>
         _applicationViewModel.setLists(),
       },
       child: AppBar(
-        title: Text('Anträge'),
+        title: Text(AppLocalizations.of(context).translate('APPLICATION_VIEW_TITLE')),
       ),
       builder: (context, model, child) => Scaffold(
         appBar: child,
@@ -68,6 +74,7 @@ class _ApplicationViewState extends State<ApplicationView>
     );
   }
 
+  /// Build the icon as title of one tab
   Widget _buildTabTitle(IconData iconData) {
     return Padding(
       padding: const EdgeInsets.only(top: 10.0, bottom: 10.0),
@@ -75,6 +82,7 @@ class _ApplicationViewState extends State<ApplicationView>
     );
   }
 
+  ///  Build a tab of the tab view.
   Widget _buildTabForList(List<TimeStampEvent> tmpList) {
     return AnimatedList(
       initialItemCount: tmpList.length,
@@ -98,6 +106,7 @@ class _ApplicationViewState extends State<ApplicationView>
   }
 }
 
+/// Represents a list item of a tab
 class ApplicationListItem extends StatelessWidget {
   ApplicationListItem(
       {@required TimeStampEvent timeStampEvent,
@@ -125,7 +134,7 @@ class ApplicationListItem extends StatelessWidget {
                   padding: const EdgeInsets.only(right: 15.0),
                   child: Icon(_getCorrectIcon()),
                 ),
-          isAbsence ? _buildAbsenceContainer() : _buildStampContainer(),
+          isAbsence ? _buildAbsenceContainer(context) : _buildStampContainer(context),
           Row(
             children: <Widget>[
               Padding(
@@ -190,6 +199,7 @@ class ApplicationListItem extends StatelessWidget {
     );
   }
 
+  /// Get Correct Item for a stamp in or out correction item.
   IconData _getCorrectIcon() {
     if (_timeStampEvent.timeStampType == TimeStampType.stampOutValidation) {
       return Icons.call_missed_outgoing;
@@ -198,13 +208,14 @@ class ApplicationListItem extends StatelessWidget {
     }
   }
 
-  Widget _buildAbsenceContainer() {
+  /// Build info-layout for an absence list item
+  Widget _buildAbsenceContainer(BuildContext context) {
     return Expanded(
         child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Text(
-          'Antragsteller:',
+          AppLocalizations.of(context).translate('APPLICATION_ABS_CONT_APPLICANT'),
         ),
         Padding(
           padding: const EdgeInsets.only(left: 15.0),
@@ -215,7 +226,7 @@ class ApplicationListItem extends StatelessWidget {
         ),
         Padding(
           padding: const EdgeInsets.only(top: 8.0),
-          child: Text('Datum:'),
+          child: Text(AppLocalizations.of(context).translate('APPLICATION_ABS_CONT_DATE')),
         ),
         Padding(
           padding: const EdgeInsets.only(left: 15.0),
@@ -230,13 +241,14 @@ class ApplicationListItem extends StatelessWidget {
     ));
   }
 
-  Widget _buildStampContainer() {
+  /// Build info layout for an stamp list item.
+  Widget _buildStampContainer(BuildContext context) {
     return Expanded(
         child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Text(
-          'Antragsteller:',
+          AppLocalizations.of(context).translate('APPLICATION_STAMP_CONT_APPLICANT'),
         ),
         Padding(
           padding: const EdgeInsets.only(left: 15.0),
@@ -247,7 +259,7 @@ class ApplicationListItem extends StatelessWidget {
         ),
         Padding(
           padding: const EdgeInsets.only(top: 8.0),
-          child: Text('Datum:'),
+          child: Text(AppLocalizations.of(context).translate('APPLICATION_STAMP_CONT_DATE')),
         ),
         Padding(
           padding: const EdgeInsets.only(left: 15.0),
@@ -260,7 +272,7 @@ class ApplicationListItem extends StatelessWidget {
         ),
         Padding(
           padding: const EdgeInsets.only(top: 8.0),
-          child: Text('Uhrzeit:'),
+          child: Text(AppLocalizations.of(context).translate('APPLICATION_STAMP_CONT_TIME')),
         ),
         Padding(
           padding: const EdgeInsets.only(left: 15.0),

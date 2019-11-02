@@ -32,7 +32,7 @@ class AuthenticationService {
     return fetchedEmployee;
   }
 
-  /// Execute login-method of [_api].
+  /// Execute logout-method of [_api].
   Future logOut() async {
     await _api.logOut();
   }

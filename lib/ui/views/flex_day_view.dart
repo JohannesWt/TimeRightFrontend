@@ -49,7 +49,7 @@ class _FlexDayState extends State<FlexDayView> {
                         left: MediaQuery.of(context).size.width * 0.15),
                     child: Text(
                       AppLocalizations.of(context)
-                          .translate('OVERVIEW_CARD1_APPLY_FLEXTIME_BTN'),
+                          .translate('FLEX_DAY_VIEW_FORM_TITLE'),
                       style: Theme.of(context).textTheme.headline,
                       textScaleFactor: 1.1,
                     ),
@@ -74,7 +74,7 @@ class _FlexDayState extends State<FlexDayView> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Text(
-          AppLocalizations.of(context).translate('DATE'),
+          AppLocalizations.of(context).translate('FLEX_DAY_VIEW_FORM_DATE'),
           style: Theme.of(context).textTheme.subhead,
           textScaleFactor: 1.1,
         ),
@@ -90,7 +90,7 @@ class _FlexDayState extends State<FlexDayView> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Text(
-                AppLocalizations.of(context).translate('HOURS_APPLIED'),
+                AppLocalizations.of(context).translate('FLEX_FAY_VIEW_FORM_HOURS_APPLIED'),
                 style: Theme.of(context).textTheme.subhead,
                 textScaleFactor: 1.1,
               ),
@@ -108,7 +108,7 @@ class _FlexDayState extends State<FlexDayView> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Text(
-                AppLocalizations.of(context).translate('OVERVIEW_CARD1_TITLE'),
+                AppLocalizations.of(context).translate('FLEX_FAY_VIEW_FORM_CUR_FLEXTIME'),
                 style: Theme.of(context).textTheme.subhead,
                 textScaleFactor: 1.1,
               ),
@@ -180,7 +180,6 @@ class _FlexDayState extends State<FlexDayView> {
               await _flexDayViewModel.stampFlexDay().then((value) {
                 Navigator.pushNamed(context, RoutePaths.homeView,
                     arguments: _flexDayViewModel.employeeDetails);
-                print('Confirm Button was pressed');
               }).catchError((error) {
                 showDialog(
                     context: context,

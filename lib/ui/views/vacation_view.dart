@@ -53,7 +53,7 @@ class _VacationViewState extends State<VacationView> {
                     ),
                     child: Text(
                       AppLocalizations.of(context)
-                          .translate('OVERVIEW_CARD2_VAC_APPLY_BTN'),
+                          .translate('VACATION_VIEW_FORM_TITLE'),
                       style: Theme.of(context).textTheme.headline,
                       textScaleFactor: 1.1,
                     ),
@@ -83,12 +83,13 @@ class _VacationViewState extends State<VacationView> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Text(
-                AppLocalizations.of(context).translate('VAC_DAYS_SUM'),
+                AppLocalizations.of(context)
+                    .translate('VACATION_VIEW_FORM_DAYS_SUM'),
                 style: Theme.of(context).textTheme.subhead,
                 textScaleFactor: 1.1,
               ),
               Text(
-                '${_vacationViewModel.selectedDaysSum.inDays} days',
+                '${_vacationViewModel.selectedDaysSum.inDays} ${AppLocalizations.of(context).translate('VACATION_VIEW_FORM_DAYS_LABEL')}',
                 style: Theme.of(context).textTheme.headline,
               ),
             ],
@@ -100,12 +101,13 @@ class _VacationViewState extends State<VacationView> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Text(
-                AppLocalizations.of(context).translate('VAC_DAYS_REMAINING'),
+                AppLocalizations.of(context)
+                    .translate('VACATION_VIEW_FORM_DAYS_REMAINING'),
                 style: Theme.of(context).textTheme.subhead,
                 textScaleFactor: 1.1,
               ),
               Text(
-                '${_vacationViewModel.remainingVacation} days',
+                '${_vacationViewModel.remainingVacation} ${AppLocalizations.of(context).translate('VACATION_VIEW_FORM_DAYS_LABEL')}',
                 style: Theme.of(context).textTheme.headline,
               ),
             ],
@@ -121,7 +123,7 @@ class _VacationViewState extends State<VacationView> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Text(
-          AppLocalizations.of(context).translate('VAC_FROM'),
+          AppLocalizations.of(context).translate('VACATION_VIEW_FORM_VAC_FROM'),
           style: Theme.of(context).textTheme.subhead,
           textScaleFactor: 1.1,
         ),
@@ -172,7 +174,7 @@ class _VacationViewState extends State<VacationView> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Text(
-          AppLocalizations.of(context).translate('VAC_TO'),
+          AppLocalizations.of(context).translate('VACATION_VIEW_FORM_VAC_TO'),
           style: Theme.of(context).textTheme.subhead,
           textScaleFactor: 1.1,
         ),
@@ -250,13 +252,9 @@ class _VacationViewState extends State<VacationView> {
         FlatButton(
             onPressed: () async {
 //              Navigator.pop(context);
-              await _vacationViewModel.applyAbsence().then((value) {
-                Navigator.pushNamed(context, RoutePaths.homeView,
-                    arguments: _vacationViewModel.employeeDetails);
-                print('Confirm Button was pressed');
-              }).catchError((error) {
-
-              });
+              await _vacationViewModel.applyAbsence();
+              Navigator.pushNamed(context, RoutePaths.homeView,
+                  arguments: _vacationViewModel.employeeDetails);
             },
             child: Column(
               children: <Widget>[

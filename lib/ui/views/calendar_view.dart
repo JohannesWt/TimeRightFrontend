@@ -34,7 +34,8 @@ class _CalendarViewState extends State<CalendarView> {
     return BaseWidget<CalendarViewModel>(
       model: CalendarViewModel(calendarService: Provider.of(context)),
       child: AppBar(
-        title: Text('Kalender'),
+        title:
+            Text(AppLocalizations.of(context).translate('CALENDAR_VIEW_TITLE')),
         leading: IconButton(
             onPressed: () {
               _calendarViewModel.currentSelectedDay = DateTime.now();
