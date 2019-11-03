@@ -11,14 +11,14 @@ part 'insurance_details.g.dart';
 /// used to serialize the responded json data from the backend safely.
 @JsonSerializable()
 class InsuranceDetails {
-  InsuranceDetails({this.name, this.insuranceNumber, this.socialSecurityNumber});
+  InsuranceDetails({this.insuranceName, this.insuranceNumber, this.socialSecurityNumber});
 
   factory InsuranceDetails.fromJson(Map<String, dynamic> json) =>
       _$InsuranceDetailsFromJson(json);
 
   Map<String, dynamic> toJson() => _$InsuranceDetailsToJson(this);
 
-  String name;
+  String insuranceName;
   int insuranceNumber;
   int socialSecurityNumber;
 }

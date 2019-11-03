@@ -14,7 +14,7 @@ EmployeeProfile _$EmployeeProfileFromJson(Map<String, dynamic> json) {
           ? null
           : DateTime.parse(json['dateOfBirth'] as String),
       phoneNumber: json['phoneNumber'] as int,
-      emailAddress: json['emailAddress'] as String,
+      emailAdress: json['emailAdress'] as String,
       address: json['address'] == null
           ? null
           : Address.fromJson(json['address'] as Map<String, dynamic>),
@@ -42,7 +42,7 @@ Map<String, dynamic> _$EmployeeProfileToJson(EmployeeProfile instance) =>
       'firstName': instance.firstName,
       'dateOfBirth': instance.dateOfBirth?.toIso8601String(),
       'phoneNumber': instance.phoneNumber,
-      'emailAddress': instance.emailAddress,
+      'emailAdress': instance.emailAdress,
       'address': instance.address,
       'bankDetails': instance.bankDetails,
       'insuranceDetails': instance.insuranceDetails,

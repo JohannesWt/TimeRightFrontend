@@ -11,7 +11,7 @@ part 'bank_details.g.dart';
 /// used to serialize the responded json data from the backend safely.
 @JsonSerializable()
 class BankDetails {
-  BankDetails({this.receiver, this.bankName, this.iBAN, this.validFrom});
+  BankDetails({this.receiver, this.bankName, this.iban, this.validFrom});
 
   factory BankDetails.fromJson(Map<String, dynamic> json) =>
       _$BankDetailsFromJson(json);
@@ -20,6 +20,6 @@ class BankDetails {
 
   String receiver;
   String bankName;
-  String iBAN;
+  String iban;
   String validFrom;
 }

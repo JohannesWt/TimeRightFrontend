@@ -123,7 +123,7 @@ class ProfileList extends StatelessWidget {
             TableRow(children: [
               Text(AppLocalizations.of(context).translate('PROFILE_EMAIL')),
               Text(
-                '${_employeeProfile.emailAddress}',
+                '${_employeeProfile.emailAdress}',
                 textAlign: TextAlign.left,
               )
             ]),
@@ -170,7 +170,7 @@ class ProfileList extends StatelessWidget {
             TableRow(children: [
               Text(AppLocalizations.of(context).translate('PROFILE_BANK_IBAN')),
               Text(
-                '${_employeeProfile.bankDetails.iBAN}',
+                '${_employeeProfile.bankDetails.iban}',
                 textAlign: TextAlign.left,
               )
             ]),
@@ -211,18 +211,24 @@ class ProfileList extends StatelessWidget {
               Text(AppLocalizations.of(context)
                   .translate('PROFILE_INSURANCE_NAME')),
               Text(
-                '${_employeeProfile.insuranceDetails.name}',
+                '${_employeeProfile.insuranceDetails.insuranceName}',
                 textAlign: TextAlign.left,
               )
             ]),
-//            TableRow(children: [
-//              Text(AppLocalizations.of(context)
-//                  .translate('PROFILE_INSURANCE_STATUS')),
-//              Text(
-//                '${_employeeProfile.insuranceDetails}',
-//                textAlign: TextAlign.left,
-//              )
-//            ]),
+            TableRow(children: [
+              Text(AppLocalizations.of(context).translate('PROFILE_INSURANCE_NUMBER')),
+              Text(
+                '${_employeeProfile.insuranceDetails.insuranceNumber}',
+                textAlign: TextAlign.left,
+              )
+            ]),
+            TableRow(children: [
+              Text(AppLocalizations.of(context).translate('PROFILE_INSURANCE_SSN')),
+              Text(
+                '${_employeeProfile.insuranceDetails.socialSecurityNumber}',
+                textAlign: TextAlign.left,
+              )
+            ]),
           ],
         ),
       ],

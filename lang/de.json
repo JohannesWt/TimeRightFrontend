@@ -52,7 +52,8 @@
 
   "PROFILE_INSURANCE_TITLE": "Krankenkasse",
   "PROFILE_INSURANCE_NAME": "Krankenkasse:",
-  "PROFILE_INSURANCE_STATUS": "Status:",
+  "PROFILE_INSURANCE_NUMBER": "VN:",
+  "PROFILE_INSURANCE_SSN": "SVN:",
 
   "PROFILE_COMPANY_TITLE": "Unternehmen",
   "PROFILE_COMPANY_Name": "Unternehmen:",

@@ -8,14 +8,14 @@ part of 'insurance_details.dart';
 
 InsuranceDetails _$InsuranceDetailsFromJson(Map<String, dynamic> json) {
   return InsuranceDetails(
-      name: json['name'] as String,
+      insuranceName: json['insuranceName'] as String,
       insuranceNumber: json['insuranceNumber'] as int,
       socialSecurityNumber: json['socialSecurityNumber'] as int);
 }
 
 Map<String, dynamic> _$InsuranceDetailsToJson(InsuranceDetails instance) =>
     <String, dynamic>{
-      'name': instance.name,
+      'insuranceName': instance.insuranceName,
       'insuranceNumber': instance.insuranceNumber,
       'socialSecurityNumber': instance.socialSecurityNumber
     };

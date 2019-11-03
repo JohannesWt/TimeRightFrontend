@@ -21,7 +21,7 @@ class EmployeeProfile {
       this.firstName,
       this.dateOfBirth,
       this.phoneNumber,
-      this.emailAddress,
+      this.emailAdress,
       this.address,
       this.bankDetails,
       this.insuranceDetails,
@@ -37,7 +37,7 @@ class EmployeeProfile {
   String firstName;
   final DateTime dateOfBirth;
   int phoneNumber;
-  final String emailAddress;
+  final String emailAdress;
 
   final Address address;
   final BankDetails bankDetails;
