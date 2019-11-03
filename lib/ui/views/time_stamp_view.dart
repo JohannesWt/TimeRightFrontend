@@ -130,7 +130,7 @@ class _TimeStampViewState extends State<TimeStampView> {
         FlatButton(
             onPressed: () async {
               TimeStampResponse timeStampResponse = await _timeStampViewModel
-                  .stamp(_timeStampViewModel.stampTime)
+                  .stamp()
                   .catchError((error) {
                 print('error');
               });

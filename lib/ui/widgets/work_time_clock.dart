@@ -23,7 +23,6 @@ class _WorkTimeClockState extends State<WorkTimeClock> {
 
   @override
   void dispose() {
-    _workTimeClockModel.dispose();
     super.dispose();
   }
 

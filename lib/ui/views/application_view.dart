@@ -231,7 +231,7 @@ class ApplicationListItem extends StatelessWidget {
           padding: const EdgeInsets.only(left: 15.0),
           child: Text(
             StringFormatter.getFormattedShortDateString(
-              _timeStampEvent.dateTime.toLocal(),
+              _timeStampEvent.dateTime,
             ),
             textScaleFactor: 1.1,
           ),
@@ -264,7 +264,7 @@ class ApplicationListItem extends StatelessWidget {
           padding: const EdgeInsets.only(left: 15.0),
           child: Text(
             StringFormatter.getFormattedShortDateString(
-              _timeStampEvent.dateTime.toLocal(),
+              _timeStampEvent.dateTime,
             ),
             textScaleFactor: 1.1,
           ),

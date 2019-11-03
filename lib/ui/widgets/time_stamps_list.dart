@@ -209,6 +209,7 @@ class TimeStampsListStampItem extends StatelessWidget {
     );
   }
 
+  /// Get correct color for [TimeStampType]
   Color _getCorrectColor() {
     if (_timeStampEvent.timeStampType == TimeStampType.stampIn ||
         _timeStampEvent.timeStampType == TimeStampType.stampOut) {
@@ -246,12 +247,10 @@ class TimeStampsListStampItem extends StatelessWidget {
         return Icons.input;
       case TimeStampType.stampOut:
         return Icons.call_missed_outgoing;
-      case TimeStampType.flexDay:
-        return Icons.block;
-      case TimeStampType.vacation:
-        return Icons.flight_takeoff;
-      case TimeStampType.sickDay:
-        return Icons.local_hospital;
+      case TimeStampType.stampInValidation:
+        return Icons.input;
+      case TimeStampType.stampOutValidation:
+        return Icons.call_missed_outgoing;
       default:
         return Icons.unarchive;
     }
@@ -291,6 +290,7 @@ class TimeStampsListButtonItem extends StatelessWidget {
     );
   }
 
+  /// Get correct label for [TimeStampType]
   String _getCorrectLabel(BuildContext context) {
     if (_timeStampEvent.timeStampType == TimeStampType.stampOutFail) {
       return AppLocalizations.of(context)
@@ -322,6 +322,7 @@ class TimeStampsListAbsenceItem extends StatelessWidget {
     );
   }
 
+  /// Get correct label for [TimeStampType]
   String _getCorrectLabel(BuildContext context) {
     switch (_timeStampEvent.timeStampType) {
       case (TimeStampType.vacation):
@@ -339,6 +340,7 @@ class TimeStampsListAbsenceItem extends StatelessWidget {
     }
   }
 
+/// Get correct Icon for [TimeStampType]
   Icon _getCorrectIcon() {
     switch (_timeStampEvent.timeStampType) {
       case (TimeStampType.vacation):
@@ -379,6 +381,7 @@ class TimeStampsListAbsenceValidationItem extends StatelessWidget {
     );
   }
 
+  /// Get correct label for [TimeStampType]
   String _getCorrectLabel(BuildContext context) {
     switch (_timeStampEvent.timeStampType) {
       case (TimeStampType.vacationValidation):
@@ -393,6 +396,7 @@ class TimeStampsListAbsenceValidationItem extends StatelessWidget {
     }
   }
 
+  /// Get correct Icon for [TimeStampType]
   IconData _getCorrectIcon() {
     switch (_timeStampEvent.timeStampType) {
       case (TimeStampType.vacationValidation):

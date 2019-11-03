@@ -73,14 +73,14 @@ class TimeStampViewModel extends BaseModel {
   /// --> call stampIn or stampOut of [_timeStampService].
   ///
   /// Return a [TimeStampResponse].
-  Future<TimeStampResponse> stamp(DateTime dateTime) async {
+  Future<TimeStampResponse> stamp() async {
     TimeStampResponse timeStampResponse = TimeStampResponse.unknownResult;
     if (_currentSelected == TimeStampType.stampIn) {
       timeStampResponse =
-          await _timeStampService.stampIn(dateTime);
+          await _timeStampService.stampIn(_stampTime);
     } else {
       timeStampResponse =
-          await _timeStampService.stampOut(dateTime);
+          await _timeStampService.stampOut(_stampTime);
     }
     return timeStampResponse;
   }

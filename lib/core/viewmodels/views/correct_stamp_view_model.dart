@@ -96,6 +96,8 @@ class CorrectStampViewModel extends BaseModel {
         _correctStampTime.minute);
     _timeStampEvent.dateTime = dateTime;
     await _timeStampService.correctStamp(
-        _timeStampEvent);
+        _timeStampEvent).then((value) {
+          _employeeDetailsService.employeeDetails.stampFailsSum -= 1;
+    });
   }
 }
