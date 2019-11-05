@@ -40,6 +40,7 @@ class VacationViewModel extends BaseModel {
     if (_startDate.isAfter(_endDate)) {
       _endDate = value;
     }
+    _setSelectedDaysSum();
     notifyListeners();
   }
 
@@ -52,6 +53,7 @@ class VacationViewModel extends BaseModel {
   ///Set [_endDate] and notify all ui listeners to rebuild.
   set endDate(DateTime value) {
     _endDate = value;
+    _setSelectedDaysSum();
     notifyListeners();
   }
 
@@ -61,20 +63,24 @@ class VacationViewModel extends BaseModel {
 
   /// Return calculated difference between [_startDate] and [_endDate] without
   /// weekend days.
-  Duration get selectedDaysSum {
-    if (_startDate == _endDate) {
-      return Duration(days: 1);
-    } else {
-      Duration difference = Duration();
-      DateTime tmpDate = _startDate;
+  Duration get selectedDaysSum => _selectedDaysSum;
+
+  Duration _selectedDaysSum = Duration(days: 1);
+
+  /// Calculate new sum of selected days
+  void _setSelectedDaysSum() {
+    _selectedDaysSum = Duration(days: 1);
+    if (_startDate != _endDate) {
+      DateTime tmpDate = _startDate.add(Duration(days: 1));
       while (!tmpDate.isAfter(endDate)) {
         if (tmpDate.weekday != 6 && tmpDate.weekday != 7) {
-          difference += Duration(days: 1);
+          print('passt');
+          _selectedDaysSum = _selectedDaysSum + Duration(days: 1);
         }
         tmpDate = tmpDate.add(Duration(days: 1));
       }
-      return difference;
     }
+    notifyListeners();
   }
 
   /// Return calculated amount of remaining vacation of the current logged in
