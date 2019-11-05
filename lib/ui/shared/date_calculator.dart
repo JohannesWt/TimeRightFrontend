@@ -4,12 +4,12 @@
 
 /// Class provides static methods to calculate specified dates.
 class DateCalculator {
-
   /// Check if [firstDate] is on the same day as [secondDate]
   /// Return true/false;
   static bool isOnSameDay(DateTime firstDate, DateTime secondDate) {
     if (firstDate.year == secondDate.year &&
-        firstDate.month == secondDate.month && firstDate.day == secondDate.day) {
+        firstDate.month == secondDate.month &&
+        firstDate.day == secondDate.day) {
       return true;
     }
     return false;
@@ -18,5 +18,10 @@ class DateCalculator {
   /// Return new datetime from [compDate] without clock time.
   static DateTime shortFormDateTime(DateTime compDate) {
     return DateTime(compDate.year, compDate.month, compDate.day);
+  }
+
+  /// Check if a[compDate] is a saturday or sunday.
+  static bool isWeekEnd(DateTime compDate) {
+    return (compDate.weekday == 7 || compDate.weekday == 6);
   }
 }

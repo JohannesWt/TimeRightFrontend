@@ -4,6 +4,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:time_right/app_localizations.dart';
 import 'package:time_right/core/constants/app_constants.dart';
 import 'package:time_right/core/models/employee/employee.dart';
 import 'package:time_right/ui/views/base_widget.dart';
@@ -65,7 +66,7 @@ class _LoginViewState extends State<LoginView> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text(
-                          'Welcome back!',
+                          AppLocalizations.of(context).translate('LOGIN_VIEW_WELCOME_LABEL'),
                           style: TextStyle(
                             fontSize: 35,
                           ),
@@ -79,7 +80,7 @@ class _LoginViewState extends State<LoginView> {
                                   TextField(
                                     controller: model.employeeIDController,
                                     decoration: InputDecoration(
-                                        hintText: 'Mitarbeiter ID',
+                                        hintText: AppLocalizations.of(context).translate('LOGIN_VIEW_WELCOME_FORM_ID'),
                                         icon: Icon(Icons.perm_identity)),
                                     cursorColor: blueAccent,
                                   ),
@@ -88,7 +89,7 @@ class _LoginViewState extends State<LoginView> {
                                     child: TextField(
                                       controller: model.passwordController,
                                       decoration: InputDecoration(
-                                          hintText: 'Passwort',
+                                          hintText: AppLocalizations.of(context).translate('LOGIN_VIEW_WELCOME_FORM_PASSWORD'),
                                           icon: Icon(Icons.lock)),
                                       obscureText: true,
                                     ),
@@ -117,6 +118,7 @@ class _LoginViewState extends State<LoginView> {
           elevation: 2,
           child: Icon(Icons.arrow_forward),
           onPressed: () async {
+            FocusScope.of(context).requestFocus(FocusNode());
             Employee employeeProfile = await model.login().catchError((error) {
               showDialog(
                   context: context,
@@ -124,6 +126,7 @@ class _LoginViewState extends State<LoginView> {
                     return AlertDialog(
                       title: Text('Fehler'),
                       content:
+//                          Text(error.toString()),
                           Text('Beim Einloggen ist ein Fehler aufgetreten'),
                       actions: <Widget>[
                         FlatButton(
@@ -138,8 +141,10 @@ class _LoginViewState extends State<LoginView> {
                   });
             });
             if (employeeProfile != null) {
-              if (Provider.of<Employee>(context).employeeLevel ==
-                  EmployeeLevel.executive) {
+              print(employeeProfile.employeeLevel);
+              await model.getEmployeeDetails();
+              await model.getTimeStampsForMonth(DateTime.now());
+              if (employeeProfile.employeeLevel == EmployeeLevel.executive) {
                 model.getExecutiveDetails();
               }
               Navigator.pushNamed(context, RoutePaths.homeView,

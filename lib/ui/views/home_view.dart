@@ -104,7 +104,7 @@ class HomeView extends StatelessWidget {
         onPressed: () =>
             Navigator.pushNamed(context, RoutePaths.applicationView),
         label: Text(
-          'Anträge',
+          AppLocalizations.of(context).translate('HOME_FAB_EXECUTIVE_LABEL'),
           style: TextStyle(fontSize: 20),
         ),
         icon: Icon(
@@ -201,7 +201,7 @@ class HomeView extends StatelessWidget {
           ),
         ),
         onPressed: () =>
-            Navigator.pushNamed(context, target, arguments: DateTime.now()),
+            Navigator.pushNamed(context, target, arguments: DateTime.now().add(Duration(days: 1))),
       ),
     );
   }

@@ -23,17 +23,17 @@ Map<String, dynamic> _$CompanyDetailsToJson(CompanyDetails instance) =>
 Department _$DepartmentFromJson(Map<String, dynamic> json) {
   return Department(
       positionDescription: json['positionDescription'] as String,
-      supervisorID: json['supervisorID'] as String,
-      supervisorName: json['supervisorName'] as String,
+      executiveID: json['executiveID'] as int,
+      executiveName: json['executiveName'] as String,
       departmentName: json['departmentName'] as String,
-      departmentID: json['departmentID'] as String);
+      departmentID: json['departmentID'] as int);
 }
 
 Map<String, dynamic> _$DepartmentToJson(Department instance) =>
     <String, dynamic>{
       'positionDescription': instance.positionDescription,
-      'supervisorID': instance.supervisorID,
-      'supervisorName': instance.supervisorName,
+      'executiveID': instance.executiveID,
+      'executiveName': instance.executiveName,
       'departmentName': instance.departmentName,
       'departmentID': instance.departmentID
     };

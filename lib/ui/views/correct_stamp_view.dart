@@ -4,6 +4,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:time_right/core/constants/app_constants.dart';
 import 'package:time_right/core/models/time_stamp_details/time_stamp_details.dart';
 import 'package:time_right/core/viewmodels/views/correct_stamp_view_model.dart';
 import 'package:time_right/ui/shared/colors.dart';
@@ -12,14 +13,13 @@ import 'package:time_right/ui/views/base_widget.dart';
 import '../../app_localizations.dart';
 
 class CorrectStampView extends StatefulWidget {
-  CorrectStampView(
-      {@required DateTime initialDate,
-      @required TimeStampType initialStampType})
-      : _initialDate = initialDate,
-        _initialStampType = initialStampType;
+  CorrectStampView({@required TimeStampEvent timeStampEvent})
+      : _timeStampEvent = timeStampEvent;
 
-  final DateTime _initialDate;
-  final TimeStampType _initialStampType;
+  final TimeStampEvent _timeStampEvent;
+
+//  final DateTime _initialDate;
+//  final TimeStampType _initialStampType;
 
   @override
   _CorrectStampViewState createState() => _CorrectStampViewState();
@@ -36,8 +36,7 @@ class _CorrectStampViewState extends State<CorrectStampView> {
       model: CorrectStampViewModel(
           employeeDetailsService: Provider.of(context),
           timeStampService: Provider.of(context),
-          timeStampType: widget._initialStampType,
-          correctStampDate: widget._initialDate),
+          timeStampEvent: widget._timeStampEvent),
       onModelReady: (model) => _correctStampViewModel = model,
       builder: (context, model, child) => Scaffold(
         appBar: child,
@@ -56,7 +55,8 @@ class _CorrectStampViewState extends State<CorrectStampView> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text(
-                          'Nachtragen',
+                          AppLocalizations.of(context)
+                              .translate('CORRECT_STAMP_VIEW_CORRECT'),
                           style: Theme.of(context).textTheme.subhead,
                           textScaleFactor: 1.1,
                         ),
@@ -104,7 +104,8 @@ class _CorrectStampViewState extends State<CorrectStampView> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Text(
-              'Datum:',
+              AppLocalizations.of(context)
+                  .translate('CORRECT_STAMP_VIEW_FORM_DATE'),
               style: Theme.of(context).textTheme.subhead,
             ),
             FlatButton.icon(
@@ -122,7 +123,8 @@ class _CorrectStampViewState extends State<CorrectStampView> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Text(
-                'Uhrzeit:',
+                AppLocalizations.of(context)
+                    .translate('CORRECT_STAMP_VIEW_FORM_TIME'),
                 style: Theme.of(context).textTheme.subhead,
               ),
               FlatButton.icon(
@@ -167,20 +169,23 @@ class _CorrectStampViewState extends State<CorrectStampView> {
   /// Return the right label (stamp in our out) for the change button.
   Widget _getChangeButtonLabel() {
     switch (_correctStampViewModel.timeStampType) {
-      case TimeStampType.stampIn:
+      case TimeStampType.stampInFail:
         return Text(
-          'Einstempelzeit',
+          AppLocalizations.of(context)
+              .translate('CORRECT_STAMP_VIEW_STAMP_IN_TITLE'),
           style: Theme.of(context).textTheme.headline,
           textScaleFactor: 1.1,
         );
-      case TimeStampType.stampOut:
+      case TimeStampType.stampOutFail:
         return Text(
-          'Ausstempelzeit',
+          AppLocalizations.of(context)
+              .translate('CORRECT_STAMP_VIEW_STAMP_OUT_TITLE'),
           style: Theme.of(context).textTheme.headline,
           textScaleFactor: 1.1,
         );
       default:
-        return Text('unknown Type');
+        return Text(AppLocalizations.of(context)
+            .translate('CORRECT_STAMP_VIEW_UNKNOW_TITLE'));
     }
   }
 
@@ -209,11 +214,16 @@ class _CorrectStampViewState extends State<CorrectStampView> {
               ],
             )),
         FlatButton(
-            onPressed: () async {},
+            onPressed: () async {
+              await _correctStampViewModel.correctStamp().then((value) {
+                Navigator.pushNamed(context, RoutePaths.homeView,
+                    arguments: _correctStampViewModel.employeeDetails);
+              });
+            },
             child: Column(
               children: <Widget>[
                 Icon(
-                  Icons.check_circle_outline,
+                  Icons.check_circle,
                   color: green1,
                   size: 40,
                 ),

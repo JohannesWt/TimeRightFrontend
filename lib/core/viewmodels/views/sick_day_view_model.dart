@@ -45,7 +45,7 @@ class SickDayViewModel extends BaseModel {
   /// Stamp sick day in [_timeStampService].
   Future stampSickDay() async {
     await _timeStampService
-        .stampAbsence(TimeStampType.sickDay, _sickDayDate, _sickDayDate)
+        .applyAbsence(TimeStampType.sickDay, _sickDayDate, _sickDayDate)
         .then((value) {
       _employeeDetailsService
           .employeeDetails.currentWorkDetails.sickDaysCurrentMonth += 1;

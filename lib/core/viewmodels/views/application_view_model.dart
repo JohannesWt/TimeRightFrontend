@@ -42,6 +42,18 @@ class ApplicationViewModel extends BaseModel {
   List<TimeStampEvent> get timeStampApplicationList =>
       _timeStampApplicationList;
 
+  Future proveApplication(TimeStampEvent timeStampEvent, String action) async {
+    await _timeStampService.proveStamp(timeStampEvent, action);
+    if (timeStampEvent.timeStampType == TimeStampType.vacationValidation) {
+      removeVacationApplication(timeStampEvent);
+    } else if (timeStampEvent.timeStampType ==
+        TimeStampType.flexDayValidation) {
+      removeFlexDayApplication(timeStampEvent);
+    } else {
+      removeStampApplication(timeStampEvent);
+    }
+  }
+
   void removeVacationApplication(TimeStampEvent timeStampEvent) {
     _vacationApplicationsList.remove(timeStampEvent);
     notifyListeners();
@@ -54,6 +66,17 @@ class ApplicationViewModel extends BaseModel {
 
   void removeStampApplication(TimeStampEvent timeStampEvent) {
     _timeStampApplicationList.remove(timeStampEvent);
-//    notifyListeners();
+    notifyListeners();
+  }
+
+  int getIndexOfItem(TimeStampEvent timeStampEvent) {
+    TimeStampType timeStampType = timeStampEvent.timeStampType;
+    if (timeStampType == TimeStampType.flexDayValidation) {
+      return _flexDayApplicationList.indexOf(timeStampEvent);
+    } else if (timeStampType == TimeStampType.vacationValidation) {
+      return _vacationApplicationsList.indexOf(timeStampEvent);
+    } else {
+      return _timeStampApplicationList.indexOf(timeStampEvent);
+    }
   }
 }

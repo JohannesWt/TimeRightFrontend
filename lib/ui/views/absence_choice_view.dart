@@ -14,15 +14,15 @@ class AbsenceChoiceView extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
             title: Text(
-                AppLocalizations.of(context).translate('HOME_ABS_BTN_LABEL'))),
+                AppLocalizations.of(context).translate('ABSENCE_VIEW_TITLE'))),
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            _buildButton(context, "Urlaub beantragen", RoutePaths.vacationView,
+            _buildButton(context, AppLocalizations.of(context).translate('ABSENCE_VIEW_VAC_BTN'), RoutePaths.vacationView,
                 _dateTime),
-            _buildButton(context, "Gleittag beantragen", RoutePaths.flexDayView,
+            _buildButton(context, AppLocalizations.of(context).translate('ABSENCE_VIEW_FLEX_BTN'), RoutePaths.flexDayView,
                 _dateTime),
-            _buildButton(context, "Krankmeldung", RoutePaths.sickDayView,
+            _buildButton(context, AppLocalizations.of(context).translate('ABSENCE_VIEW_SICK_BTN'), RoutePaths.sickDayView,
                 _dateTime),
           ],
         ));

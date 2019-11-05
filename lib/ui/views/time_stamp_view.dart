@@ -88,18 +88,18 @@ class _TimeStampViewState extends State<TimeStampView> {
     switch (_timeStampViewModel.currentSelected) {
       case TimeStampType.stampIn:
         return Text(
-          AppLocalizations.of(context).translate('CLOCK_IN'),
+          AppLocalizations.of(context).translate('TIME_STAMP_VIEW_STAMP_IN'),
           style: Theme.of(context).textTheme.headline,
           textScaleFactor: 1.1,
         );
       case TimeStampType.stampOut:
         return Text(
-          AppLocalizations.of(context).translate('CLOCK_OUT'),
+          AppLocalizations.of(context).translate('TIME_STAMP_VIEW_STAMP_OUT'),
           style: Theme.of(context).textTheme.headline,
           textScaleFactor: 1.1,
         );
       default:
-        return Text('unknown Type');
+        return Text(AppLocalizations.of(context).translate('TIME_STAMP_VIEW_UNKNOWN'));
     }
   }
 
@@ -130,7 +130,7 @@ class _TimeStampViewState extends State<TimeStampView> {
         FlatButton(
             onPressed: () async {
               TimeStampResponse timeStampResponse = await _timeStampViewModel
-                  .stamp(_timeStampViewModel.stampTime)
+                  .stamp()
                   .catchError((error) {
                 print('error');
               });
@@ -139,7 +139,7 @@ class _TimeStampViewState extends State<TimeStampView> {
             child: Column(
               children: <Widget>[
                 Icon(
-                  Icons.check_circle_outline,
+                  Icons.check_circle,
                   color: green1,
                   size: 40,
                 ),
@@ -207,7 +207,7 @@ class _TimeStampViewState extends State<TimeStampView> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Text(
-          AppLocalizations.of(context).translate('CLOCK_IN_TIME'),
+          AppLocalizations.of(context).translate('TIME_STAMP_VIEW_STAMP_IN_AT'),
           style: Theme.of(context).textTheme.subhead,
           textScaleFactor: 1.1,
         ),
@@ -225,7 +225,7 @@ class _TimeStampViewState extends State<TimeStampView> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Text(
-          AppLocalizations.of(context).translate('CLOCK_OUT_AT'),
+          AppLocalizations.of(context).translate('TIME_STAMP_VIEW_STAMP_OUT_AT'),
           style: Theme.of(context).textTheme.subhead,
           textScaleFactor: 1.1,
         ),
@@ -236,7 +236,7 @@ class _TimeStampViewState extends State<TimeStampView> {
         Padding(
           padding: const EdgeInsets.only(top: 10.0),
           child: Text(
-            'Gearbeitete Stunden:',
+            AppLocalizations.of(context).translate('TIME_STAMP_VIEW_STAMP_OUT_WORKED_HRS'),
             style: Theme.of(context).textTheme.subhead,
             textScaleFactor: 1.1,
           ),

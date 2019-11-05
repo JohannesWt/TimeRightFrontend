@@ -6,6 +6,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:time_right/app_localizations.dart';
 import 'package:time_right/ui/views/base_widget.dart';
 import 'package:time_right/core/viewmodels/widgets/work_time_clock_model.dart';
 import 'package:time_right/ui/shared/colors.dart';
@@ -22,7 +23,6 @@ class _WorkTimeClockState extends State<WorkTimeClock> {
 
   @override
   void dispose() {
-    _workTimeClockModel.dispose();
     super.dispose();
   }
 
@@ -50,7 +50,7 @@ class _WorkTimeClockState extends State<WorkTimeClock> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Text(
-                'Arbeitszeit:',
+                AppLocalizations.of(context).translate('WORK_TIME_CLOCK_WORK_TIME'),
                 style: TextStyle(fontSize: 20),
               ),
               Text(

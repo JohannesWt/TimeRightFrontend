@@ -19,8 +19,8 @@ class VacationViewModel extends BaseModel {
       @required DateTime startDate})
       : _employeeDetailsService = employeeDetailsService,
         _timeStampService = timeStampService,
-        _startDate = startDate.add(Duration(days: 1)),
-        _endDate = startDate.add(Duration(days: 1));
+        _startDate = startDate,
+        _endDate = startDate;
 
   /// [EmployeeDetailsService] for editing the amount of vacations in [EmployeeDetails].
   final EmployeeDetailsService _employeeDetailsService;
@@ -40,6 +40,7 @@ class VacationViewModel extends BaseModel {
     if (_startDate.isAfter(_endDate)) {
       _endDate = value;
     }
+    _setSelectedDaysSum();
     notifyListeners();
   }
 
@@ -52,6 +53,7 @@ class VacationViewModel extends BaseModel {
   ///Set [_endDate] and notify all ui listeners to rebuild.
   set endDate(DateTime value) {
     _endDate = value;
+    _setSelectedDaysSum();
     notifyListeners();
   }
 
@@ -59,9 +61,27 @@ class VacationViewModel extends BaseModel {
   EmployeeDetails get employeeDetails =>
       _employeeDetailsService.employeeDetails;
 
-  /// Return calculated difference between [_startDate] and [_endDate].
-  Duration get selectedDaysSum =>
-      _endDate.difference(_startDate) + Duration(days: 1);
+  /// Return calculated difference between [_startDate] and [_endDate] without
+  /// weekend days.
+  Duration get selectedDaysSum => _selectedDaysSum;
+
+  Duration _selectedDaysSum = Duration(days: 1);
+
+  /// Calculate new sum of selected days
+  void _setSelectedDaysSum() {
+    _selectedDaysSum = Duration(days: 1);
+    if (_startDate != _endDate) {
+      DateTime tmpDate = _startDate.add(Duration(days: 1));
+      while (!tmpDate.isAfter(endDate)) {
+        if (tmpDate.weekday != 6 && tmpDate.weekday != 7) {
+          print('passt');
+          _selectedDaysSum = _selectedDaysSum + Duration(days: 1);
+        }
+        tmpDate = tmpDate.add(Duration(days: 1));
+      }
+    }
+    notifyListeners();
+  }
 
   /// Return calculated amount of remaining vacation of the current logged in
   /// employee.
@@ -72,13 +92,15 @@ class VacationViewModel extends BaseModel {
           .employeeDetails.currentWorkDetails.appliedVacation;
 
   /// Stamp vacation in the [_timeStampService].
-  Future<TimeStampResponse> stampVacation() async {
-    await _timeStampService
-        .stampAbsence(TimeStampType.vacation, _startDate, _endDate)
-        .then((value) {
-      _employeeDetailsService.employeeDetails.currentWorkDetails
-          .appliedVacation += selectedDaysSum.inDays;
+  Future applyAbsence() async {
+    await _timeStampService.applyAbsence(
+        TimeStampType.vacation, _startDate, _endDate);
+    _employeeDetailsService.employeeDetails.currentWorkDetails
+        .appliedVacation += selectedDaysSum.inDays;
+//        .then((value) {
+
 //      print(selectedDaysSum.inDays);
-    });
   }
+
+//  );
 }

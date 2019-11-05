@@ -22,7 +22,9 @@ class ProfileView extends StatelessWidget {
     return BaseWidget<ProfileViewModel>(
       model: ProfileViewModel(
           authenticationService: Provider.of(context),
-          timeStampService: Provider.of(context)),
+          timeStampService: Provider.of(context),
+          employeeDetailsService: Provider.of(context)),
+      onModelReady: (model) async => await model.fetchEmployeeProfile(),
       builder: (context, model, child) => Scaffold(
         appBar: AppBar(
           title: Text(
@@ -38,7 +40,11 @@ class ProfileView extends StatelessWidget {
             )
           ],
         ),
-        body: ProfileList(),
+        body: model.busy
+            ? Center(child: CircularProgressIndicator())
+            : ProfileList(
+                employeeProfile: model.employeeProfile,
+              ),
       ),
     );
   }

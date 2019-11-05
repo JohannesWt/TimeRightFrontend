@@ -1,22 +1,25 @@
 {
-  "HOME_TITLE" : "TimeRight",
-  "HOME_FAB_LABEL" : "Stempeln",
-  "HOME_CAL_BTN_LABEL" : "Kalender",
-  "HOME_ABS_BTN_LABEL" : "Abwesenheit",
+  "LOGIN_VIEW_WELCOME_LABEL": "Willkommen zurück!",
+  "LOGIN_VIEW_WELCOME_FORM_ID" : "Mitarbeiter ID",
+  "LOGIN_VIEW_WELCOME_FORM_PASSWORD" : "Passwort",
 
-  "HOME_CARD_TITLE" : "Übersicht",
-  "HOME_CARD_WORK_TIME" : "Sollsarbeitszeit:",
-  "HOME_CARD_OVERTIME" : "Überstunden:",
-  "HOME_CARD_LEFT_VAC" : "Resturlaubstage:",
-  "HOME_CARD_SICK_DAYS" : "Kranktage:",
-  "HOME_CARD_OVERVIEW_BTN" : "Zur Übersicht",
+  "HOME_TITLE": "TimeRight",
+  "HOME_FAB_LABEL": "Stempeln",
+  "HOME_FAB_EXECUTIVE_LABEL" : "Äntrage",
+  "HOME_CAL_BTN_LABEL": "Kalender",
+  "HOME_ABS_BTN_LABEL": "Abwesenheit",
 
-  "OVERVIEW_TITLE" : "Übersicht",
+  "HOME_CARD_TITLE": "Übersicht",
+  "HOME_CARD_WORK_TIME": "Sollsarbeitszeit:",
+  "HOME_CARD_OVERTIME": "Überstunden:",
+  "HOME_CARD_LEFT_VAC": "Resturlaubstage:",
+  "HOME_CARD_SICK_DAYS": "Kranktage:",
+  "HOME_CARD_OVERVIEW_BTN": "Zur Übersicht",
+
+  "OVERVIEW_TITLE": "Übersicht",
 
   "OVERVIEW_CARD1_TITLE": "Gleitzeitkonto",
-  "OVERVIEW_CARD1_OVER_HOURS" : "Überstunden des akt. Monats:",
-  "OVERVIEW_CARD1_SHORT_TERM_ACCOUNT": "Kurzzeitkonto:",
-  "OVERVIEW_CARD1_LONG_TERM_ACCOUNT": "Langzeitkonto:",
+  "OVERVIEW_CARD1_OVER_HOURS": "Überstunden des akt. Monats:",
   "OVERVIEW_CARD1_OVERTIME_PREV_YEAR": "Überstunden aus Vorjahr:",
   "OVERVIEW_CARD1_APPLY_FLEXTIME_BTN": "Gleitzeit beantragen",
 
@@ -30,7 +33,7 @@
 
   "OVERVIEW_CARD3_TITLE": "Sonstige Abwesenheiten",
   "OVERVIEW_CARD3_SICK_DAYS": "Krankheitstage:",
-  "OVERVIEW_CARD3_PUBLIC_HOLIDAYS": "Feiertage (bis heute):",
+  "OVERVIEW_CARD3_SICK_APPLY_BTN": "Kranktag eintragen",
 
   "PROFILE_TITLE": "Profil",
   "PROFILE_INFO": "Profilinformation",
@@ -47,10 +50,10 @@
   "PROFILE_BANK_NAME": "Bank:",
   "PROFILE_BANK_VALID_FROM": "Gültig ab:",
 
-
   "PROFILE_INSURANCE_TITLE": "Krankenkasse",
   "PROFILE_INSURANCE_NAME": "Krankenkasse:",
-  "PROFILE_INSURANCE_STATUS": "Status:",
+  "PROFILE_INSURANCE_NUMBER": "VN:",
+  "PROFILE_INSURANCE_SSN": "SVN:",
 
   "PROFILE_COMPANY_TITLE": "Unternehmen",
   "PROFILE_COMPANY_Name": "Unternehmen:",
@@ -61,22 +64,74 @@
   "PROFILE_CAREER_TITLE": "Werdegang",
   "PROFILE_CAREER_DEGREE": "Abschluss:",
 
-  "CLOCK_IN": "Einstempeln",
-  "CLOCK_OUT": "Ausstempeln",
-  "CLOCK_IN_TIME": "Einstempeln um:",
-  "CLOCK_OUT_AT": "Ausstempeln um:",
-  "HOURS_WORKED": "Gearbeitete Stunden:",
-  "EDIT_HOURS": "Nachtragen",
+  "ABSENCE_VIEW_TITLE" : "Abwesenheit",
+  "ABSENCE_VIEW_VAC_BTN": "Urlaub beantragen",
+  "ABSENCE_VIEW_FLEX_BTN": "Gleittag beantragen",
+  "ABSENCE_VIEW_SICK_BTN" : "Kranktag eintragen",
 
-  "VAC_FROM": "Von:",
-  "VAC_TO": "Bis:",
-  "VAC_DAYS_SUM": "Summe:",
-  "VAC_DAYS_REMAINING": "Resturlaub:",
-  "SICK_LEAVE": "Krankmeldung",
-  "DATE": "Datum:",
-  "HOURS": "Stunden",
-  "HOURS_APPLIED": "Anzahl Stunden:",
+  "APPLICATION_VIEW_TITLE" : "Anträge",
+  "APPLICATION_ABS_CONT_APPLICANT" : "Antragsteller:",
+  "APPLICATION_ABS_CONT_DATE" : "Datum:",
+  "APPLICATION_STAMP_CONT_APPLICANT" : "Antragsteller:",
+  "APPLICATION_STAMP_CONT_DATE" : "Datum:",
+  "APPLICATION_STAMP_CONT_TIME" : "Uhrzeit:",
+
+  "CALENDAR_VIEW_TITLE" : "Kalender",
+
+  "CORRECT_STAMP_VIEW_CORRECT" : "Nachtragen",
+  "CORRECT_STAMP_VIEW_FORM_DATE" : "Datum:",
+  "CORRECT_STAMP_VIEW_FORM_TIME" : "Uhrzeit:",
+  "CORRECT_STAMP_VIEW_STAMP_IN_TITLE" : "Einstempelzeit",
+  "CORRECT_STAMP_VIEW_STAMP_OUT_TITLE" : "Ausstempelzeit",
+  "CORRECT_STAMP_VIEW_UNKNOW_TITLE" : "Unbekannter Typ",
+
+  "FLEX_DAY_VIEW_FORM_TITLE" : "Gleittag beantragen",
+  "FLEX_DAY_VIEW_FORM_DATE" : "Datum:",
+  "FLEX_FAY_VIEW_FORM_HOURS_APPLIED" : "Anzahl Stunden:",
+  "FLEX_FAY_VIEW_FORM_CUR_FLEXTIME" : "Gleitzeitkonto:",
+
+  "SICK_DAY_VIEW_FORM_TITLE" :"Krankmeldung",
+  "SICK_DAY_VIEW_FORM_DATE" : "Datum:",
+
+  "TIME_STAMP_VIEW_STAMP_IN" : "Einstempeln",
+  "TIME_STAMP_VIEW_STAMP_OUT" : "Ausstempeln",
+  "TIME_STAMP_VIEW_UNKNOWN" : "Unbekannter Typ",
+  "TIME_STAMP_VIEW_STAMP_IN_AT" : "Einstempeln um:",
+  "TIME_STAMP_VIEW_STAMP_OUT_AT" : "Ausstempeln um:",
+  "TIME_STAMP_VIEW_STAMP_OUT_WORKED_HRS" : "Gearbeitete Stunden:",
+
+  "VACATION_VIEW_FORM_TITLE" : "Urlaub beantragen",
+  "VACATION_VIEW_FORM_DAYS_SUM" : "Summe:",
+  "VACATION_VIEW_FORM_DAYS_LABEL" : "Tage",
+  "VACATION_VIEW_FORM_DAYS_REMAINING" : "Resturlaub:",
+  "VACATION_VIEW_FORM_VAC_FROM" : "Von:",
+  "VACATION_VIEW_FORM_VAC_TO" : "Bis:",
 
   "CONFIRM": "Bestätigen",
-  "CANCEL": "Abbrechen"
+  "CANCEL": "Abbrechen",
+
+  "TIME_STAMP_LIST_TODAY_LABEL" : "Heute",
+  "TIME_STAMP_LIST_ITEM_STAMP_IN" : "Einstempeln",
+  "TIME_STAMP_LIST_ITEM_STAMP_OUT" : "Ausstempeln",
+  "TIME_STAMP_LIST_ITEM_STAMP_UNKNOWN" : "Unbekanntes Ereignis",
+  "TIME_STAMP_LIST_ITEM_STAMP_IN_FAIL" : "Einstempelfehler",
+  "TIME_STAMP_LIST_ITEM_STAMP_OUT_FAIL" : "Ausstempelfehler",
+  "TIME_STAMP_LIST_ITEM_STAMP_IN_VALIDATION" : "Einstempelzeit beantragt",
+  "TIME_STAMP_LIST_ITEM_STAMP_OUT_VALIDATION" : "Ausstempelzeit beantragt",
+  "TIME_STAMP_LIST_ITEM_STAMP_VAC" : "Urlaub",
+  "TIME_STAMP_LIST_ITEM_STAMP_FLEX" : "Gleittag",
+  "TIME_STAMP_LIST_ITEM_STAMP_SICK" : "Kranktag",
+  "TIME_STAMP_LIST_ITEM_STAMP_VAC_APPLY" : "Urlaub in Prüfung",
+  "TIME_STAMP_LIST_ITEM_STAMP_FLEX_APPLY" : "Gleittag in  Prüfung",
+
+  "WORK_TIME_CLOCK_WORK_TIME" : "Arbeitszeit:",
+
+  "STAMP_FAIL_ALERT_TITLE": "Stempelfehler",
+  "STAMP_FAIL_ALERT_CONFIRM_BTN_LABEL": "Ok",
+  "STAMP_OUT_FIRST_ALERT_CONTENT": "Du bist bereits eingestempelt. Bitte stempel zuerst aus, um wieder einstempeln zu können.",
+  "STAMP_IN_FIRST_ALERT_CONTENT" : "Du hast bereits ausgestempelt. Bite stempel zuerst ein, um wieder ausstempeln zu können.",
+  "STAMP_VACATION_ALERT_CONTENT" : "An diesem Datum ist ein Urlaub eingetragen. An einem Urlaubstag kann nicht gestetmpelt werden.",
+  "STAMP_FLEXDAY_ALERT_CONTENT" : "An diesem Datum ist ein Gleittag eingetragen. An einem Gleittag kann nicht gesetmpelt werden",
+  "STAMP_UNKNOWN_ALERT_CONTENT" : "Es ist ein unbekannter Fehler aufgetreten.",
+  "STAMP_WORKDAY_ALERT_CONTENT" : "Am Wochenende kann nicht gestempelt werden."
 }

@@ -15,7 +15,7 @@ const amber = Colors.amber;
 const black = const Color(0xFF000000);
 const white = const Color(0xFFFFFFFF);
 
-/// Further colors.
+/// More CI colors.
 const gray1 = const Color(0xFFDAD9DE);
 const gray2 = const Color(0xFFB5B4BA);
 const gray3 = const Color(0xFF737278);

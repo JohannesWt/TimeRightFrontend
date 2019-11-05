@@ -8,13 +8,13 @@ part of 'employee_profile.dart';
 
 EmployeeProfile _$EmployeeProfileFromJson(Map<String, dynamic> json) {
   return EmployeeProfile(
-      name: json['name'] as String,
+      lastName: json['lastName'] as String,
       firstName: json['firstName'] as String,
       dateOfBirth: json['dateOfBirth'] == null
           ? null
           : DateTime.parse(json['dateOfBirth'] as String),
-      phoneNumber: json['phoneNumber'] as String,
-      emailAddress: json['emailAddress'] as String,
+      phoneNumber: json['phoneNumber'] as int,
+      emailAdress: json['emailAdress'] as String,
       address: json['address'] == null
           ? null
           : Address.fromJson(json['address'] as Map<String, dynamic>),
@@ -38,11 +38,11 @@ EmployeeProfile _$EmployeeProfileFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$EmployeeProfileToJson(EmployeeProfile instance) =>
     <String, dynamic>{
-      'name': instance.name,
+      'lastName': instance.lastName,
       'firstName': instance.firstName,
       'dateOfBirth': instance.dateOfBirth?.toIso8601String(),
       'phoneNumber': instance.phoneNumber,
-      'emailAddress': instance.emailAddress,
+      'emailAdress': instance.emailAdress,
       'address': instance.address,
       'bankDetails': instance.bankDetails,
       'insuranceDetails': instance.insuranceDetails,

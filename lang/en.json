@@ -1,6 +1,11 @@
 {
+  "LOGIN_VIEW_WELCOME_LABEL": "Welcome back!",
+  "LOGIN_VIEW_WELCOME_FORM_ID" : "Employee ID",
+  "LOGIN_VIEW_WELCOME_FORM_PASSWORD" : "Password",
+
   "HOME_TITLE" : "TimeRight",
   "HOME_FAB_LABEL" : "Stamp",
+  "HOME_FAB_EXECUTIVE_LABEL" : "Applications",
   "HOME_CAL_BTN_LABEL" : "Calendar",
   "HOME_ABS_BTN_LABEL" : "Absence",
 
@@ -11,13 +16,10 @@
   "HOME_CARD_SICK_DAYS" : "Sick day:",
   "HOME_CARD_OVERVIEW_BTN" : "To overview",
 
-
   "OVERVIEW_TITLE" : "Overview",
 
   "OVERVIEW_CARD1_TITLE": "Flex Time Account",
   "OVERVIEW_CARD1_OVER_HOURS" : "Overhours of current month:",
-  "OVERVIEW_CARD1_SHORT_TERM_ACCOUNT": "Short term account:",
-  "OVERVIEW_CARD1_LONG_TERM_ACCOUNT": "Long term account:",
   "OVERVIEW_CARD1_OVERTIME_PREV_YEAR": "Overtime of previous year:",
   "OVERVIEW_CARD1_APPLY_FLEXTIME_BTN": "Apply for flextime",
 
@@ -26,12 +28,12 @@
   "OVERVIEW_CARD2_VAC_DAYS_PREV_YEAR": "Vacation days of previous year:",
   "OVERVIEW_CARD2_VAC_TAKEN": "Taken:",
   "OVERVIEW_CARD2_VAC_APPLIED": "Applied:",
-  "OVERVIEW_CARD2_VAC_PLAN": "Plannable:",
+  "OVERVIEW_CARD2_VAC_PLAN": "Planable:",
   "OVERVIEW_CARD2_VAC_APPLY_BTN": "Apply for vacation",
 
   "OVERVIEW_CARD3_TITLE": "Other absences",
   "OVERVIEW_CARD3_SICK_DAYS": "Sick days:",
-  "OVERVIEW_CARD3_PUBLIC_HOLIDAYS": "Public holidays (until today):",
+  "OVERVIEW_CARD3_SICK_APPLY_BTN": "Apply sick day",
 
 
   "PROFILE_TITLE": "Profile",
@@ -52,7 +54,8 @@
 
   "PROFILE_INSURANCE_TITLE": "Health Insurance",
   "PROFILE_INSURANCE_NAME": "Name:",
-  "PROFILE_INSURANCE_STATUS": "Status:",
+  "PROFILE_INSURANCE_NUMBER": "IN:",
+  "PROFILE_INSURANCE_SSN": "SSN:",
 
   "PROFILE_COMPANY_TITLE": "Company",
   "PROFILE_COMPANY_Name": "Company Name:",
@@ -63,26 +66,74 @@
   "PROFILE_CAREER_TITLE": "Career",
   "PROFILE_CAREER_DEGREE": "Degree:",
 
-  "CLOCK_IN": "Clock in",
-  "CLOCK_OUT": "Clock out",
-  "CLOCK_IN_TIME": "Stamp in at: ",
-  "CLOCK_OUT_AT": "Stamp out at: ",
-  "HOURS_WORKED": "Hours worked:",
-  "EDIT_HOURS": "Edit hours",
+  "ABSENCE_VIEW_TITLE" : "Absence",
+  "ABSENCE_VIEW_VAC_BTN": "Apply for vacation",
+  "ABSENCE_VIEW_FLEX_BTN": "Apply for flex day",
+  "ABSENCE_VIEW_SICK_BTN" : "Apply sick day",
 
-  "VAC_FROM": "From:",
-  "VAC_TO": "Until:",
-  "VAC_DAYS_SUM": "Total:",
-  "VAC_DAYS_REMAINING": "Remaining vacation:",
+  "APPLICATION_VIEW_TITLE" : "Applications",
+  "APPLICATION_ABS_CONT_APPLICANT" : "Applicant:",
+  "APPLICATION_ABS_CONT_DATE" : "Date:",
+  "APPLICATION_STAMP_CONT_APPLICANT" : "Applican:",
+  "APPLICATION_STAMP_CONT_DATE" : "Date:",
+  "APPLICATION_STAMP_CONT_TIME" : "Time:",
 
-  "SICK_LEAVE": "Sick leave",
-  "DATE": "Date:",
-  "HOURS": "Hours",
-  "HOURS_APPLIED": "Applied Hours:",
+  "CALENDAR_VIEW_TITLE" : "Calendar",
+
+  "CORRECT_STAMP_VIEW_CORRECT" : "Correct stamp",
+  "CORRECT_STAMP_VIEW_FORM_DATE" : "Date:",
+  "CORRECT_STAMP_VIEW_FORM_TIME" : "Time:",
+  "CORRECT_STAMP_VIEW_STAMP_IN_TITLE" : "Stamp in time",
+  "CORRECT_STAMP_VIEW_STAMP_OUT_TITLE" : "Stamp out time",
+  "CORRECT_STAMP_VIEW_UNKNOW_TITLE" : "Unknown stamp type",
+
+  "FLEX_DAY_VIEW_FORM_TITLE" : "Apply for flex day",
+  "FLEX_DAY_VIEW_FORM_DATE" : "Date:",
+  "FLEX_FAY_VIEW_FORM_HOURS_APPLIED" : "Hours sum:",
+  "FLEX_FAY_VIEW_FORM_CUR_FLEXTIME" : "Flextime account:",
+
+  "SICK_DAY_VIEW_FORM_TITLE" :"Notification of illness",
+  "SICK_DAY_VIEW_FORM_DATE" : "Date:",
+
+  "TIME_STAMP_VIEW_STAMP_IN" : "Stamp in",
+  "TIME_STAMP_VIEW_STAMP_OUT" : "Stamp out",
+  "TIME_STAMP_VIEW_UNKNOWN" : "Unknown stamp type",
+  "TIME_STAMP_VIEW_STAMP_IN_AT" : "Stamp in at:",
+  "TIME_STAMP_VIEW_STAMP_OUT_AT" : "Stamp out at:",
+  "TIME_STAMP_VIEW_STAMP_OUT_WORKED_HRS" : "Worked hours:",
+
+  "VACATION_VIEW_FORM_TITLE" : "Apply for vacation",
+  "VACATION_VIEW_FORM_DAYS_SUM" : "Sum:",
+  "VACATION_VIEW_FORM_DAYS_LABEL" : "Days",
+  "VACATION_VIEW_FORM_DAYS_REMAINING" : "Remaining vacation:",
+  "VACATION_VIEW_FORM_VAC_FROM" : "From:",
+  "VACATION_VIEW_FORM_VAC_TO" : "To:",
 
   "CONFIRM": "Confirm",
-  "CANCEL": "Cancel"
+  "CANCEL": "Cancel",
 
+  "TIME_STAMP_LIST_TODAY_LABEL" : "Today",
+  "TIME_STAMP_LIST_ITEM_STAMP_IN" : "Stamp in",
+  "TIME_STAMP_LIST_ITEM_STAMP_OUT" : "Stamp out",
+  "TIME_STAMP_LIST_ITEM_STAMP_UNKNOWN" : "Unknown stamp type",
+  "TIME_STAMP_LIST_ITEM_STAMP_IN_FAIL" : "Stamp in fail",
+  "TIME_STAMP_LIST_ITEM_STAMP_OUT_FAIL" : "Stamp out fail",
+  "TIME_STAMP_LIST_ITEM_STAMP_IN_VALIDATION" : "Stamp in time applied",
+  "TIME_STAMP_LIST_ITEM_STAMP_OUT_VALIDATION" : "Stamp out time applied",
+  "TIME_STAMP_LIST_ITEM_STAMP_VAC" : "Vacation",
+  "TIME_STAMP_LIST_ITEM_STAMP_FLEX" : "Flex day",
+  "TIME_STAMP_LIST_ITEM_STAMP_SICK" : "Sick day",
+  "TIME_STAMP_LIST_ITEM_STAMP_VAC_APPLY" : "Vacation in examination",
+  "TIME_STAMP_LIST_ITEM_STAMP_FLEX_APPLY" : "Flex day in examination",
 
+  "WORK_TIME_CLOCK_WORK_TIME" : "Work time:",
 
+  "STAMP_FAIL_ALERT_TITLE": "Stamp fail",
+  "STAMP_FAIL_ALERT_CONFIRM_BTN_LABEL": "Ok",
+  "STAMP_OUT_FIRST_ALERT_CONTENT": "You are already stamped in. Stamp out first to stamp in again.",
+  "STAMP_IN_FIRST_ALERT_CONTENT" : "You are stamped in. To stamp in stamp out first.",
+  "STAMP_VACATION_ALERT_CONTENT" : "There is a vacation noted on this date. You can not stamp on a vacation day.",
+  "STAMP_FLEXDAY_ALERT_CONTENT" : "There is a flex day noted on this date. You can not stamp on a flex day.",
+  "STAMP_UNKNOWN_ALERT_CONTENT" : "An unknown error occured.",
+  "STAMP_WORKDAY_ALERT_CONTENT" : "You can not stamp on the weekend."
 }

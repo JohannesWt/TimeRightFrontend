@@ -10,7 +10,7 @@ BankDetails _$BankDetailsFromJson(Map<String, dynamic> json) {
   return BankDetails(
       receiver: json['receiver'] as String,
       bankName: json['bankName'] as String,
-      iBAN: json['iBAN'] as String,
+      iban: json['iban'] as String,
       validFrom: json['validFrom'] as String);
 }
 
@@ -18,6 +18,6 @@ Map<String, dynamic> _$BankDetailsToJson(BankDetails instance) =>
     <String, dynamic>{
       'receiver': instance.receiver,
       'bankName': instance.bankName,
-      'iBAN': instance.iBAN,
+      'iban': instance.iban,
       'validFrom': instance.validFrom
     };

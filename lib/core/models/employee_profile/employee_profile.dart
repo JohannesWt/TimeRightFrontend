@@ -17,11 +17,11 @@ part 'employee_profile.g.dart';
 @JsonSerializable()
 class EmployeeProfile {
   EmployeeProfile(
-      {this.name,
+      {this.lastName,
       this.firstName,
       this.dateOfBirth,
       this.phoneNumber,
-      this.emailAddress,
+      this.emailAdress,
       this.address,
       this.bankDetails,
       this.insuranceDetails,
@@ -33,11 +33,11 @@ class EmployeeProfile {
 
   Map<String, dynamic> toJson() => _$EmployeeProfileToJson(this);
 
-  String name;
+  String lastName;
   String firstName;
   final DateTime dateOfBirth;
-  String phoneNumber;
-  final String emailAddress;
+  int phoneNumber;
+  final String emailAdress;
 
   final Address address;
   final BankDetails bankDetails;

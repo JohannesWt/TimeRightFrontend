@@ -56,7 +56,7 @@ class FlexDayViewModel extends BaseModel {
       throw Exception();
     } else {
       await _timeStampService
-          .stampAbsence(TimeStampType.flexDay, _dateTime, _dateTime)
+          .applyAbsence(TimeStampType.flexDay, _dateTime, _dateTime)
           .then((value) {
         _employeeDetailsService.employeeDetails.currentWorkDetails.flexTime -=
             workHours;

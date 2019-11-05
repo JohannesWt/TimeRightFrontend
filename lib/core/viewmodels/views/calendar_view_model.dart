@@ -51,9 +51,9 @@ class CalendarViewModel extends BaseModel {
   /// Return [_eventList].
   EventList<Event> get eventList => _eventList;
 
-  /// Set time stamp events for month of [dateTime] for a [employeeID] from
+  /// Set time stamp events for month of [dateTime]
   /// in [_timeStampService].
-  Future fetchTimeStampDaysForMonth(int employeeID, DateTime dateTime) async {
+  Future fetchTimeStampDaysForMonth(DateTime dateTime) async {
     setBusy(true);
     await _timeStampService.fetchTimeStampDaysForMonth(dateTime);
     notifyListeners();
@@ -73,16 +73,25 @@ class CalendarViewModel extends BaseModel {
         date: dateTime.toLocal(),
         dot: Container(
           margin: EdgeInsets.symmetric(horizontal: 1.0),
-          color:
-              _timeStampService.isFailInTimeStampEventList(timeStampEventList)
-                  ? mainRed
-                  : green2,
+          color: _getCorrectDotColor(timeStampEventList),
           height: 5.0,
           width: 5.0,
         ),
       );
       _eventList.add(dateTime.toLocal(), event);
     });
+  }
+
+  Color _getCorrectDotColor(List<TimeStampEvent> timeStampEventList) {
+    if (_timeStampService
+        .isValidationInTimeStampEventList(timeStampEventList)) {
+      return amber;
+    } else if (_timeStampService
+        .isFailInTimeStampEventList(timeStampEventList)) {
+      return mainRed;
+    } else {
+      return green2;
+    }
   }
 
   /// Check if floating action button (fab) should be shown on the calendar vie.

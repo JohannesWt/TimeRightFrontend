@@ -3,7 +3,7 @@
     "date": "2019-10-08T23:00:00Z",
     "timeStampEvents": [
       {
-        "timeStampType": "stampOutFail",
+        "timeStampType": "stampInFail",
         "dateTime": "2019-10-08T22:00:00Z"
       }
     ]
@@ -25,12 +25,8 @@
     "date": "2019-10-10T23:00:00Z",
     "timeStampEvents": [
       {
-        "timeStampType": "stampOut",
+        "timeStampType": "vacation",
         "dateTime": "2019-10-11T15:45:12Z"
-      },
-      {
-        "timeStampType": "stampIn",
-        "dateTime": "2019-10-11T06:56:23Z"
       }
     ]
   },
@@ -50,7 +46,7 @@
         "dateTime": "2019-10-12T09:12:23Z"
       },
       {
-        "timeStampType": "stampIn",
+        "timeStampType": "sickDay",
         "dateTime": "2019-10-12T06:56:23Z"
       }
     ]
@@ -59,11 +55,11 @@
     "date": "2019-10-15T23:00:00Z",
     "timeStampEvents": [
       {
-        "timeStampType": "stampIn",
+        "timeStampType": "stampInFail",
         "dateTime": "2019-10-16T06:56:23Z"
       },
       {
-        "timeStampType": "stampOut",
+        "timeStampType": "stampOutFail",
         "dateTime": "2019-10-16T07:40:23Z"
       }
     ]
@@ -72,11 +68,11 @@
     "date": "2019-10-18T23:00:00Z",
     "timeStampEvents": [
       {
-        "timeStampType": "stampIn",
+        "timeStampType": "flexDayValidation",
         "dateTime": "2019-10-19T06:56:23Z"
       },
       {
-        "timeStampType": "stampOut",
+        "timeStampType": "vacationValidation",
         "dateTime": "2019-10-19T13:00:45Z"
       }
     ]

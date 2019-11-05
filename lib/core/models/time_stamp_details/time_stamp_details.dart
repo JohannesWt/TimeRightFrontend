@@ -46,8 +46,8 @@ class TimeStampEvent {
 
   Map<String, dynamic> toJson() => _$TimeStampEventToJson(this);
 
-  final TimeStampType timeStampType;
-  final DateTime dateTime;
+  TimeStampType timeStampType;
+  DateTime dateTime;
   @JsonKey(includeIfNull: false)
   final int employeeID;
   @JsonKey(includeIfNull: false)
