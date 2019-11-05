@@ -101,7 +101,7 @@ class OverviewCards extends StatelessWidget {
               Text(AppLocalizations.of(context)
                   .translate('OVERVIEW_CARD1_OVER_HOURS')),
               Text(
-                '${_employeeDetails.currentWorkDetails.flexTime}',
+                '${(_employeeDetails.currentWorkDetails.flexTime * 2).round() / 2}',
                 textAlign: TextAlign.right,
               )
             ]),
@@ -219,7 +219,8 @@ class OverviewCards extends StatelessWidget {
           padding: const EdgeInsets.all(0.0),
           child: Row(
             children: <Widget>[
-              Text(AppLocalizations.of(context).translate('OVERVIEW_CARD3_SICK_APPLY_BTN')),
+              Text(AppLocalizations.of(context)
+                  .translate('OVERVIEW_CARD3_SICK_APPLY_BTN')),
               Expanded(
                   child: Align(
                       alignment: Alignment.centerRight,

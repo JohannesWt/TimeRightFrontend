@@ -70,7 +70,7 @@ class ShortOverviewCard extends StatelessWidget {
               Text(
                   AppLocalizations.of(context).translate('HOME_CARD_OVERTIME')),
               Text(
-                '${_employeeDetails.currentWorkDetails.flexTime}',
+                '${(_employeeDetails.currentWorkDetails.flexTime * 2).round() / 2}',
                 textAlign: TextAlign.right,
               )
             ]),

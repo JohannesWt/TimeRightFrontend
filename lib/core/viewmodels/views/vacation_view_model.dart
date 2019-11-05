@@ -97,10 +97,5 @@ class VacationViewModel extends BaseModel {
         TimeStampType.vacation, _startDate, _endDate);
     _employeeDetailsService.employeeDetails.currentWorkDetails
         .appliedVacation += selectedDaysSum.inDays;
-//        .then((value) {
-
-//      print(selectedDaysSum.inDays);
   }
-
-//  );
 }

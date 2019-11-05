@@ -107,7 +107,7 @@ class _VacationViewState extends State<VacationView> {
                 textScaleFactor: 1.1,
               ),
               Text(
-                '${_vacationViewModel.remainingVacation} ${AppLocalizations.of(context).translate('VACATION_VIEW_FORM_DAYS_LABEL')}',
+                '${_vacationViewModel.remainingVacation - _vacationViewModel.selectedDaysSum.inDays} ${AppLocalizations.of(context).translate('VACATION_VIEW_FORM_DAYS_LABEL')}',
                 style: Theme.of(context).textTheme.headline,
               ),
             ],
