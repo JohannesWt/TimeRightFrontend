@@ -10,7 +10,7 @@
   "HOME_ABS_BTN_LABEL": "Abwesenheit",
 
   "HOME_CARD_TITLE": "Übersicht",
-  "HOME_CARD_WORK_TIME": "Sollsarbeitszeit:",
+  "HOME_CARD_WORK_TIME": "Sollarbeitszeit:",
   "HOME_CARD_OVERTIME": "Überstunden:",
   "HOME_CARD_LEFT_VAC": "Resturlaubstage:",
   "HOME_CARD_SICK_DAYS": "Kranktage:",
@@ -24,7 +24,7 @@
   "OVERVIEW_CARD1_APPLY_FLEXTIME_BTN": "Gleitzeit beantragen",
 
   "OVERVIEW_CARD2_TITLE": "Urlaubskonto",
-  "OVERVIEW_CARD2_VAC_DAYS_CLAIM": "Urlaubsktage Anspruch:",
+  "OVERVIEW_CARD2_VAC_DAYS_CLAIM": "Urlaubstage Anspruch:",
   "OVERVIEW_CARD2_VAC_DAYS_PREV_YEAR": "Urlaubstage aus Vorjahr:",
   "OVERVIEW_CARD2_VAC_TAKEN": "Genommmen:",
   "OVERVIEW_CARD2_VAC_APPLIED": "Beantragt:",
