@@ -237,13 +237,24 @@ class TimeStampService {
     await _api.applyAbsence(timeStampType, startDate, endDate).then((value) {
       DateTime tmpDate = startDate;
       do {
-        _addTimeStampEvent(
-            TimeStampEvent(timeStampType: timeStampType, dateTime: tmpDate));
+        _addTimeStampEvent(TimeStampEvent(
+            timeStampType: _getCorrectAbsenceValidationType(timeStampType),
+            dateTime: tmpDate));
         tmpDate = tmpDate.add(Duration(days: 1));
       } while (!tmpDate.isAfter(endDate));
     }).catchError((error) {
       throw Exception();
     });
+  }
+
+  TimeStampType _getCorrectAbsenceValidationType(TimeStampType timeStampType) {
+    if (timeStampType == TimeStampType.vacation) {
+      return TimeStampType.vacationValidation;
+    } else if (timeStampType == TimeStampType.flexDay) {
+      return TimeStampType.flexDayValidation;
+    } else {
+      return TimeStampType.sickDay;
+    }
   }
 
   /// Prove stamp of a [timeStampEvent] with a [action] (declined or proved)
