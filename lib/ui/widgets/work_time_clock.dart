@@ -21,11 +21,6 @@ class WorkTimeClock extends StatefulWidget {
 class _WorkTimeClockState extends State<WorkTimeClock> {
   WorkTimeClockModel _workTimeClockModel;
 
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
   /// Builds the work time clock.
   @override
   Widget build(BuildContext context) {

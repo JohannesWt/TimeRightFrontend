@@ -74,7 +74,6 @@ class VacationViewModel extends BaseModel {
       DateTime tmpDate = _startDate.add(Duration(days: 1));
       while (!tmpDate.isAfter(endDate)) {
         if (tmpDate.weekday != 6 && tmpDate.weekday != 7) {
-          print('passt');
           _selectedDaysSum = _selectedDaysSum + Duration(days: 1);
         }
         tmpDate = tmpDate.add(Duration(days: 1));

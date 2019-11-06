@@ -45,12 +45,6 @@ class WorkTimeClockModel extends BaseModel {
   /// Return [_percentage].
   double get percentage => _percentage;
 
-  @override
-  void dispose() {
-    workTimer.cancel();
-    super.dispose();
-  }
-
   /// Start the work timer to recalculate work hours every second.
   /// --> call [_getWorkHours]
   void startWorkTimer() async {
